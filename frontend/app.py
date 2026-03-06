@@ -1,49 +1,65 @@
 import logging
 import os
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash
 from clases.Auth import Auth
 from clases.Usuarios import Usuarios
 
-# Create the log directory if it doesn't exist
+# Configuración de Logs (se mantiene igual)
 log_dir = "logs"
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
-# Configure logging
 log_file = os.path.join(log_dir, "app.log")
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler(log_file),
-        logging.StreamHandler()
-    ]
+    handlers=[logging.FileHandler(log_file), logging.StreamHandler()]
 )
 
 app = Flask(__name__)
-auth = Auth()
-
 app.secret_key = os.urandom(24)
-
-# Enable Flask logging
 app.config["DEBUG"] = True
 
-# Routes for POST
-@app.route("/login", methods=["POST"])
-def login():
-    session["user"] = None
-    session["mensaje"] = None
-    # Get form data
-    email = request.form["email"]
-    password = request.form["password"]
-    # Attempt to log in the user
-    mensaje = auth.login(email, password)
-    # Log the message
-    app.logger.info(mensaje)
-    # Show the message in the Flask response
-    return redirect(url_for(mensaje))
+# Instancias de clases
+auth_service = Auth()
+user_service = Usuarios()
 
-# Routes for GET
+
+# --- RUTAS DE NAVEGACIÓN ---
+
+@app.route("/")
+def index():
+    # Nueva página de inicio (Landing)
+    return render_template("index.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        # Llamamos al login de tu clase Auth
+        # NOTA: Tu auth.login debe guardar en session['user'], session['nombre'] y session['rol']
+        resultado = auth_service.login(email, password)
+
+        if resultado == "dashboard":
+            # Inyectamos la URL de la IA para que el JS del frontend la use
+            session["urlia"] = os.getenv("URLIA", "http://localhost:5000")
+            return redirect(url_for("dashboard"))
+
+        # Mapeo de errores de tu lógica original a mensajes flash
+        mensajes_error = {
+            "correoIncorrecto": "El correo electrónico no existe.",
+            "estadoInactivo": "Tu cuenta aún no ha sido activada.",
+            "contraseñaIncorrecta": "La contraseña es incorrecta."
+        }
+        flash(mensajes_error.get(resultado, "Error de inicio de sesión"), "danger")
+        return redirect(url_for("login"))
+
+    return render_template("login.html")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -51,111 +67,107 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
 
-        auth = Auth()
-        mensaje = auth.registrar(nombre, email, password)
-        session["mensaje"] = "Usuario registrado correctamente."
-
-        app.logger.info("Registro: " + mensaje)
-        return render_template("login.html")
+        mensaje = auth_service.registrar(nombre, email, password)
+        app.logger.info(f"Registro: {mensaje}")
+        flash("Registro exitoso. Por favor, inicia sesión.", "success")
+        return redirect(url_for("login"))
 
     return render_template("register.html")
 
-# Application routes
-@app.route("/correoIncorrecto")
-def correoIncorrecto():
-    session["mensaje"] = "El correo es incorrecto."
-    return render_template("login.html")
-
-@app.route("/estadoInactivo")
-def estadoInactivo():
-    session["mensaje"] = "El usuario no está activo."
-    return render_template("login.html")
-
-@app.route("/contraseñaIncorrecta")
-def contraseñaIncorrecta():
-    session["mensaje"] = "La contraseña es incorrecta."
-    return render_template("login.html")
 
 @app.route("/dashboard")
 def dashboard():
-    # Show the dashboard
-    if session["user"] is None:
-        user = session["user"]
-        app.logger.info(f"Email recibido: {user}")
-        return render_template("login.html")
-    else:
-        return render_template("dashboard.html")
+    if not session.get("user"):
+        flash("Debes iniciar sesión primero.", "warning")
+        return redirect(url_for("login"))
+    return render_template("dashboard.html")
+
+
+@app.route("/admin/add_user", methods=["POST"])
+def admin_add_user():
+    # Por ahora solo redireccionamos para que no explote el renderizado
+    flash("Función en desarrollo", "info")
+    return redirect(url_for("admin"))
+
+
+@app.route("/ajustes")
+def ajustes():
+    if not session.get("user"):
+        return redirect(url_for("login"))
+    return render_template("ajustes.html")
+
+
+@app.route("/update_profile", methods=["POST"])
+def update_profile():
+    nombre = request.form["nombre"]
+    email = request.form["email"]
+
+    # Aquí llamarías a Usuarios().editar_usuario_perfil(session['user_id'], nombre, email)
+    # Por ahora actualizamos la sesión para que el cambio sea visible
+    session["nombre"] = nombre
+    session["user"] = email
+
+    flash("Perfil actualizado correctamente.", "success")
+    return redirect(url_for("ajustes"))
+
+
+@app.route("/update_password", methods=["POST"])
+def update_password():
+    new_pass = request.form["new_password"]
+    confirm_pass = request.form["confirm_password"]
+
+    if new_pass != confirm_pass:
+        flash("Las contraseñas no coinciden.", "danger")
+        return redirect(url_for("ajustes"))
+
+    # Ciframos y guardamos (usando tu lógica de Auth)
+    hashed = auth_service.hash_password(new_pass)
+    # user_service.cambiar_password(session['user_id'], hashed)
+
+    flash("Contraseña actualizada con éxito.", "success")
+    return redirect(url_for("ajustes"))
+
 
 @app.route("/admin")
 def admin():
-    # Show the admin
-    if session["rol"] != "Administrador":
-        app.logger.info(f"Rol incorrecto: {session['rol']}")
-        return redirect(url_for("home"))
-    else:
-        return render_template("admin.html")
+    if session.get("rol") != 1:
+        app.logger.info(f"Acceso denegado: {session.get('user')}")
+        flash("No tienes permisos.", "danger")
+        return redirect(url_for("dashboard"))  # Asegúrate que 'dashboard' existe
+
+    try:
+        users = Usuarios()
+        datos = users.get_usuarios_completo()
+        return render_template("admin.html", usuarios=datos)
+    except Exception as e:
+        app.logger.error(f"Error en admin: {e}")
+        return "Error cargando la base de datos", 500
+
+
+@app.route("/admin/delete/<int:id>", methods=["POST"])
+def delete_user(id):
+    if session.get("rol") == 1:
+        # Aquí llamarías a un método de tu clase Usuarios
+        # user_service.eliminar_usuario(id)
+        flash(f"Usuario {id} eliminado correctamente.", "info")
+    return redirect(url_for("admin"))
+
 
 @app.route("/logout")
 def logout():
-    # Log out
-    session["user"] = None
-    session["rol"] = None
-    return render_template("login.html")
+    session.clear()  # Limpia toda la sesión de un golpe
+    return redirect(url_for("index"))
 
-@app.route("/")
-def home():
-    # Show login
-    return render_template("login.html")
 
-@app.route("/usuarios")
-def usuarios():
-    # Create an instance of the Usuarios class
-    users = Usuarios()
-    # Create an empty list to store the results
-    datos = []
-    # Get the results and add them to a list
-    datos = users.get_usuarios()
-    # Log the number of results
-    app.logger.info("Página de inicio accedida")
-    app.logger.info(f"Consulta ejecutada. Registros encontrados: {len(datos)}")
-    # Show the data in the Flask response
-    return f"¡Flask está funcionando correctamente!<br>Usuarios:<br>{'<br>'.join(map(str, datos))}"
+# --- API Y CAPTURA DE ERRORES ---
 
-@app.route("/api/usuarios", methods=["GET"])
-def obtener_usuarios():
-    users = Usuarios()
-    datos = users.get_usuarios_completo()
-    app.logger.info(f"Consulta ejecutada. Registros encontrados: {datos}")
-    return jsonify(datos)
-
-@app.route("/api/usuarios", methods=["POST"])
-def agregar_usuario():
-    data = request.get_json()
-    nombre = data.get("nombre")
-    email = data.get("email")
-    password = data.get("password")
-
-    auth = Auth()
-    mensaje = auth.registrar(nombre, email, password)
-    return jsonify({"mensaje": mensaje}), 201
-
-@app.route("/api/usuarios/<int:id>", methods=["PUT"])
-def editar_usuario(id):
-    data = request.get_json()
-    nombre = data.get("nombre")
-    email = data.get("email")
-    password = data.get("password")
-
-    users = Usuarios()
-    mensaje = users.editar_usuario(id, nombre, email, password)
-    return jsonify({"mensaje": mensaje}), 200
-
-# Capture unhandled errors
 @app.errorhandler(Exception)
 def handle_exception(e):
-    app.logger.error(f"Error: {e}")
-    session["error"] = f"Ocurrió un error: {str(e)}"
-    return render_template("login.html"), 500
+    app.logger.error(f"Error crítico: {e}")
+    flash(f"Ocurrió un error inesperado: {str(e)}", "danger")
+    return redirect(url_for("index"))
+
 
 if __name__ == '__main__':
+    # Puerto 5001 para el frontend como acordamos en Docker
     app.run(host='0.0.0.0', port=5001)

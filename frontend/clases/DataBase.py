@@ -1,11 +1,10 @@
 # DataBase.py
 import mysql.connector
 import os
-#from dotenv import load_dotenv
+import time
 
 class DataBase:
     def __init__(self):
-        #load_dotenv()
         self.host = os.environ.get("HOST")
         self.user = os.environ.get("USER")
         self.password = os.environ.get("PASSWORD")
@@ -13,31 +12,41 @@ class DataBase:
         self.connection = None
 
     def connect(self):
-        if self.connection is None:
-            # Intento de reconexión simple
-            import time
-            for i in range(5):  # Reintenta 5 veces
-                try:
-                    self.connection = mysql.connector.connect(
-                        host=self.host,
-                        user=self.user,
-                        passwd=self.password,
-                        database=self.database,
-                    )
-                    print("✅ Conectado a MySQL con éxito")
-                    break
-                except mysql.connector.Error as err:
-                    print(f"⚠️ Intento {i + 1}: Esperando a MySQL...")
-                    time.sleep(3)  # Espera 3 segundos antes de reintentar
+        # Si ya existe conexión, verificamos si sigue activa
+        if self.connection and self.connection.is_connected():
+            return
 
-            if self.connection is None:
-                raise Exception("No se pudo conectar a MySQL tras varios intentos.")
+        # Lógica de reintento para el arranque de Docker
+        for i in range(5):
+            try:
+                self.connection = mysql.connector.connect(
+                    host=self.host,
+                    user=self.user,
+                    passwd=self.password,
+                    database=self.database,
+                    # Agregar estas opciones ayuda con la estabilidad en Docker
+                    consume_results=True,
+                    autocommit=True
+                )
+                print(f"✅ Conectado a MySQL con éxito ({self.database})")
+                return
+            except mysql.connector.Error as err:
+                print(f"⚠️ Intento {i + 1}: Esperando a MySQL en {self.host}...")
+                time.sleep(3)
+
+        raise Exception("No se pudo conectar a MySQL tras varios intentos.")
 
     def get_cursor(self):
-        if self.connection is None:
-            raise Exception("No hay conexión con MySQL")
-        return self.connection.cursor(dictionary=True)
+        # Aseguramos que la conexión esté viva antes de pedir un cursor
+        try:
+            if not self.connection or not self.connection.is_connected():
+                self.connect()
+            return self.connection.cursor(dictionary=True)
+        except Exception as e:
+            print(f"❌ Error al obtener cursor: {e}")
+            return None
 
     def close(self):
-        if self.connection:
+        if self.connection and self.connection.is_connected():
             self.connection.close()
+            self.connection = None

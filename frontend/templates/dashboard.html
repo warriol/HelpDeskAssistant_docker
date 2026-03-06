@@ -1,247 +1,167 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat con IA</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="https://warriol.site/app/img/logos/wda.png" type="image/png" sizes="32x32">
-    <link rel="stylesheet" href="{{ url_for('static', filename='./css/dashboard.css') }}">
-    <style>
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-x: auto;
-            max-width: 100%;
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
+{% extends "base.html" %}
 
-        pre code {
-            display: block;
-            white-space: pre-wrap; /* Wrap long lines */
-            word-wrap: break-word; /* Break long words */
-            overflow-x: auto; /* Add horizontal scroll if needed */
-            max-width: 100%; /* Ensure it doesn't exceed the container width */
-            background-color: inherit; /* Match the background of <pre> */
-        }
-    </style>
-</head>
-<body class="bg-light">
-    <!-- Navbar fijo -->
-    <nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Bienvenido, {{ session["user"] }} <span class="text-info">[{{ session["rol"] }}]</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-cpu-fill me-2 text-primary"></i>HDA - Legal IT
+        </a>
+        <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
+                {{ session['nombre'] }}
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    {% if session["rol"] == "Administrador" %}
-                        <li class="nav-item px-1"><a class="btn btn-primary" href="/admin">Administración</a></li>
-                    {% endif %}
-                    <li class="nav-item"><button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button></li>
-                </ul>
-            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+                <li><a class="dropdown-item" href="{{ url_for('ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+{% endblock %}
 
-    <!-- Aside -->
-    <aside id="pregunta" class="aside">
-        <form id="questionForm">
-            <div class="row">
-                <div class="form-group col-10">
-                    <textarea class="form-control" id="question" rows="3" placeholder="Escriba su pregunta aquí..." required></textarea>
-                </div>
-                <div class="form-group col-2">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Modelo: Leyes
-                        </button>
-                        <ul class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('leyes')">Leyes</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('ortografia')">Ortografía</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('sgsp')">Sgsp</a></li>
-                        </ul>
-                    </div>
-                    <input type="hidden" id="selectedRole" name="selectedRole" value="leyes">
-                    <button type="submit" class="btn btn-primary w-100 mt-2">Enviar</button>
-                </div>
-            </div>
-        </form>
+{% block content %}
+<div class="row g-0" style="height: calc(100vh - 56px); margin-top: -1.5rem;">
+    <aside class="col-md-3 col-lg-2 bg-white border-end d-none d-md-block p-3">
+        <div class="nav flex-column nav-pills gap-2">
+            <a href="#" class="nav-link active"><i class="bi bi-chat-left-dots me-2"></i>Chat Principal</a>
+            {% if session['rol'] == 1 %}
+            <a href="{{ url_for('admin') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
+            {% endif %}
+        </div>
     </aside>
 
-    <!-- Contenedor principal -->
-    <div class="wrapper">
-        <div class="floating" id="spinner" role="status" style="display: none; text-align: center;">
-            <div class="spinner-border text-primary m-1"><span class="visually-hidden">.</span></div> Razonando...
-        </div>
-        <!-- Contenido central -->
-        <main id="respuestas" class="content">
-            <h5>Historial de Respuestas</h5>
-            <div id="responseHistory">
-                <!-- Respuestas se mostrarán aquí -->
+    <main class="col-md-9 col-lg-10 d-flex flex-column bg-light bg-opacity-50">
+        <div id="responseHistory" class="flex-grow-1 p-4 overflow-auto">
+            <div class="text-center my-5 py-5 text-muted" id="welcome-msg">
+                <i class="bi bi-robot display-1 text-primary opacity-25"></i>
+                <h3 class="mt-3">Sistema de Asistencia Wilson</h3>
+                <p>Selecciona un agente y comienza tu consulta técnica o legal.</p>
             </div>
-        </main>
-    </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function seleccionarModelo(modelo) {
-            document.getElementById('selectedRole').value = modelo;
-            document.getElementById('dropdownMenuButton').textContent = "Modelo: " + modelo.charAt(0).toUpperCase() + modelo.slice(1);
-        }
+        <div id="spinner" class="text-center py-2" style="display: none;">
+            <div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>
+            <span class="small text-muted ms-2">La IA está procesando...</span>
+        </div>
 
-        document.getElementById('questionForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const question = document.getElementById('question').value;
-            const selectedRole = document.getElementById('selectedRole').value;
-            const spinner = document.getElementById('spinner');
-            const responseHistory = document.getElementById('responseHistory');
-            const questionForm = document.getElementById('questionForm');
-
-            spinner.style.display = 'block';
-            questionForm.querySelectorAll('textarea, button').forEach(element => {
-                element.disabled = true;
-            });
-
-            const responseElement = document.createElement('div');
-            responseElement.classList.add('mb-3');
-            const idColapse = Date.now(); // Unique ID for each response
-            responseElement.innerHTML = `
-                <div id="collapseOne${idColapse}" class="accordion-collapse collapse show" aria-labelledby="headingOne${idColapse}" data-bs-parent="#accordionExample${idColapse}">
-                    <div class="accordion-body">
-                        <div class="row">
-                            <div class="col-1">
-                                <div class="text-center">
-                                    <img src="./static/img/persona.jpg" class="rounded" alt="persona" width="64" height="64">
-                                </div>
-                            </div>
-                            <div class="col-11">
-                                <div class="alert alert-success shadow" role="alert"><strong>Pregunta:</strong> ${question}</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-11">
-                                <div class="alert alert-info shadow" role="alert"><strong>Respuesta:</strong> <span id="streamedResponse${idColapse}"></span></div>
-                            </div>
-                            <div class="col-1">
-                                <div class="text-center">
-                                    <img src="./static/img/robot_pensando.gif" class="rounded" alt="robot" width="64" height="64">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 text-end">
-                                <small id="responseTime${idColapse}" class="text-warning"></small>
-                            </div>
+        <div class="p-3 bg-white border-top shadow-lg">
+            <form id="questionForm">
+                <input type="hidden" id="selectedRole" value="leyes">
+                <div class="row g-2">
+                    <div class="col-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-light border dropdown-toggle fw-bold" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                Agente: Leyes
+                            </button>
+                            <ul class="dropdown-menu shadow">
+                                <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('leyes')">⚖️ Leyes</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('sgsp')">🚔 SGSP</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('ortografia')">✍️ Ortografía</a></li>
+                            </ul>
                         </div>
                     </div>
-                </div>`;
+                    <div class="col">
+                        <div class="input-group">
+                            <textarea id="question" class="form-control border-0 bg-light" rows="1" placeholder="Escribe aquí tu consulta..." required style="resize: none;"></textarea>
+                            <button class="btn btn-primary px-4" type="submit">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+{% endblock %}
 
-            responseHistory.appendChild(responseElement);
+{% block scripts %}
+<!-- script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script -->
+<!-- script src="{{ url_for('static', filename='js/marked-3.min.js') }}"></script -->
 
-            try {
-                const response = await fetch('{{ session["urlia"] }}/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ "question": question, "role": selectedRole })
-                });
+<script>
+    function seleccionarModelo(modelo) {
+        document.getElementById('selectedRole').value = modelo;
+        document.getElementById('dropdownMenuButton').textContent = "Agente: " + modelo.charAt(0).toUpperCase() + modelo.slice(1);
+    }
 
-                if (!response.ok) throw new Error(`Error en la respuesta del servidor: ${response.status}`);
-                if (!response.body) throw new Error("No se pudo obtener la respuesta");
+    document.getElementById('questionForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const welcomeMsg = document.getElementById('welcome-msg');
+        if (welcomeMsg) welcomeMsg.remove();
 
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                const responseTextElement = document.getElementById(`streamedResponse${idColapse}`);
-                const responseTimeElement = document.getElementById(`responseTime${idColapse}`);
+        const question = document.getElementById('question').value;
+        const selectedRole = document.getElementById('selectedRole').value;
+        const spinner = document.getElementById('spinner');
+        const responseHistory = document.getElementById('responseHistory');
+        const questionForm = document.getElementById('questionForm');
 
-                let fullResponse = "";
-                //let totalDuration = null;
-                const startTime = performance.now();
+        spinner.style.display = 'block';
+        questionForm.querySelectorAll('textarea, button').forEach(el => el.disabled = true);
 
-                while (true) {
-                    const { value, done } = await reader.read();
-                    if (done) break;
+        const idColapse = Date.now();
+        const responseElement = document.createElement('div');
+        responseElement.className = "mb-4 animate__animated animate__fadeIn";
 
-                    const chunk = decoder.decode(value, { stream: true });
+        // Estructura moderna de burbujas
+        responseElement.innerHTML = `
+            <div class="d-flex justify-content-end mb-3">
+                <div class="bg-primary text-white p-3 rounded-4 shadow-sm" style="max-width: 80%;">
+                    <small class="d-block opacity-75 mb-1"><i class="bi bi-person-fill me-1"></i>Tú</small>
+                    ${question}
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <div class="bg-white border p-3 rounded-4 shadow-sm" style="max-width: 85%;">
+                    <small class="d-block text-primary fw-bold mb-1"><i class="bi bi-robot me-1"></i>Asistente (${selectedRole})</small>
+                    <div id="streamedResponse${idColapse}" class="markdown-body">...</div>
+                    <div class="text-end mt-2">
+                        <small id="responseTime${idColapse}" class="text-muted small" style="font-size: 0.7rem;"></small>
+                    </div>
+                </div>
+            </div>`;
 
-                    /*
-                    const jsonChunks = chunk.split('}{').map((part, index, array) => {
-                        if (index === 0) return part + '}';
-                        if (index === array.length - 1) return '{' + part;
-                        return '{' + part + '}';
-                    });
+        responseHistory.appendChild(responseElement);
+        responseHistory.scrollTop = responseHistory.scrollHeight;
 
-                    jsonChunks.forEach(jsonChunk => {
-                        try {
-                            const parsedChunk = JSON.parse(jsonChunk);
-                            if (parsedChunk.response) {
-                                fullResponse += parsedChunk.response;
-                                if (typeof marked === 'function') {
-                                    responseTextElement.innerHTML = marked.parse(fullResponse);
-                                } else {
-                                    responseTextElement.innerHTML = fullResponse;
-                                }
-                            }
+        try {
+            const response = await fetch('{{ session["urlia"] }}/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "question": question, "role": selectedRole })
+            });
 
-                            // Capturar el total_duration al final del stream
-                            if (parsedChunk.total_duration) {
-                                totalDuration = parsedChunk.total_duration / 1000000; // Convertir a segundos
-                            }
-                        } catch (e) {
-                            console.error('Error parsing chunk:', e);
-                        }
-                    });
-                    */
-                    fullResponse += chunk;
+            if (!response.ok) throw new Error("Error en servidor");
 
-                    // Update the response text element
-                    if (typeof marked === 'function') {
-                        responseTextElement.innerHTML = marked.parse(fullResponse);
-                    } else {
-                        responseTextElement.innerHTML = fullResponse;
-                    }
-                }
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            const responseTextElement = document.getElementById(`streamedResponse${idColapse}`);
+            const responseTimeElement = document.getElementById(`responseTime${idColapse}`);
 
-                /*
-                // Mostrar el tiempo total de duración si está disponible
-                if (totalDuration !== null) {
-                    const seg = (totalDuration / 1000).toFixed(2);
-                    responseTimeElement.textContent = `Tiempo total de respuesta: ${seg} segundos`;
-                }
+            let fullResponse = "";
+            const startTime = performance.now();
 
-                responseElement.scrollIntoView({ behavior: 'smooth' });
-                */
-                const endTime = performance.now();
-                const totalDuration = (endTime - startTime) / 1000; // Calculate duration in seconds
-                responseTimeElement.textContent = `Tiempo total de respuesta: ${totalDuration.toFixed(2)} segundos`;
-
-                responseElement.scrollIntoView({ behavior: 'smooth' });
-
-            } catch (error) {
-                console.error('Error:', error);
-                const errorElement = document.createElement('div');
-                errorElement.classList.add('mb-3', 'text-danger');
-                errorElement.innerHTML = `<strong>Error:</strong> El servidor está en mantenimiento. Por favor, inténtelo más tarde. <br>Si el problema persiste, contacte al administrador: warriol@gmail.com.`;
-                responseHistory.appendChild(errorElement);
-            } finally {
-                spinner.style.display = 'none';
-                questionForm.querySelectorAll('textarea, button').forEach(element => {
-                    element.disabled = false;
-                });
-                document.getElementById('questionForm').reset();
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+                fullResponse += decoder.decode(value, { stream: true });
+                responseTextElement.innerHTML = marked.parse(fullResponse);
+                responseHistory.scrollTop = responseHistory.scrollHeight;
             }
-        });
 
-        function logout() {
-            window.location.href = '/logout';
+            const endTime = performance.now();
+            responseTimeElement.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
+
+        } catch (error) {
+            document.getElementById(`streamedResponse${idColapse}`).innerHTML =
+                `<span class="text-danger">⚠️ El servidor está en mantenimiento. Contacta a: warriol@gmail.com</span>`;
+        } finally {
+            spinner.style.display = 'none';
+            questionForm.querySelectorAll('textarea, button').forEach(el => el.disabled = false);
+            document.getElementById('questionForm').reset();
+            responseHistory.scrollTop = responseHistory.scrollHeight;
         }
-    </script>
-</body>
-</html>
+    });
+</script>
+{% endblock %}

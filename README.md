@@ -129,6 +129,7 @@ docker-compose up --build
 - Si solo tocamos uno de los servidores
 ```bash
 docker-compose up --build -d [nombre_servicio]
+# docker-compose up --build -d frontend
 ```
 - Si realizo cambios en la base de datos
 - No basta con cambiar el init.sql

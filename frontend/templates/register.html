@@ -1,30 +1,55 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+{% extends "base.html" %}
 
-    <div class="card p-4 shadow-lg" style="width: 350px;">
-        <h4 class="text-center">Registrar Usuario</h4>
-        <form action="/register" method="POST">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm p-4 rounded-4">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-dark">Crear Cuenta</h2>
+                <p class="text-muted">Únete al Asistente Legal IT del Ministerio</p>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+
+            <form action="{{ url_for('register') }}" method="POST">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="nombre" class="form-label small fw-semibold">Nombre Completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
+                            <input type="text" class="form-control bg-light border-start-0" id="nombre" name="nombre" placeholder="Ej: Wilson Arriola" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label small fw-semibold">Correo Institucional / Personal</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                        <input type="email" class="form-control bg-light border-start-0" id="email" name="email" placeholder="warriol@ejemplo.com" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label small fw-semibold">Contraseña</label>
+                        <input type="password" class="form-control bg-light" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="confirm_password" class="form-label small fw-semibold">Confirmar</label>
+                        <input type="password" class="form-control bg-light" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                        Crear Cuenta
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="small text-muted">¿Ya tienes cuenta? <a href="{{ url_for('login') }}" class="text-primary fw-bold text-decoration-none">Inicia sesión</a></p>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Registrar</button>
-        </form>
+        </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}
