@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}"><i class="bi bi-arrow-left me-2"></i>Panel de Administración</a>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm rounded-4 mt-2">
+    <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+        <h4 class="mb-0 fw-bold text-dark">Usuarios Registrados</h4>
+        <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <i class="bi bi-person-plus-fill me-2"></i>Nuevo Usuario
+        </button>
+    </div>
+    <div class="table-responsive p-3">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Rol</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in usuarios %}
+                <tr>
+                    <td><div class="fw-bold">{{ user.nombre }}</div></td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span class="badge rounded-pill {{ 'bg-success' if user.estado == 1 else 'bg-secondary' }}">
+                            {{ 'Activo' if user.estado == 1 else 'Inactivo' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-dark border">
+                            {{ 'Admin' if user.rol == 1 else 'Usuario' }}
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary border-0" title="Editar"><i class="bi bi-pencil-square"></i></button>
+                        <form action="{{ url_for('delete_user', id=user.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('¿Eliminar usuario?')">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <form action="{{ url_for('admin_add_user') }}" method="POST">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Agregar Nuevo Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nombre Completo</label>
+                        <input type="text" name="nombre" class="form-control bg-light border-0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Email</label>
+                        <input type="email" name="email" class="form-control bg-light border-0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Contraseña Provisional</label>
+                        <input type="password" name="password" class="form-control bg-light border-0" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-bold">Rol</label>
+                            <select name="rol" class="form-select bg-light border-0">
+                                <option value="0">Usuario</option>
+                                <option value="1">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-bold">Estado Inicial</label>
+                            <select name="estado" class="form-select bg-light border-0">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Guardar Usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

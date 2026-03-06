@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}">
+            <i class="bi bi-arrow-left me-2"></i>Volver al Chat
+        </a>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-primary py-3">
+                <h5 class="mb-0 text-white fw-bold"><i class="bi bi-gear-fill me-2"></i>Configuración de Cuenta</h5>
+            </div>
+            <div class="card-body p-4">
+
+                <form action="{{ url_for('update_profile') }}" method="POST" class="mb-5">
+                    <h6 class="text-uppercase text-muted small fw-bold mb-3">Información General</h6>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nombre Completo</label>
+                        <input type="text" name="nombre" class="form-control bg-light border-0" value="{{ session['nombre'] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Correo Electrónico</label>
+                        <input type="email" name="email" class="form-control bg-light border-0" value="{{ session['user'] }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Guardar Cambios</button>
+                </form>
+
+                <hr class="my-4">
+
+                <form action="{{ url_for('update_password') }}" method="POST">
+                    <h6 class="text-uppercase text-muted small fw-bold mb-3">Seguridad</h6>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nueva Contraseña</label>
+                        <input type="password" name="new_password" class="form-control bg-light border-0" placeholder="••••••••" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Confirmar Nueva Contraseña</label>
+                        <input type="password" name="confirm_password" class="form-control bg-light border-0" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger rounded-pill px-4">Actualizar Contraseña</button>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="text-center mt-4 text-muted small">
+            ID de Usuario: <span class="badge bg-light text-dark">#{{ session.get('user_id', 'N/A') }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row min-vh-100 align-items-center justify-content-center text-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-lg p-5">
+            <div class="mb-4">
+                <i class="bi bi-shield-lock-fill text-primary" style="font-size: 4rem;"></i>
+            </div>
+            <h1 class="display-5 fw-bold text-dark">HDA - Legal IT</h1>
+            <p class="lead text-muted mb-5">
+                Asistente inteligente especializado en derecho penal uruguayo y soporte técnico ministerial.
+            </p>
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-5 gap-3 rounded-pill shadow">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                </a>
+                <a href="{{ url_for('register') }}" class="btn btn-outline-secondary btn-lg px-5 rounded-pill">
+                    Registrarse
+                </a>
+            </div>
+            <div class="mt-5 text-muted small">
+                © 2026 Ministerio del Interior - Uruguay
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

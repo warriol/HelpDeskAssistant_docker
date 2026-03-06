@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-cpu-fill me-2 text-primary"></i>HDA - Legal IT
+        </a>
+        <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
+                {{ session['nombre'] }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+                <li><a class="dropdown-item" href="{{ url_for('ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="row g-0" style="height: calc(100vh - 56px); margin-top: -1.5rem;">
+    <aside class="col-md-3 col-lg-2 bg-white border-end d-none d-md-block p-3">
+        <div class="nav flex-column nav-pills gap-2">
+            <a href="#" class="nav-link active"><i class="bi bi-chat-left-dots me-2"></i>Chat Principal</a>
+            {% if session['rol'] == 1 %}
+            <a href="{{ url_for('admin') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <main class="col-md-9 col-lg-10 d-flex flex-column bg-light bg-opacity-50">
+        <div id="responseHistory" class="flex-grow-1 p-4 overflow-auto">
+            <div class="text-center my-5 py-5 text-muted" id="welcome-msg">
+                <i class="bi bi-robot display-1 text-primary opacity-25"></i>
+                <h3 class="mt-3">Sistema de Asistencia Wilson</h3>
+                <p>Selecciona un agente y comienza tu consulta técnica o legal.</p>
+            </div>
+        </div>
+
+        <div id="spinner" class="text-center py-2" style="display: none;">
+            <div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>
+            <span class="small text-muted ms-2">La IA está procesando...</span>
+        </div>
+
+        <div class="p-3 bg-white border-top shadow-lg">
+            <form id="questionForm">
+                <input type="hidden" id="selectedRole" value="leyes">
+                <div class="row g-2">
+                    <div class="col-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-light border dropdown-toggle fw-bold" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                Agente: Leyes
+                            </button>
+                            <ul class="dropdown-menu shadow">
+                                <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('leyes')">⚖️ Leyes</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('sgsp')">🚔 SGSP</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="seleccionarModelo('ortografia')">✍️ Ortografía</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <textarea id="question" class="form-control border-0 bg-light" rows="1" placeholder="Escribe aquí tu consulta..." required style="resize: none;"></textarea>
+                            <button class="btn btn-primary px-4" type="submit">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script -->
+<!-- script src="{{ url_for('static', filename='js/marked-3.min.js') }}"></script -->
+
+<script>
+    function seleccionarModelo(modelo) {
+        document.getElementById('selectedRole').value = modelo;
+        document.getElementById('dropdownMenuButton').textContent = "Agente: " + modelo.charAt(0).toUpperCase() + modelo.slice(1);
+    }
+
+    document.getElementById('questionForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const welcomeMsg = document.getElementById('welcome-msg');
+        if (welcomeMsg) welcomeMsg.remove();
+
+        const question = document.getElementById('question').value;
+        const selectedRole = document.getElementById('selectedRole').value;
+        const spinner = document.getElementById('spinner');
+        const responseHistory = document.getElementById('responseHistory');
+        const questionForm = document.getElementById('questionForm');
+
+        spinner.style.display = 'block';
+        questionForm.querySelectorAll('textarea, button').forEach(el => el.disabled = true);
+
+        const idColapse = Date.now();
+        const responseElement = document.createElement('div');
+        responseElement.className = "mb-4 animate__animated animate__fadeIn";
+
+        // Estructura moderna de burbujas
+        responseElement.innerHTML = `
+            <div class="d-flex justify-content-end mb-3">
+                <div class="bg-primary text-white p-3 rounded-4 shadow-sm" style="max-width: 80%;">
+                    <small class="d-block opacity-75 mb-1"><i class="bi bi-person-fill me-1"></i>Tú</small>
+                    ${question}
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <div class="bg-white border p-3 rounded-4 shadow-sm" style="max-width: 85%;">
+                    <small class="d-block text-primary fw-bold mb-1"><i class="bi bi-robot me-1"></i>Asistente (${selectedRole})</small>
+                    <div id="streamedResponse${idColapse}" class="markdown-body">...</div>
+                    <div class="text-end mt-2">
+                        <small id="responseTime${idColapse}" class="text-muted small" style="font-size: 0.7rem;"></small>
+                    </div>
+                </div>
+            </div>`;
+
+        responseHistory.appendChild(responseElement);
+        responseHistory.scrollTop = responseHistory.scrollHeight;
+
+        try {
+            const response = await fetch('{{ session["urlia"] }}/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "question": question, "role": selectedRole })
+            });
+
+            if (!response.ok) throw new Error("Error en servidor");
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            const responseTextElement = document.getElementById(`streamedResponse${idColapse}`);
+            const responseTimeElement = document.getElementById(`responseTime${idColapse}`);
+
+            let fullResponse = "";
+            const startTime = performance.now();
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+                fullResponse += decoder.decode(value, { stream: true });
+                responseTextElement.innerHTML = marked.parse(fullResponse);
+                responseHistory.scrollTop = responseHistory.scrollHeight;
+            }
+
+            const endTime = performance.now();
+            responseTimeElement.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
+
+        } catch (error) {
+            document.getElementById(`streamedResponse${idColapse}`).innerHTML =
+                `<span class="text-danger">⚠️ El servidor está en mantenimiento. Contacta a: warriol@gmail.com</span>`;
+        } finally {
+            spinner.style.display = 'none';
+            questionForm.querySelectorAll('textarea, button').forEach(el => el.disabled = false);
+            document.getElementById('questionForm').reset();
+            responseHistory.scrollTop = responseHistory.scrollHeight;
+        }
+    });
+</script>
+{% endblock %}
