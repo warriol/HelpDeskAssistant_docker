@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con IA - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="https://warriol.site/app/img/logos/wda.png" type="image/png" sizes="32x32">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/dashboard.css') }}">
+</head>
+<body class="bg-light">
+    <!-- Navbar fijo -->
+    <nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bienvenido, {{ session["user"] }} <span>[{{ session["rol"] }}]</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="btn btn-primary" href="/dashboard">Chat</a></li>
+                    <li class="nav-item"><button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="wrapper">
+        <!-- Contenido central -->
+        <main id="respuestas" class="content">
+            <h5>Administración</h5>
+            <div id="responseHistory">
+                <!-- Tabla de usuarios -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuariosTabla">
+                        <!-- Los usuarios se cargarán aquí -->
+                </table>
+
+                <!-- Formulario para agregar/editar usuarios -->
+                <form id="usuarioForm">
+                    <input type="hidden" id="usuarioId">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+
+        const usuariosTabla = document.getElementById("usuariosTabla");
+        const usuarioForm = document.getElementById("usuarioForm");
+
+        // Cargar usuarios
+        async function cargarUsuarios() {
+            const response = await fetch("/api/usuarios");
+            const usuarios = await response.json();
+            usuariosTabla.innerHTML = usuarios.map(usuario => `
+                <tr>
+                    <td>${usuario.id}</td>
+                    <td>${usuario.nombre}</td>
+                    <td>${usuario.email}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editarUsuario(${usuario.id}, '${usuario.nombre}', '${usuario.email}')">Editar</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        // Editar usuario
+        window.editarUsuario = (id, nombre, email) => {
+            document.getElementById("usuarioId").value = id;
+            document.getElementById("nombre").value = nombre;
+            document.getElementById("email").value = email;
+        };
+
+        // Guardar usuario
+        usuarioForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("usuarioId").value;
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const method = id ? "PUT" : "POST";
+            const url = id ? `/api/usuarios/${id}` : "/api/usuarios";
+
+            await fetch(url, {
+                method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, email, password })
+            });
+
+            usuarioForm.reset();
+            cargarUsuarios();
+        });
+
+        cargarUsuarios();
+
+        function logout() {
+            window.location.href = '/logout';
+        }
+
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

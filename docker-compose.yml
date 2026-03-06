@@ -1,0 +1,60 @@
+services:
+  # Base de Datos para tu lógica de usuarios
+  db:
+    image: mysql:8.0
+    container_name: HDA_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: WilsonHDA2026
+      MYSQL_DATABASE: hdassistant
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Servicio de Ollama
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama_server
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Tu Backend en Python
+  backend:
+    build: ./backend
+    container_name: HDA_backend
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    ports:
+      - "5000:5000"
+
+  # Tu Frontend en Python
+  frontend:
+    build: ./frontend
+    container_name: HDA_frontend
+    depends_on:
+      - backend
+      - db
+    ports:
+      - "8501:5001"
+    environment:
+      - HOST=db
+      - USER=root
+      - PASSWORD=WilsonHDA2026
+      - DATABASE=hdassistant
+      - URLIA=http://localhost:5000
+
+volumes:
+  ollama_data:
+  mysql_data:
