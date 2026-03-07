@@ -8,13 +8,23 @@ CREATE TABLE IF NOT EXISTS usuarios (
     rol TINYINT(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Crear tabla de historial de chat
-CREATE TABLE IF NOT EXISTS historial_chat (
+-- Tabla para las cabeceras de las conversaciones
+CREATE TABLE IF NOT EXISTS conversaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT(11) NOT NULL,
-    pregunta TEXT NOT NULL,
-    respuesta TEXT NOT NULL,
-    rol_ia VARCHAR(50) NOT NULL COMMENT 'leyes, ortografia o sgsp',
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario_id INT NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    agente_usado VARCHAR(50),
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultima_interaccion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB;
+
+-- Tabla para los mensajes individuales
+CREATE TABLE IF NOT EXISTS mensajes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversacion_id INT NOT NULL,
+    rol ENUM('user', 'assistant') NOT NULL,
+    contenido TEXT NOT NULL,
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversacion_id) REFERENCES conversaciones(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
