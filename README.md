@@ -1,6 +1,13 @@
 # Help Desk Assistant
 # 📄 Guía de Configuración: HDA (Docker + GPU)
 
+# Autor: Wilson Arriola
+
+## Casos de uso
+- BACKEND:
+    - Admitir CORS <img src="https://img.shields.io/badge/Hecho-success">
+    - EndPoint CHAT <img src="https://img.shields.io/badge/Hecho-success">
+
 ## Este proyecto unifica el Frontend (Python), el Backend (Python) y el motor de IA (Ollama) en un entorno de contenedores con aceleración por hardware.
 # 1. Requisitos Previos (En tu PC/Host)
 

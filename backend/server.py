@@ -7,7 +7,13 @@ import os
 
 app = Flask(__name__)
 # Permitimos explícitamente el origen del frontend
-CORS(app, resources={r"/*": {"origins": ["http://localhost:8501", "http://127.0.0.1:8501"]}})
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://localhost:5001", "http://127.0.0.1:5001"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # En Docker, usamos el nombre del servicio definido en docker-compose
 OLLAMA_API_URL = "http://ollama:11434/api/generate"
