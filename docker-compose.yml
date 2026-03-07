@@ -1,5 +1,5 @@
 services:
-  # Base de Datos para tu lógica de usuarios
+  # Base de Datos SQL
   db:
     image: mysql:8.0
     container_name: HDA_mysql
@@ -11,8 +11,23 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - hda-net
 
-  # Servicio de Ollama
+  # ChromaDB (RAG)
+  chroma:
+    image: chromadb/chroma:latest
+    container_name: HDA_chroma
+    volumes:
+      - ./chroma_data:/chroma/chroma
+    ports:
+      - "8000:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+    networks:
+      - hda-net
+
+  # Ollama (GPU)
   ollama:
     image: ollama/ollama:latest
     container_name: ollama_server
@@ -27,8 +42,10 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    networks:
+      - hda-net
 
-  # Tu Backend en Python
+  # Tu Backend (Orquestador)
   backend:
     build: ./backend
     container_name: HDA_backend
@@ -38,22 +55,34 @@ services:
       - OLLAMA_HOST=http://ollama:11434
     ports:
       - "5000:5000"
+    networks:
+      - hda-net
 
-  # Tu Frontend en Python
+  # Tu Frontend (Interfaz Flask)
   frontend:
     build: ./frontend
     container_name: HDA_frontend
     depends_on:
       - backend
       - db
+      - chroma
     ports:
-      - "8501:5001"
+      - "5001:5001"
     environment:
       - HOST=db
       - USER=root
       - PASSWORD=WilsonHDA2026
       - DATABASE=hdassistant
-      - URLIA=http://localhost:5000
+      # TODO IMPORTANTE: Dentro de Docker usa el nombre del servicio o localhost ????
+      - URLIA=http://backend:5000
+      - CHROMA_HOST=http://chroma:8000
+    networks:
+      - hda-net
+
+# Definición de Redes y Volúmenes
+networks:
+  hda-net:
+    driver: bridge
 
 volumes:
   ollama_data:
