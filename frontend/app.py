@@ -1,9 +1,14 @@
 import logging
 import os
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash
+import requests
+
+from werkzeug.utils import secure_filename
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash, Response, stream_with_context
+
 from clases.Auth import Auth
 from clases.Usuarios import Usuarios
 from clases.Conversaciones import Conversaciones
+from clases.MotorRAG import MotorRAG
 
 # Configuración de Logs (se mantiene igual)
 log_dir = "logs"
@@ -17,6 +22,10 @@ logging.basicConfig(
     handlers=[logging.FileHandler(log_file), logging.StreamHandler()]
 )
 
+# Configuración de subida
+UPLOAD_FOLDER = 'documentos/temp'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config["DEBUG"] = True
@@ -25,6 +34,7 @@ app.config["DEBUG"] = True
 auth_service = Auth()
 user_service = Usuarios()
 conv_service = Conversaciones()
+rag = MotorRAG()
 
 # --- RUTAS DE NAVEGACIÓN ---
 
@@ -76,6 +86,43 @@ def register():
     return render_template("register.html")
 
 
+@app.route('/chat_con_contexto', methods=['POST'])
+def chat_con_contexto():
+    data = request.json
+    pregunta = data.get("question")
+    rol = data.get("role")
+
+    # 1. BUSCAMOS EN CHROMADB (Comunicación interna Docker: frontend -> chroma)
+    contexto = rag.buscar_contexto(pregunta, rol)
+
+    # 2. ARMAMOS EL PROMPT
+    prompt_final = f"""
+    Eres un asistente legal del Ministerio del Interior de Uruguay. 
+    Usa la siguiente información oficial para responder. 
+    Si no encuentras la respuesta en el contexto, indícalo claramente.
+
+    CONTEXTO OFICIAL:
+    {contexto}
+
+    PREGUNTA:
+    {pregunta}
+    """
+
+    # 3. LE PEDIMOS A OLLAMA/BACKEND (Comunicación interna: frontend -> backend)
+    # Usamos stream=True para que el usuario no espere a que termine toda la respuesta
+    def generate():
+        url_backend = "http://backend:5000/chat"  # Nombre del servicio en Docker
+        response = requests.post(url_backend,
+                                 json={"question": prompt_final, "role": rol},
+                                 stream=True)
+
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                yield chunk
+
+    return Response(generate(), mimetype='text/plain')
+
+
 @app.route("/dashboard")
 @app.route("/dashboard/<int:conv_id>")
 def dashboard(conv_id=None):
@@ -120,6 +167,15 @@ def guardar_en_historial():
     conv_service.guardar_mensaje(conv_id, 'assistant', respuesta)
 
     return jsonify({"status": "ok", "conversacion_id": conv_id})
+
+
+@app.route('/api/stats_rag')
+def stats_rag():
+    if session.get('rol') != 1:
+        return {"error": "No autorizado", "rol_detectado": session.get('rol')}, 403
+
+    stats = rag.obtener_estadisticas()
+    return jsonify(stats)
 
 
 @app.route("/admin/add_user", methods=["POST"])
@@ -190,6 +246,33 @@ def delete_user(id):
         # user_service.eliminar_usuario(id)
         flash(f"Usuario {id} eliminado correctamente.", "info")
     return redirect(url_for("admin"))
+
+
+@app.route('/upload_document', methods=['POST'])
+def upload_document():
+    if 'file' not in request.files:
+        return {"error": "No hay archivo"}, 400
+
+    file = request.files['file']
+    coleccion = request.form.get('coleccion', 'leyes')  # Por defecto a leyes
+
+    if file.filename == '':
+        return {"error": "Archivo sin nombre"}, 400
+
+    if file and file.filename.endswith('.txt'):
+        filename = secure_filename(file.filename)
+        ruta_temp = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(ruta_temp)
+
+        try:
+            # Usamos tu clase MotorRAG para indexar
+            resultado = rag.indexar_documento(ruta_temp, coleccion)
+            os.remove(ruta_temp)  # Limpiamos el temporal
+            return {"message": f"Archivo indexado con éxito en {coleccion}. {resultado}"}, 200
+        except Exception as e:
+            return {"error": str(e)}, 500
+
+    return {"error": "Formato no permitido (solo .txt por ahora)"}, 400
 
 
 @app.route("/logout")

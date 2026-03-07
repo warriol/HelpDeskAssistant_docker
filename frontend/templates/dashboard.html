@@ -188,7 +188,7 @@
         responseHistory.scrollTop = responseHistory.scrollHeight;
 
         try {
-            const response = await fetch('{{ session["urlia"] }}/chat', {
+            const response = await fetch('/chat_con_contexto', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ "question": question, "role": selectedRole })

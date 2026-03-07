@@ -9,6 +9,39 @@
 {% endblock %}
 
 {% block content %}
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-light border-primary shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-gavel fa-2x text-primary mb-2"></i>
+                <h6 class="card-title">Colección Leyes</h6>
+                <h3 id="count-leyes" class="fw-bold">0</h3>
+                <small class="text-muted">Fragmentos indexados</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light border-success shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
+                <h6 class="card-title">Colección SGSP</h6>
+                <h3 id="count-sgsp" class="fw-bold">0</h3>
+                <small class="text-muted">Fragmentos indexados</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light border-info shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-pen-nib fa-2x text-info mb-2"></i>
+                <h6 class="card-title">Ortografía</h6>
+                <h3 id="count-ortografia" class="fw-bold">0</h3>
+                <small class="text-muted">Fragmentos indexados</small>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card border-0 shadow-sm rounded-4 mt-2">
     <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
         <h4 class="mb-0 fw-bold text-dark">Usuarios Registrados</h4>
@@ -54,6 +87,40 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-white d-flex align-items-center">
+            <i class="fas fa-database me-2"></i>
+            <h5 class="mb-0">Gestión de Memoria del Asistente (RAG)</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted small">Sube archivos .txt para alimentar las colecciones de leyes, protocolos SGSP o reglas ortográficas.</p>
+
+            <form id="uploadForm" class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Archivo de Origen (.txt)</label>
+                    <input type="file" id="documentFile" class="form-control" accept=".txt" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Colección de Destino</label>
+                    <select id="coleccionDestino" class="form-select">
+                        <option value="leyes">⚖️ Leyes y Códigos</option>
+                        <option value="sgsp">🚔 Protocolos SGSP</option>
+                        <option value="ortografia">✍️ Ortografía y Redacción</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-upload"></i> Cargar
+                    </button>
+                </div>
+            </form>
+
+            <div id="uploadStatus" class="mt-3"></div>
+        </div>
     </div>
 </div>
 
@@ -103,4 +170,65 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function actualizarStats() {
+        try {
+            const response = await fetch('/api/stats_rag');
+            const stats = await response.json();
+
+            document.getElementById('count-leyes').innerText = stats.leyes || 0;
+            document.getElementById('count-sgsp').innerText = stats.sgsp || 0;
+            document.getElementById('count-ortografia').innerText = stats.ortografia || 0;
+        } catch (error) {
+            console.error("Error al cargar estadísticas:", error);
+        }
+    }
+    // Llamar al cargar la página
+    document.addEventListener('DOMContentLoaded', actualizarStats);
+
+    document.getElementById('uploadForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const status = document.getElementById('uploadStatus');
+        const fileInput = document.getElementById('documentFile');
+        const coleccion = document.getElementById('coleccionDestino').value;
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('coleccion', coleccion);
+
+        // Feedback visual inmediato
+        status.innerHTML = `
+            <div class="alert alert-info d-flex align-items-center">
+                <div class="spinner-border spinner-border-sm me-2"></div>
+                Procesando e indexando en ChromaDB... esto puede tardar unos segundos.
+            </div>`;
+
+        try {
+            const response = await fetch('/upload_document', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                status.innerHTML = `
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="fas fa-check-circle"></i> ${result.message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>`;
+                fileInput.value = '';
+            } else {
+                status.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> Error: ${result.error}
+                    </div>`;
+            }
+        } catch (error) {
+            status.innerHTML = `<div class="alert alert-danger">Error crítico de conexión con el servidor.</div>`;
+        }
+    };
+</script>
 {% endblock %}

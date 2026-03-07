@@ -73,8 +73,7 @@ services:
       - USER=root
       - PASSWORD=WilsonHDA2026
       - DATABASE=hdassistant
-      # TODO IMPORTANTE: Dentro de Docker usa el nombre del servicio o localhost ????
-      - URLIA=http://backend:5000
+      - URLIA=http://localhost:5000
       - CHROMA_HOST=http://chroma:8000
     networks:
       - hda-net
