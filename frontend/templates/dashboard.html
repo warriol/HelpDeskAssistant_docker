@@ -6,43 +6,69 @@
         <a class="navbar-brand fw-bold" href="#">
             <i class="bi bi-cpu-fill me-2 text-primary"></i>HDA - Legal IT
         </a>
-        <div class="dropdown">
-            <button class="btn btn-outline-light dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
-                {{ session['nombre'] }}
+        <div class="d-flex align-items-center">
+            <button class="btn btn-outline-light btn-sm me-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarHistorial">
+                <i class="bi bi-clock-history"></i>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-                <li><a class="dropdown-item" href="{{ url_for('ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
-            </ul>
+
+            <div class="dropdown">
+                <button class="btn btn-outline-light dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
+                    {{ session['nombre'] }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="{{ url_for('ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
 {% endblock %}
 
 {% block content %}
-<div class="row g-0" style="height: calc(100vh - 56px); margin-top: -1.5rem;">
-    <aside class="col-md-3 col-lg-2 bg-white border-end d-none d-md-block p-3">
+<div class="row g-0" style="height: calc(100vh - 56px); margin-top: -1.5rem; overflow: hidden;">
+
+    <aside class="col-md-2 bg-white border-end d-none d-md-block p-3">
         <div class="nav flex-column nav-pills gap-2">
-            <a href="#" class="nav-link active"><i class="bi bi-chat-left-dots me-2"></i>Chat Principal</a>
+            <a href="{{ url_for('dashboard') }}" class="nav-link {{ 'active' if not session['active_conv'] else 'text-dark' }}">
+                <i class="bi bi-plus-lg me-2"></i>Nuevo Chat
+            </a>
             {% if session['rol'] == 1 %}
             <a href="{{ url_for('admin') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
             {% endif %}
         </div>
     </aside>
 
-    <main class="col-md-9 col-lg-10 d-flex flex-column bg-light bg-opacity-50">
-        <div id="responseHistory" class="flex-grow-1 p-4 overflow-auto">
-            <div class="text-center my-5 py-5 text-muted" id="welcome-msg">
-                <i class="bi bi-robot display-1 text-primary opacity-25"></i>
-                <h3 class="mt-3">Sistema de Asistencia Wilson</h3>
-                <p>Selecciona un agente y comienza tu consulta técnica o legal.</p>
-            </div>
+    <main class="col d-flex flex-column bg-light bg-opacity-50 border-end" style="height: 100%;">
+
+        <div id="responseHistory" class="flex-grow-1 p-4 overflow-auto" style="height: 0;">
+            {% if mensajes %}
+                {% for msg in mensajes %}
+                    <div class="mb-4">
+                        <div class="d-flex {{ 'justify-content-end' if msg.rol == 'user' else 'justify-content-start' }} mb-3">
+                            <div class="p-3 rounded-4 shadow-sm {{ 'bg-primary text-white' if msg.rol == 'user' else 'bg-white border text-dark' }}" style="max-width: 80%;">
+                                <small class="d-block opacity-75 mb-1">
+                                    <i class="bi {{ 'bi-person-fill' if msg.rol == 'user' else 'bi-robot' }} me-1"></i>
+                                    {{ 'Tú' if msg.rol == 'user' else 'Asistente' }}
+                                </small>
+                                <div class="markdown-body">{{ msg.contenido | safe }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center my-5 py-5 text-muted" id="welcome-msg">
+                    <i class="bi bi-robot display-1 text-primary opacity-25"></i>
+                    <h3 class="mt-3">HDA - Ministerio del Interior</h3>
+                    <p>Inicia una consulta técnica o legal.</p>
+                </div>
+            {% endif %}
         </div>
 
-        <div id="spinner" class="text-center py-2" style="display: none;">
+        <div id="spinner" class="text-center py-2 bg-white border-top" style="display: none;">
             <div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>
-            <span class="small text-muted ms-2">La IA está procesando...</span>
+            <span class="small text-muted ms-2">Procesando...</span>
         </div>
 
         <div class="p-3 bg-white border-top shadow-lg">
@@ -62,8 +88,8 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="input-group">
-                            <textarea id="question" class="form-control border-0 bg-light" rows="1" placeholder="Escribe aquí tu consulta..." required style="resize: none;"></textarea>
+                        <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                            <textarea id="question" class="form-control border-0 bg-light p-3" rows="1" placeholder="Escribe aquí tu consulta..." required style="resize: none;"></textarea>
                             <button class="btn btn-primary px-4" type="submit">
                                 <i class="bi bi-send-fill"></i>
                             </button>
@@ -73,17 +99,54 @@
             </form>
         </div>
     </main>
+
+    <aside class="col-md-3 col-lg-2 bg-white d-none d-md-block p-3 d-flex flex-column" style="height: 100%;">
+        <h6 class="text-uppercase text-muted fw-bold small mb-3">Chats Recientes</h6>
+        <div class="list-group list-group-flush overflow-auto flex-grow-1" id="sidebarHistorial">
+            {% for conv in conversaciones %}
+            <a href="{{ url_for('dashboard', conv_id=conv.id) }}"
+               class="list-group-item list-group-item-action border-0 rounded-3 mb-1 small {{ 'active shadow-sm' if session['active_conv'] == conv.id }}">
+                <i class="bi bi-chat-left{{ '-fill' if session['active_conv'] == conv.id else '' }} me-2"></i>
+                {{ conv.titulo }}
+            </a>
+            {% endfor %}
+        </div>
+    </aside>
 </div>
 {% endblock %}
 
 {% block scripts %}
-<!-- script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script -->
-<!-- script src="{{ url_for('static', filename='js/marked-3.min.js') }}"></script -->
+<script src="{{ url_for('static', filename='js/marked.min.js') }}"></script>
 
 <script>
+    // Variable para saber si estamos en un chat existente o uno nuevo
+    let current_conv_id = {{ session['active_conv'] if session['active_conv'] else 'null' }};
+
     function seleccionarModelo(modelo) {
         document.getElementById('selectedRole').value = modelo;
         document.getElementById('dropdownMenuButton').textContent = "Agente: " + modelo.charAt(0).toUpperCase() + modelo.slice(1);
+    }
+
+    // Función para persistir en DB al terminar el stream
+    async function guardarEnHistorial(pregunta, respuesta, agente) {
+        try {
+            const res = await fetch('/api/historial/guardar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "conversacion_id": current_conv_id,
+                    "pregunta": pregunta,
+                    "respuesta": respuesta,
+                    "agente": agente
+                })
+            });
+            const data = await res.json();
+            if (data.conversacion_id && !current_conv_id) {
+                current_conv_id = data.conversacion_id;
+                // Opcional: Recargar para ver el nuevo título en el lateral
+                // window.location.href = "/dashboard/" + data.conversacion_id;
+            }
+        } catch (e) { console.error("Error al guardar:", e); }
     }
 
     document.getElementById('questionForm').addEventListener('submit', async function(event) {
@@ -104,7 +167,6 @@
         const responseElement = document.createElement('div');
         responseElement.className = "mb-4 animate__animated animate__fadeIn";
 
-        // Estructura moderna de burbujas
         responseElement.innerHTML = `
             <div class="d-flex justify-content-end mb-3">
                 <div class="bg-primary text-white p-3 rounded-4 shadow-sm" style="max-width: 80%;">
@@ -132,8 +194,6 @@
                 body: JSON.stringify({ "question": question, "role": selectedRole })
             });
 
-            if (!response.ok) throw new Error("Error en servidor");
-
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             const responseTextElement = document.getElementById(`streamedResponse${idColapse}`);
@@ -153,9 +213,12 @@
             const endTime = performance.now();
             responseTimeElement.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
 
+            // GUARDAR AUTOMÁTICAMENTE
+            await guardarEnHistorial(question, fullResponse, selectedRole);
+
         } catch (error) {
             document.getElementById(`streamedResponse${idColapse}`).innerHTML =
-                `<span class="text-danger">⚠️ El servidor está en mantenimiento. Contacta a: warriol@gmail.com</span>`;
+                `<span class="text-danger">⚠️ Error de conexión con la IA.</span>`;
         } finally {
             spinner.style.display = 'none';
             questionForm.querySelectorAll('textarea, button').forEach(el => el.disabled = false);

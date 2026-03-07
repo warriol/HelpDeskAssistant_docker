@@ -52,6 +52,7 @@ class Auth(DataBase):
                 session["user"] = user["email"]  # Usamos el email como ID único
                 session["nombre"] = user["nombre"]  # Nombre para mostrar en la UI
                 session["rol"] = int(user["rol"])  # Guardamos 0 o 1 (entero)
+                session["user_id"] = user["id"]  # El ID de la tabla usuarios
 
                 self.logger.info(f"Login exitoso: {email} (Rol: {session['rol']})")
                 return "dashboard"

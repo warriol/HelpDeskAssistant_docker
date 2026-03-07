@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash
 from clases.Auth import Auth
 from clases.Usuarios import Usuarios
+from clases.Conversaciones import Conversaciones
 
 # Configuración de Logs (se mantiene igual)
 log_dir = "logs"
@@ -23,7 +24,7 @@ app.config["DEBUG"] = True
 # Instancias de clases
 auth_service = Auth()
 user_service = Usuarios()
-
+conv_service = Conversaciones()
 
 # --- RUTAS DE NAVEGACIÓN ---
 
@@ -76,11 +77,49 @@ def register():
 
 
 @app.route("/dashboard")
-def dashboard():
+@app.route("/dashboard/<int:conv_id>")
+def dashboard(conv_id=None):
     if not session.get("user"):
         flash("Debes iniciar sesión primero.", "warning")
         return redirect(url_for("login"))
-    return render_template("dashboard.html")
+    # Obtenemos el ID del usuario de la sesión (asegúrate de que Auth lo guarde)
+    usuario_id = session.get("user_id")
+
+    # 1. Traer lista de títulos para el Aside derecho
+    mis_chats = conv_service.listar_por_usuario(usuario_id)
+
+    # 2. Si venimos de hacer clic en un chat viejo, traer sus mensajes
+    historial_mensajes = []
+    if conv_id:
+        historial_mensajes = conv_service.obtener_mensajes(conv_id)
+        session["active_conv"] = conv_id  # Marcamos cuál estamos viendo
+    else:
+        session["active_conv"] = None  # Es un chat nuevo
+
+    return render_template("dashboard.html",
+                           conversaciones=mis_chats,
+                           mensajes=historial_mensajes)
+
+
+@app.route("/api/historial/guardar", methods=["POST"])
+def guardar_en_historial():
+    data = request.get_json()
+    usuario_id = session.get("user_id")
+    conv_id = data.get("conversacion_id")
+    pregunta = data.get("pregunta")
+    respuesta = data.get("respuesta")
+    agente = data.get("agente")
+
+    # Si es la primera vez (conv_id es null), creamos la conversación
+    if not conv_id:
+        titulo = pregunta[:30] + "..."  # Usamos el inicio como título
+        conv_id = conv_service.crear_conversacion(usuario_id, titulo, agente)
+
+    # Guardamos ambos mensajes
+    conv_service.guardar_mensaje(conv_id, 'user', pregunta)
+    conv_service.guardar_mensaje(conv_id, 'assistant', respuesta)
+
+    return jsonify({"status": "ok", "conversacion_id": conv_id})
 
 
 @app.route("/admin/add_user", methods=["POST"])
