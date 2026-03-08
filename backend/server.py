@@ -17,6 +17,7 @@ CORS(app, resources={
 
 # En Docker, usamos el nombre del servicio definido en docker-compose
 OLLAMA_API_URL = "http://ollama:11434/api/generate"
+MODELO_IA = os.getenv("MODELO_IA", "llama3") # o "llama3"
 
 # Verificación de datos de entrenamiento (SGSP)
 CSV_PATH = "train.csv"
@@ -53,7 +54,7 @@ def chat():
 
     def generate():
         payload = {
-            "model": "gemma3:4b", # Asegúrate de que este modelo esté descargado en Ollama
+            "model": MODELO_IA,
             "prompt": prompt,
             "stream": True
         }

@@ -55,6 +55,7 @@ services:
       - ollama
     environment:
       - OLLAMA_HOST=http://ollama:11434
+      - MODELO_IA=${MODELO_IA}
     ports:
       - "5000:5000"
     networks:

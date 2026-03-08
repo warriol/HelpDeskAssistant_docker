@@ -3,6 +3,47 @@
 
 # Autor: Wilson Arriola
 
+## Instalación y Configuración de HDA (Help Desk Assistant) con Docker y GPU
+### Prerequisitos
+- Docker Desktop (con soporte para WSL2 en Windows)
+- NVIDIA Container Toolkit (para soporte GPU)
+- Drivers de NVIDIA actualizados
+### Descripción del proceso
+1. Clona el repositorio de HDA.
+2. Configura tu entorno para permitir que Docker acceda a la GPU.
+3. Crea el archivo .env con tus variables de entorno (si es necesario).
+```bash
+MYSQL_ROOT_PASSWORD=la_contraseña_que_desees_para_el_usuario_root
+MYSQL_ROOT_USER=el_usuario_de_tu_base_de_datos
+DB_NAME=el_nombre_de_tu_base_de_datos
+MODEL_IA=modelo_que_descargaste_en_ollama
+```
+4. Ejecuta `docker-compose up -d`
+5. Descarga el modelo Ollama `docker exec -it ollama_server ollama pull llama3`
+6. Crea la base de datos ejecutando el script SQL dentro del contenedor MySQL:
+```bash
+# CMD
+docker exec -i HDA_mysql mysql -u root -ptu_password_root nombre_base_datos < init.sql
+# PowerShell
+Get-Content init.sql | docker exec -i HDA_mysql mysql -u root -ptu_password_root nombre_base_datos
+```
+7. Entra en la apliación y registrate como usuario
+8. Debe activiar tu usuario por primera vez y marcarlo como admin
+```bash
+docker exec -it HDA_backend mysql -u root -ptu_password_root -e "USE nombre_base_datos; UPDATE users SET estado = 1, rol = 1 WHERE email = 'tu_email_de_registro';"
+```
+9. Accede a la aplicación en http://localhost:8501 y comienza a interactuar con tu asistente de help desk impulsado por IA.
+### Posibles problemas y soluciones
+- **Error de GPU no detectada**: Asegúrate de que tu sistema tiene
+- drivers NVIDIA actualizados y que el NVIDIA Container Toolkit está correctamente instalado.
+- **Problemas de conexión a la base de datos**: Verifica que el contenedor
+- MySQL esté corriendo y que las credenciales en tu archivo .env coincidan con las configuradas en el contenedor.
+- **Errores al construir los contenedores**: Revisa los logs de Docker para
+- identificar el paso específico que falla y asegúrate de que todas las dependencias estén correctamente definidas en los Dockerfiles.
+- **Problemas de CORS**: Si el frontend no puede comunicarse con el backend, asegúrate de que el backend esté configurado para permitir CORS desde el origen del frontend.
+- **Problema de comnicación con el backend: error 404**: Verifica que el backend esté corriendo y que el endpoint de chat esté correctamente definido y accesible.
+- Verifica en server.py que el MODEL_IA sea el modelo que descargaste en Ollama (ejemplo: llama3)
+
 ## Casos de uso
 - BACKEND:
     - Admitir CORS <img src="https://img.shields.io/badge/Hecho-success">
