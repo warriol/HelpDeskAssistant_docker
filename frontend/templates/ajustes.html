@@ -3,7 +3,7 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
     <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}">
+        <a class="navbar-brand fw-bold" href="{{ url_for('chat.dashboard') }}">
             <i class="bi bi-arrow-left me-2"></i>Volver al Chat
         </a>
     </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="card-body p-4">
 
-                <form action="{{ url_for('update_profile') }}" method="POST" class="mb-5">
+                <form action="{{ url_for('perfil.update_profile') }}" method="POST" class="mb-5">
                     <h6 class="text-uppercase text-muted small fw-bold mb-3">Información General</h6>
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Nombre Completo</label>
@@ -27,14 +27,14 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Correo Electrónico</label>
-                        <input type="email" name="email" class="form-control bg-light border-0" value="{{ session['user'] }}" required>
+                        <input type="email" name="email" class="form-control bg-light border-0" value="{{ session['user'] }}" disabled>
                     </div>
                     <button type="submit" class="btn btn-primary rounded-pill px-4">Guardar Cambios</button>
                 </form>
 
                 <hr class="my-4">
 
-                <form action="{{ url_for('update_password') }}" method="POST">
+                <form action="{{ url_for('perfil.update_password') }}" method="POST">
                     <h6 class="text-uppercase text-muted small fw-bold mb-3">Seguridad</h6>
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Nueva Contraseña</label>

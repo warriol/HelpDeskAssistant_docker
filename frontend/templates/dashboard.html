@@ -16,9 +16,9 @@
                     {{ session['nombre'] }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow">
-                    <li><a class="dropdown-item" href="{{ url_for('ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('perfil.ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+                    <li><a class="dropdown-item text-danger" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -31,11 +31,11 @@
 
     <aside class="col-md-2 bg-white border-end d-none d-md-block p-3">
         <div class="nav flex-column nav-pills gap-2">
-            <a href="{{ url_for('dashboard') }}" class="nav-link {{ 'active' if not session['active_conv'] else 'text-dark' }}">
+            <a href="{{ url_for('chat.dashboard') }}" class="nav-link {{ 'active' if not session['active_conv'] else 'text-dark' }}">
                 <i class="bi bi-plus-lg me-2"></i>Nuevo Chat
             </a>
             {% if session['rol'] == 1 %}
-            <a href="{{ url_for('admin') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
+            <a href="{{ url_for('admin.index') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
             {% endif %}
         </div>
     </aside>
@@ -130,7 +130,7 @@
         <h6 class="text-uppercase text-muted fw-bold small mb-3">Chats Recientes</h6>
         {% for conv in conversaciones %}
         <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 rounded-3 mb-2 shadow-sm">
-            <a href="{{ url_for('dashboard', conv_id=conv.id) }}" class="text-decoration-none text-dark flex-grow-1 text-truncate">
+            <a href="{{ url_for('chat.dashboard', conv_id=conv.id) }}" class="text-decoration-none text-dark flex-grow-1 text-truncate">
                 <i class="bi bi-chat-left-text me-2 text-primary"></i>
                 <span id="titulo-chat-{{ conv.id }}">{{ conv.titulo or 'Nueva Conversación' }}</span>
             </a>

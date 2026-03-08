@@ -82,6 +82,38 @@ class Usuarios(DataBase):
                 cursor.close()
         return False
 
+    def editar_usuario_perfil(self, id, nombre):
+        self.connect()
+        cursor = self.get_cursor()
+        if cursor:
+            try:
+                query = "UPDATE usuarios SET nombre = %s WHERE id = %s"
+                cursor.execute(query, (nombre, id))
+                self.connection.commit()
+                return True
+            except Exception as e:
+                print(f"Error al editar perfil: {e}")
+                return False
+            finally:
+                cursor.close()
+        return False
+
+    def cambiar_password(self, id, new_password):
+        self.connect()
+        cursor = self.get_cursor()
+        if cursor:
+            try:
+                query = "UPDATE usuarios SET password = %s WHERE id = %s"
+                cursor.execute(query, (new_password, id))
+                self.connection.commit()
+                return True
+            except Exception as e:
+                print(f"Error al cambiar contraseña: {e}")
+                return False
+            finally:
+                cursor.close()
+        return False
+
     def eliminar_usuario(self, id):
         self.connect()
         cursor = self.get_cursor()
