@@ -3,6 +3,7 @@ import os
 import requests
 
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash, Response, stream_with_context
 
 from clases.Auth import Auth
@@ -129,19 +130,16 @@ def dashboard(conv_id=None):
     if not session.get("user"):
         flash("Debes iniciar sesión primero.", "warning")
         return redirect(url_for("login"))
-    # Obtenemos el ID del usuario de la sesión (asegúrate de que Auth lo guarde)
     usuario_id = session.get("user_id")
 
-    # 1. Traer lista de títulos para el Aside derecho
     mis_chats = conv_service.listar_por_usuario(usuario_id)
 
-    # 2. Si venimos de hacer clic en un chat viejo, traer sus mensajes
     historial_mensajes = []
     if conv_id:
         historial_mensajes = conv_service.obtener_mensajes(conv_id)
-        session["active_conv"] = conv_id  # Marcamos cuál estamos viendo
+        session["active_conv"] = conv_id
     else:
-        session["active_conv"] = None  # Es un chat nuevo
+        session["active_conv"] = None
 
     return render_template("dashboard.html",
                            conversaciones=mis_chats,
@@ -176,13 +174,6 @@ def stats_rag():
 
     stats = rag.obtener_estadisticas()
     return jsonify(stats)
-
-
-@app.route("/admin/add_user", methods=["POST"])
-def admin_add_user():
-    # Por ahora solo redireccionamos para que no explote el renderizado
-    flash("Función en desarrollo", "info")
-    return redirect(url_for("admin"))
 
 
 @app.route("/ajustes")
@@ -233,20 +224,102 @@ def admin():
     try:
         users = Usuarios()
         datos = users.get_usuarios_completo()
+        print(f"DEBUG: Usuarios encontrados: {len(datos)}")
         return render_template("admin.html", usuarios=datos)
     except Exception as e:
         app.logger.error(f"Error en admin: {e}")
         return "Error cargando la base de datos", 500
 
 
-@app.route("/admin/delete/<int:id>", methods=["POST"])
-def delete_user(id):
-    if session.get("rol") == 1:
-        # Aquí llamarías a un método de tu clase Usuarios
-        # user_service.eliminar_usuario(id)
-        flash(f"Usuario {id} eliminado correctamente.", "info")
+@app.route("/admin/add_user", methods=["POST"])
+def admin_add_user():
+    if session.get("rol") != 1:
+        return redirect(url_for("dashboard"))
+
+    try:
+        nombre = request.form.get("nombre")
+        email = request.form.get("email")
+        users_model = Usuarios()
+
+        # VALIDACIÓN: ¿Ya existe el email?
+        if users_model.existe_email(email):
+            flash(f"El correo {email} ya está registrado. Intenta con otro.", "warning")
+            return redirect(url_for("admin"))
+
+        password = request.form.get("password")
+        rol = request.form.get("rol")
+        estado = request.form.get("estado")
+        password_hash = auth_service.hash_password(password)
+
+        users_model.crear_usuario_admin(nombre, email, password_hash, rol, estado)
+        flash(f"Usuario {nombre} creado con éxito", "success")
+    except Exception as e:
+        app.logger.error(f"Error al crear usuario: {e}")
+        flash("Error al crear el usuario.", "danger")
+
     return redirect(url_for("admin"))
 
+
+@app.route("/dashboard/delete/<int:conv_id>", methods=["POST"])
+def delete_conversation(conv_id):
+    if not session.get("user"): return jsonify({"error": "No autorizado"}), 401
+
+    # Usamos tu servicio existente
+    if conv_service.eliminar_conversacion(conv_id):
+        return jsonify({"success": True})
+    return jsonify({"error": "No se pudo eliminar"}), 500
+
+
+@app.route("/dashboard/rename/<int:conv_id>", methods=["POST"])
+def rename_conversation(conv_id):
+    if not session.get("user"): return jsonify({"error": "No autorizado"}), 401
+
+    nuevo_titulo = request.json.get("titulo")
+    if conv_service.actualizar_titulo(conv_id, nuevo_titulo):
+        return jsonify({"success": True})
+    return jsonify({"error": "No se pudo renombrar"}), 500
+
+
+@app.route("/admin/delete/<int:id>", methods=["POST"])
+def delete_user(id):
+    if session.get("rol") != 1:
+        flash("No tienes permisos para realizar esta acción.", "danger")
+        return redirect(url_for("admin"))
+
+    try:
+        users_model = Usuarios()
+        if users_model.eliminar_usuario(id):
+            flash(f"Usuario eliminado correctamente.", "success")
+        else:
+            flash("No se pudo eliminar el usuario.", "warning")
+
+    except Exception as e:
+        app.logger.error(f"Error al eliminar usuario {id}: {e}")
+        flash("Error crítico al intentar eliminar el usuario.", "danger")
+
+    return redirect(url_for("admin"))
+
+@app.route("/admin/update_user", methods=["POST"])
+def update_user():
+    if session.get("rol") != 1:
+        return redirect(url_for("dashboard"))
+
+    try:
+        user_id = request.form.get("id")
+        nombre = request.form.get("nombre")
+        rol = request.form.get("rol")
+        estado = request.form.get("estado")
+
+        users_model = Usuarios()
+        if users_model.actualizar_usuario(user_id, nombre, rol, estado):
+            flash("Usuario actualizado correctamente.", "success")
+        else:
+            flash("Error al actualizar.", "danger")
+    except Exception as e:
+        app.logger.error(f"Error update: {e}")
+        flash("Error interno.", "danger")
+
+    return redirect(url_for("admin"))
 
 @app.route('/upload_document', methods=['POST'])
 def upload_document():

@@ -40,6 +40,39 @@ class Conversaciones(DataBase):
             return res
         return []
 
+    def eliminar_conversacion(self, conv_id):
+        self.connect()
+        cursor = self.get_cursor()
+        if cursor:
+            try:
+                cursor.execute("DELETE FROM mensajes WHERE conversacion_id = %s", (conv_id,))
+                cursor.execute("DELETE FROM conversaciones WHERE id = %s", (conv_id,))
+                self.connection.commit()
+                return True
+            except Exception as e:
+                print(f"Error al eliminar conversación: {e}")
+                if hasattr(self, 'db'): self.db.rollback()
+                return False
+            finally:
+                cursor.close()
+        return False
+
+    def actualizar_titulo(self, conv_id, nuevo_titulo):
+        self.connect()
+        cursor = self.get_cursor()
+        if cursor:
+            try:
+                query = "UPDATE conversaciones SET titulo = %s WHERE id = %s"
+                cursor.execute(query, (nuevo_titulo, conv_id))
+                self.connection.commit()
+                return True
+            except Exception as e:
+                print(f"Error al actualizar título: {e}")
+                return False
+            finally:
+                cursor.close()
+        return False
+
     def obtener_mensajes(self, conversacion_id):
         self.connect()
         cursor = self.get_cursor()
