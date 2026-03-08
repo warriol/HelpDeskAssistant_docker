@@ -209,3 +209,4 @@ flask_session
 .idea
 /frontend/pdfs/
 /frontend/documentos/
+chroma_data

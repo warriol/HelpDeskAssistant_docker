@@ -5,8 +5,8 @@ services:
     container_name: HDA_mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: WilsonHDA2026
-      MYSQL_DATABASE: hdassistant
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
     ports:
       - "3306:3306"
     volumes:
@@ -19,11 +19,13 @@ services:
     image: chromadb/chroma:latest
     container_name: HDA_chroma
     volumes:
-      - ./chroma_data:/chroma/chroma
+      - ./chroma_data:/data
     ports:
       - "8000:8000"
     environment:
+      - PERSIST_DIRECTORY=/data
       - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
     networks:
       - hda-net
 
@@ -70,9 +72,9 @@ services:
       - "5001:5001"
     environment:
       - HOST=db
-      - USER=root
-      - PASSWORD=WilsonHDA2026
-      - DATABASE=hdassistant
+      - USER=${MYSQL_ROOT_USER}
+      - PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DATABASE=${DB_NAME}
       - URLIA=http://localhost:5000
       - CHROMA_HOST=http://chroma:8000
     networks:

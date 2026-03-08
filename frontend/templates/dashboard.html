@@ -226,5 +226,21 @@
             responseHistory.scrollTop = responseHistory.scrollHeight;
         }
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Buscamos los contenedores con la clase markdown-body
+        const historyMessages = document.querySelectorAll('.markdown-body');
+
+        historyMessages.forEach(msg => {
+            // Importante: Solo procesamos si el div tiene texto y NO es el del stream activo
+            // (el del stream suele estar vacío al cargar o tiene un ID específico)
+            if (msg.id.indexOf('streamedResponse') === -1) {
+                const rawText = msg.textContent.trim();
+                if (rawText && rawText !== "...") {
+                    msg.innerHTML = marked.parse(rawText);
+                }
+            }
+        });
+    });
 </script>
 {% endblock %}

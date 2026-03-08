@@ -2,12 +2,17 @@ import os
 import chromadb
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from chromadb.config import Settings
 
 class MotorRAG:
     def __init__(self):
         # Nos conectamos al contenedor 'chroma' que definimos en el compose
         self.host = os.environ.get("CHROMA_HOST", "http://chroma:8000")
-        self.client = chromadb.HttpClient(host="chroma", port=8000)
+        self.client = chromadb.HttpClient(
+            host="chroma",
+            port=8000,
+            settings=Settings(allow_reset=True, anonymized_telemetry=False)
+        )
 
     def indexar_documento(self, ruta_archivo, coleccion_nombre):
         """Lee un archivo y lo guarda en ChromaDB dividido en trozos"""

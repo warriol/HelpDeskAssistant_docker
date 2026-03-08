@@ -1,1 +1,8 @@
 /*** CSS personalziado ***/
+.message-text {
+    word-wrap: break-word;
+}
+
+.message-text p {
+    margin-bottom: 10px; /* Para que los párrafos del historial no queden pegados */
+}
