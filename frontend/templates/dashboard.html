@@ -47,10 +47,36 @@
                 {% for msg in mensajes %}
                     <div class="mb-4">
                         <div class="d-flex {{ 'justify-content-end' if msg.rol == 'user' else 'justify-content-start' }} mb-3">
-                            <div class="p-3 rounded-4 shadow-sm {{ 'bg-primary text-white' if msg.rol == 'user' else 'bg-white border text-dark' }}" style="max-width: 80%;">
-                                <small class="d-block opacity-75 mb-1">
-                                    <i class="bi {{ 'bi-person-fill' if msg.rol == 'user' else 'bi-robot' }} me-1"></i>
-                                    {{ 'Tú' if msg.rol == 'user' else 'Asistente' }}
+
+                            {# Definimos variables de estilo según el agente #}
+                            {% set bg_class = 'bg-primary text-white' %}
+                            {% set agent_icon = 'bi-person-fill' %}
+                            {% set agent_name = 'Tú' %}
+
+                            {% if msg.rol != 'user' %}
+                                {% if msg.agente == 'leyes' %}
+                                    {% set bg_class = 'bg-warning text-dark border-warning' %}
+                                    {% set agent_icon = 'bi-gavel' %}
+                                    {% set agent_name = 'Asistente: Leyes' %}
+                                {% elif msg.agente == 'sgsp' %}
+                                    {% set bg_class = 'bg-success text-white border-success' %}
+                                    {% set agent_icon = 'bi-shield-shaded' %}
+                                    {% set agent_name = 'Asistente: SGSP' %}
+                                {% elif msg.agente == 'ortografia' %}
+                                    {% set bg_class = 'bg-info text-dark border-info' %}
+                                    {% set agent_icon = 'bi-pen-fill' %}
+                                    {% set agent_name = 'Asistente: Ortografía' %}
+                                {% else %}
+                                    {% set bg_class = 'bg-white border text-dark' %}
+                                    {% set agent_icon = 'bi-robot' %}
+                                    {% set agent_name = 'Asistente' %}
+                                {% endif %}
+                            {% endif %}
+
+                            <div class="p-3 rounded-4 shadow-sm {{ bg_class }}" style="max-width: 80%;">
+                                <small class="d-block opacity-75 mb-1 fw-bold">
+                                    <i class="bi {{ agent_icon }} me-1"></i>
+                                    {{ agent_name }}
                                 </small>
                                 <div class="markdown-body">{{ msg.contenido | safe }}</div>
                             </div>
@@ -102,16 +128,52 @@
 
     <aside class="col-md-3 col-lg-2 bg-white d-none d-md-block p-3 d-flex flex-column" style="height: 100%;">
         <h6 class="text-uppercase text-muted fw-bold small mb-3">Chats Recientes</h6>
-        <div class="list-group list-group-flush overflow-auto flex-grow-1" id="sidebarHistorial">
-            {% for conv in conversaciones %}
-            <a href="{{ url_for('dashboard', conv_id=conv.id) }}"
-               class="list-group-item list-group-item-action border-0 rounded-3 mb-1 small {{ 'active shadow-sm' if session['active_conv'] == conv.id }}">
-                <i class="bi bi-chat-left{{ '-fill' if session['active_conv'] == conv.id else '' }} me-2"></i>
-                {{ conv.titulo }}
+        {% for conv in conversaciones %}
+        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 rounded-3 mb-2 shadow-sm">
+            <a href="{{ url_for('dashboard', conv_id=conv.id) }}" class="text-decoration-none text-dark flex-grow-1 text-truncate">
+                <i class="bi bi-chat-left-text me-2 text-primary"></i>
+                <span id="titulo-chat-{{ conv.id }}">{{ conv.titulo or 'Nueva Conversación' }}</span>
             </a>
-            {% endfor %}
+
+            <div class="dropdown">
+                <button class="btn btn-link text-muted p-0 border-0" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                    <li>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           onclick="abrirModalRenombrar('{{ conv.id }}', '{{ conv.titulo }}')">
+                            <i class="bi bi-pencil me-2"></i>Renombrar
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="javascript:void(0)"
+                           onclick="eliminarChat('{{ conv.id }}')">
+                            <i class="bi bi-trash3 me-2"></i>Eliminar
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
+        {% endfor %}
     </aside>
+</div>
+
+<div class="modal fade" id="renameChatModal" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-body p-4">
+                <h6 class="fw-bold mb-3">Renombrar chat</h6>
+                <input type="hidden" id="rename-chat-id">
+                <input type="text" id="new-chat-title" class="form-control border-0 bg-light" placeholder="Nuevo título...">
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-sm btn-light me-2" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="guardarNuevoTitulo()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -125,6 +187,38 @@
     function seleccionarModelo(modelo) {
         document.getElementById('selectedRole').value = modelo;
         document.getElementById('dropdownMenuButton').textContent = "Agente: " + modelo.charAt(0).toUpperCase() + modelo.slice(1);
+    }
+
+    function abrirModalRenombrar(id, tituloActual) {
+        document.getElementById('rename-chat-id').value = id;
+        document.getElementById('new-chat-title').value = tituloActual;
+        new bootstrap.Modal(document.getElementById('renameChatModal')).show();
+    }
+
+    async function guardarNuevoTitulo() {
+        const id = document.getElementById('rename-chat-id').value;
+        const nuevoTitulo = document.getElementById('new-chat-title').value;
+
+        const response = await fetch(`/dashboard/rename/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ titulo: nuevoTitulo })
+        });
+
+        if (response.ok) {
+            document.getElementById(`titulo-chat-${id}`).innerText = nuevoTitulo;
+            bootstrap.Modal.getInstance(document.getElementById('renameChatModal')).hide();
+        }
+    }
+
+    async function eliminarChat(id) {
+        if (!confirm('¿Deseas eliminar este historial?')) return;
+
+        // Ajustamos la URL a lo que definas en app.py
+        const response = await fetch(`/dashboard/delete/${id}`, { method: 'POST' });
+        if (response.ok) {
+            window.location.href = "/dashboard"; // Redirigir al dashboard limpio
+        }
     }
 
     // Función para persistir en DB al terminar el stream

@@ -76,7 +76,17 @@
                         </span>
                     </td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-outline-primary border-0" title="Editar"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm btn-outline-primary border-0 btn-edit"
+                                title="Editar"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editUserModal"
+                                data-id="{{ user.id }}"
+                                data-nombre="{{ user.nombre }}"
+                                data-email="{{ user.email }}"
+                                data-rol="{{ user.rol }}"
+                                data-estado="{{ user.estado }}">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
                         <form action="{{ url_for('delete_user', id=user.id) }}" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('¿Eliminar usuario?')">
                                 <i class="bi bi-trash3-fill"></i>
@@ -170,6 +180,51 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <form action="{{ url_for('update_user') }}" method="POST">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Editar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <input type="hidden" name="id" id="edit-id">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nombre Completo</label>
+                        <input type="text" name="nombre" id="edit-nombre" class="form-control bg-light border-0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Email (No editable)</label>
+                        <input type="email" id="edit-email" class="form-control bg-light border-0" readonly>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-bold">Rol</label>
+                            <select name="rol" id="edit-rol" class="form-select bg-light border-0">
+                                <option value="0">Usuario</option>
+                                <option value="1">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-bold">Estado</label>
+                            <select name="estado" id="edit-estado" class="form-select bg-light border-0">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <small class="text-muted">Nota: La contraseña no se puede cambiar desde aquí por seguridad.</small>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Actualizar Datos</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -230,5 +285,26 @@
             status.innerHTML = `<div class="alert alert-danger">Error crítico de conexión con el servidor.</div>`;
         }
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const editModal = document.getElementById('editUserModal');
+        editModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget; // Botón que activó el modal
+
+            // Extraer info de los atributos data-*
+            const id = button.getAttribute('data-id');
+            const nombre = button.getAttribute('data-nombre');
+            const email = button.getAttribute('data-email');
+            const rol = button.getAttribute('data-rol');
+            const estado = button.getAttribute('data-estado');
+
+            // Llenar el formulario
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-nombre').value = nombre;
+            document.getElementById('edit-email').value = email;
+            document.getElementById('edit-rol').value = rol;
+            document.getElementById('edit-estado').value = estado;
+        });
+    });
 </script>
 {% endblock %}
