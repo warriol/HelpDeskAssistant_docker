@@ -26,11 +26,9 @@ class Auth(DataBase):
         self.logger.info(f"Intentando login para: {email}")
         passCifrada = self.hash_password(password)
 
-        # Forzar reconexión para evitar el error de "datos viejos" que tuviste antes
         self.connect()
         cursor = self.get_cursor()
 
-        # Inyectar la URL de la IA en la sesión
         session["urlia"] = os.environ.get("URLIA", "http://localhost:5000")
 
         if cursor:

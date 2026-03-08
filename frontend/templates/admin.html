@@ -3,7 +3,7 @@
 {% block navbar %}
 <nav class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold" href="{{ url_for('dashboard') }}"><i class="bi bi-arrow-left me-2"></i>Panel de Administración</a>
+        <a class="navbar-brand fw-bold" href="{{ url_for('chat.dashboard') }}"><i class="bi bi-arrow-left me-2"></i>Panel de Administración</a>
     </div>
 </nav>
 {% endblock %}
@@ -87,7 +87,7 @@
                                 data-estado="{{ user.estado }}">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <form action="{{ url_for('delete_user', id=user.id) }}" method="POST" class="d-inline">
+                        <form action="{{ url_for('admin.delete_user', id=user.id) }}" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('¿Eliminar usuario?')">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
@@ -137,7 +137,7 @@
 <div class="modal fade" id="addUserModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow rounded-4">
-            <form action="{{ url_for('admin_add_user') }}" method="POST">
+            <form action="{{ url_for('admin.add_user') }}" method="POST">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold">Agregar Nuevo Usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -184,7 +184,7 @@
 <div class="modal fade" id="editUserModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow rounded-4">
-            <form action="{{ url_for('update_user') }}" method="POST">
+            <form action="{{ url_for('admin.update_user') }}" method="POST">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold">Editar Usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

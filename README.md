@@ -9,7 +9,7 @@
 - NVIDIA Container Toolkit (para soporte GPU)
 - Drivers de NVIDIA actualizados
 ### Descripción del proceso
-1. Clona el repositorio de HDA.
+1. Descarga el último release estable.
 2. Configura tu entorno para permitir que Docker acceda a la GPU.
 3. Crea el archivo .env con tus variables de entorno (si es necesario).
 ```bash
@@ -27,8 +27,8 @@ docker exec -i HDA_mysql mysql -u root -ptu_password_root nombre_base_datos < in
 # PowerShell
 Get-Content init.sql | docker exec -i HDA_mysql mysql -u root -ptu_password_root nombre_base_datos
 ```
-7. Entra en la apliación y registrate como usuario
-8. Debe activiar tu usuario por primera vez y marcarlo como admin
+7. Entra en la aplicación y registrate como usuario
+8. Debe activar tu usuario por primera vez y marcarlo como admin
 ```bash
 docker exec -it HDA_backend mysql -u root -ptu_password_root -e "USE nombre_base_datos; UPDATE users SET estado = 1, rol = 1 WHERE email = 'tu_email_de_registro';"
 ```
@@ -41,7 +41,7 @@ docker exec -it HDA_backend mysql -u root -ptu_password_root -e "USE nombre_base
 - **Errores al construir los contenedores**: Revisa los logs de Docker para
 - identificar el paso específico que falla y asegúrate de que todas las dependencias estén correctamente definidas en los Dockerfiles.
 - **Problemas de CORS**: Si el frontend no puede comunicarse con el backend, asegúrate de que el backend esté configurado para permitir CORS desde el origen del frontend.
-- **Problema de comnicación con el backend: error 404**: Verifica que el backend esté corriendo y que el endpoint de chat esté correctamente definido y accesible.
+- **Problema de comunicación con el backend: error 404**: Verifica que el backend esté corriendo y que el endpoint de chat esté correctamente definido y accesible.
 - Verifica en server.py que el MODEL_IA sea el modelo que descargaste en Ollama (ejemplo: llama3)
 
 ## Casos de uso
