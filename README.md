@@ -45,9 +45,31 @@ docker exec -it HDA_backend mysql -u root -ptu_password_root -e "USE nombre_base
 - Verifica en server.py que el MODEL_IA sea el modelo que descargaste en Ollama (ejemplo: llama3)
 
 ## Casos de uso
-- BACKEND:
-    - Admitir CORS <img src="https://img.shields.io/badge/Hecho-success">
-    - EndPoint CHAT <img src="https://img.shields.io/badge/Hecho-success">
+📋 Listado de Casos de Uso: HelpDesk Assistant (HDA)
+1. Actor: Usuario Final
+
+    CU-01: Consulta con Contexto Legal:
+    - El usuario realiza una pregunta y el sistema recupera información específica de la base de datos vectorial (ChromaDB) para responder con base en leyes uruguayas.
+
+    CU-02: Gestión de Conversaciones:
+    - Crear, renombrar y eliminar chats para organizar diferentes hilos de investigación.
+    
+    CU-03: Cambio de Agente Especializado:
+    - El usuario alterna entre "Leyes", "SGSP" u "Ortografía", cambiando el comportamiento y el tono de la IA.
+    
+    CU-04: Autogestión de Perfil:
+    - El funcionario actualiza sus datos básicos y cambia su contraseña de acceso.
+
+2. Actor: Administrador
+
+    CU-05: Gestión de Usuarios:
+    - Crear nuevos usuarios, activar/desactivar cuentas y asignar roles (Admin o Usuario).
+
+    CU-06: Ingesta de Conocimiento (RAG):
+    - Cargar archivos .txt con nuevas normativas que se indexan automáticamente para que la IA las "conozca" al instante.
+
+    CU-07: Monitoreo de Sistema:
+    - Visualización de estadísticas de la base de datos vectorial y logs de actividad para asegurar la calidad de las respuestas.
 
 ## Este proyecto unifica el Frontend (Python), el Backend (Python) y el motor de IA (Ollama) en un entorno de contenedores con aceleración por hardware.
 # 1. Requisitos Previos (En tu PC/Host)
