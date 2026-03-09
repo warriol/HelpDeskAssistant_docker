@@ -2,11 +2,6 @@ import os
 import logging
 from flask import Flask, render_template, flash, redirect, url_for
 
-from routes.admin import admin_bp
-from routes.auth import auth_bp
-from routes.chat import chat_bp
-from routes.perfil import perfil_bp
-
 # Configuración de Logs
 log_dir = "logs"
 if not os.path.exists(log_dir):
@@ -18,6 +13,10 @@ logging.basicConfig(
     handlers=[logging.FileHandler(log_file), logging.StreamHandler()]
 )
 
+from routes.admin import admin_bp
+from routes.auth import auth_bp
+from routes.chat import chat_bp
+from routes.perfil import perfil_bp
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
