@@ -112,6 +112,9 @@ def upload_document():
     file = request.files['file']
     coleccion = request.form.get('coleccion', 'leyes')
 
+    if file.filename == '':
+        return {"error": "Archivo sin nombre"}, 400
+
     if file and file.filename.endswith('.txt'):
         filename = secure_filename(file.filename)
         ruta_temp = os.path.join(UPLOAD_FOLDER, filename)

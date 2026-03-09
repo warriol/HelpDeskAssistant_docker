@@ -65,6 +65,8 @@ services:
   frontend:
     build: ./frontend
     container_name: HDA_frontend
+    volumes:
+      - chroma_model_cache:/root/.cache/chroma
     depends_on:
       - backend
       - db
@@ -89,3 +91,4 @@ networks:
 volumes:
   ollama_data:
   mysql_data:
+  chroma_model_cache:

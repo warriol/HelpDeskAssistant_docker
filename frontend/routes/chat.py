@@ -41,13 +41,24 @@ def chat_con_contexto():
 
     contexto = rag.buscar_contexto(pregunta, rol)
 
-    prompt_final = f"Eres un asistente legal... [resto de tu prompt] ... {contexto} ... {pregunta}"
+    prompt_final = f"""
+    Eres un asistente legal del Ministerio del Interior de Uruguay. 
+    Usa la siguiente información oficial para responder. 
+    Si no encuentras la respuesta en el contexto, indícalo claramente.
+
+    CONTEXTO OFICIAL:
+    {contexto}
+
+    PREGUNTA:
+    {pregunta}
+    """
 
     def generate():
         url_backend = "http://backend:5000/chat"
         response = requests.post(url_backend,
                                  json={"question": prompt_final, "role": rol},
                                  stream=True)
+
         for chunk in response.iter_content(chunk_size=1024):
             if chunk:
                 yield chunk
@@ -55,24 +66,40 @@ def chat_con_contexto():
     return Response(generate(), mimetype='text/plain')
 
 
+
 @chat_bp.route("/api/historial/guardar", methods=["POST"])
 def guardar_en_historial():
     data = request.get_json()
     usuario_id = session.get("user_id")
     conv_id = data.get("conversacion_id")
+    pregunta = data.get("pregunta")
+    respuesta = data.get("respuesta")
+    agente = data.get("agente")
+
+    if not conv_id:
+        titulo = pregunta[:30] + "..."
+        conv_id = conv_service.crear_conversacion(usuario_id, titulo, agente)
+
+    conv_service.guardar_mensaje(conv_id, 'user', pregunta)
+    conv_service.guardar_mensaje(conv_id, 'assistant', respuesta)
+
     return jsonify({"status": "ok", "conversacion_id": conv_id})
 
 
 @chat_bp.route("/dashboard/delete/<int:conv_id>", methods=["POST"])
 def delete_conversation(conv_id):
+    if not session.get("user"): return jsonify({"error": "No autorizado"}), 401
+
     if conv_service.eliminar_conversacion(conv_id):
         return jsonify({"success": True})
-    return jsonify({"error": "Error"}), 500
+    return jsonify({"error": "No se pudo eliminar"}), 500
 
 
 @chat_bp.route("/dashboard/rename/<int:conv_id>", methods=["POST"])
 def rename_conversation(conv_id):
+    if not session.get("user"): return jsonify({"error": "No autorizado"}), 401
+
     nuevo_titulo = request.json.get("titulo")
     if conv_service.actualizar_titulo(conv_id, nuevo_titulo):
         return jsonify({"success": True})
-    return jsonify({"error": "Error"}), 500
+    return jsonify({"error": "No se pudo renombrar"}), 500
