@@ -1,0 +1,29 @@
+        {% for conv in conversaciones %}
+        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 rounded-3 mb-2 shadow-sm">
+            <a href="{{ url_for('chat.dashboard', conv_id=conv.id) }}" class="text-decoration-none text-dark flex-grow-1 text-truncate">
+                <i class="bi bi-chat-left-text me-2 text-primary"></i>
+                <span id="titulo-chat-{{ conv.id }}">{{ conv.titulo or 'Nueva Conversación' }}</span>
+            </a>
+
+            <div class="dropdown">
+                <button class="btn btn-link text-muted p-0 border-0" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                    <li>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           onclick="abrirModalRenombrar('{{ conv.id }}', '{{ conv.titulo }}')">
+                            <i class="bi bi-pencil me-2"></i>Renombrar
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="javascript:void(0)"
+                           onclick="eliminarChat('{{ conv.id }}')">
+                            <i class="bi bi-trash3 me-2"></i>Eliminar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}

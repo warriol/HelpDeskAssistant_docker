@@ -76,14 +76,22 @@ def guardar_en_historial():
     respuesta = data.get("respuesta")
     agente = data.get("agente")
 
-    if not conv_id:
+    if not conv_id or conv_id == "null":
         titulo = pregunta[:30] + "..."
         conv_id = conv_service.crear_conversacion(usuario_id, titulo, agente)
 
-    conv_service.guardar_mensaje(conv_id, 'user', pregunta)
-    conv_service.guardar_mensaje(conv_id, 'assistant', respuesta)
+    if conv_id:
+        try:
+            conv_service.guardar_mensaje(conv_id, 'user', pregunta)
+            conv_service.guardar_mensaje(conv_id, 'assistant', respuesta)
 
-    return jsonify({"status": "ok", "conversacion_id": conv_id})
+            # Devolvemos el conv_id para que el JS sepa en qué chat estamos
+            return jsonify({"status": "ok", "conversacion_id": conv_id})
+        except Exception as e:
+            flash(f"Error guardando mensajes: {e}", "warning")
+            return jsonify({"status": "error", "message": str(e)}), 500
+
+    return jsonify({"status": "error", "message": "No se pudo crear/obtener conv_id"}), 500
 
 
 @chat_bp.route("/dashboard/delete/<int:conv_id>", methods=["POST"])
@@ -103,3 +111,14 @@ def rename_conversation(conv_id):
     if conv_service.actualizar_titulo(conv_id, nuevo_titulo):
         return jsonify({"success": True})
     return jsonify({"error": "No se pudo renombrar"}), 500
+
+
+@chat_bp.route("/api/sidebar_chats")
+def sidebar_chats():
+    if not session.get("user"):
+        return "", 401
+
+    usuario_id = session.get("user_id")
+    mis_chats = conv_service.listar_por_usuario(usuario_id)
+
+    return render_template("partials/_sidebar_items.html", conversaciones=mis_chats)

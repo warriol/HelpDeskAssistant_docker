@@ -128,35 +128,9 @@
 
     <aside class="col-md-3 col-lg-2 bg-white d-none d-md-block p-3 d-flex flex-column" style="height: 100%;">
         <h6 class="text-uppercase text-muted fw-bold small mb-3">Chats Recientes</h6>
-        {% for conv in conversaciones %}
-        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 rounded-3 mb-2 shadow-sm">
-            <a href="{{ url_for('chat.dashboard', conv_id=conv.id) }}" class="text-decoration-none text-dark flex-grow-1 text-truncate">
-                <i class="bi bi-chat-left-text me-2 text-primary"></i>
-                <span id="titulo-chat-{{ conv.id }}">{{ conv.titulo or 'Nueva Conversación' }}</span>
-            </a>
-
-            <div class="dropdown">
-                <button class="btn btn-link text-muted p-0 border-0" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                    <li>
-                        <a class="dropdown-item" href="javascript:void(0)"
-                           onclick="abrirModalRenombrar('{{ conv.id }}', '{{ conv.titulo }}')">
-                            <i class="bi bi-pencil me-2"></i>Renombrar
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item text-danger" href="javascript:void(0)"
-                           onclick="eliminarChat('{{ conv.id }}')">
-                            <i class="bi bi-trash3 me-2"></i>Eliminar
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <div id="contenedor-chats-sidebar" class="flex-grow-1 overflow-auto">
+            {% include 'partials/_sidebar_items.html' %}
         </div>
-        {% endfor %}
     </aside>
 </div>
 
@@ -237,10 +211,24 @@
             const data = await res.json();
             if (data.conversacion_id && !current_conv_id) {
                 current_conv_id = data.conversacion_id;
-                // Opcional: Recargar para ver el nuevo título en el lateral
                 // window.location.href = "/dashboard/" + data.conversacion_id;
+                // En lugar de window.location.href, actualizamos el historial
+                await actualizarSidebar();
+
+                // Opcional: Cambiar la URL en la barra de direcciones sin recargar
+                window.history.pushState({}, '', '/dashboard/' + data.conversacion_id);
             }
         } catch (e) { console.error("Error al guardar:", e); }
+    }
+
+    async function actualizarSidebar() {
+        try {
+            const res = await fetch('/api/sidebar_chats');
+            const html = await res.text();
+            document.getElementById('contenedor-chats-sidebar').innerHTML = html;
+        } catch (e) {
+            console.error("Error actualizando sidebar:", e);
+        }
     }
 
     document.getElementById('questionForm').addEventListener('submit', async function(event) {
