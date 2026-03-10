@@ -41,22 +41,10 @@ def chat_con_contexto():
 
     contexto = rag.buscar_contexto(pregunta, rol)
 
-    prompt_final = f"""
-    Eres un asistente legal del Ministerio del Interior de Uruguay. 
-    Usa la siguiente información oficial para responder. 
-    Si no encuentras la respuesta en el contexto, indícalo claramente.
-
-    CONTEXTO OFICIAL:
-    {contexto}
-
-    PREGUNTA:
-    {pregunta}
-    """
-
     def generate():
         url_backend = "http://backend:5000/chat"
         response = requests.post(url_backend,
-                                 json={"question": prompt_final, "role": rol},
+                                 json={"question": pregunta, "contexto": contexto, "role": rol},
                                  stream=True)
 
         for chunk in response.iter_content(chunk_size=1024):

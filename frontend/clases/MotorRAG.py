@@ -34,7 +34,7 @@ class MotorRAG:
             loader = TextLoader(ruta_archivo, encoding='latin-1')
             documento = loader.load()
 
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1200, chunk_overlap=200)
         chunks = text_splitter.split_documents(documento)
 
         coleccion = self.client.get_or_create_collection(name=coleccion_nombre)
@@ -54,7 +54,7 @@ class MotorRAG:
         coleccion = self.client.get_or_create_collection(name=coleccion_nombre)
         resultados = coleccion.query(
             query_texts=[pregunta],
-            n_results=3  # Traemos los 3 párrafos más parecidos, tarda un poco mas, lo bajamos a 2 para que sea más rápido en esta demo. En producción podríamos subirlo a 3 o 4.
+            n_results=5
         )
         return "\n\n".join(resultados['documents'][0])
 
