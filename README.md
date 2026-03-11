@@ -3,6 +3,16 @@
 
 # Autor: Wilson Arriola
 
+## Actualizaciones
+- [release estable](https://github.com/warriol/HelpDeskAssistant_docker/releases/latest)
+- Actualizaciones en proceso
+  - Nuevo modelo a utilizar: flori/llama3.1-abliterated:Q4_K_M
+    - porque abliterated: permite realizar consultas sin las restricciones de seguridad que otros modelos imponen, lo que es ideal para un entorno de help desk donde se necesita acceso completo a la información legal sin censura.
+  - Cambios en el backend para mejorar la comunicación con el nuevo modelo y optimizar la gestión de conversaciones.
+  - Mejoras en el frontend para maquetar el nuevo formato de respuestas del modelo y agregar nuevas funcionalidades de gestión de chats.
+- Descargar el nuevo modelo en Ollama: `docker exec -it ollama_server ollama pull flori/llama3.1-abliterated:Q4_K_M`
+- Verificar en la lista que el modelo se haya descaragdo correctamente: `docker exec -it ollama_server ollama list`
+
 ## Instalación y Configuración de HDA (Help Desk Assistant) con Docker y GPU
 ### Prerequisitos
 - Docker Desktop (con soporte para WSL2 en Windows)

@@ -6,3 +6,47 @@
 .message-text p {
     margin-bottom: 10px; /* Para que los párrafos del historial no queden pegados */
 }
+
+/* Forzamos al bloque PRE a comportarse como texto normal */
+pre {
+    white-space: pre-wrap;       /* Mantiene saltos de línea pero permite que el texto baje */
+    word-wrap: break-word;       /* Rompe palabras largas si es necesario */
+    font-family: inherit;        /* Usa la misma letra que el resto de tu app */
+    background-color: transparent; /* Quita el fondo gris típico */
+    border: none;                /* Quita bordes si los tuviera */
+    padding: 0;                  /* Quita el espacio interno */
+    margin: 0;                   /* Quita márgenes */
+    display: inline;             /* Evita que se comporte como un bloque rígido */
+}
+
+/* Estilos específicos para el div de streaming */
+.markdown-body pre {
+    white-space: pre-wrap !important; /* Forza el salto de línea automático */
+    word-wrap: break-word !important;  /* Rompe palabras muy largas */
+    background-color: #f6f8fa;         /* Gris muy suave de fondo */
+    border-radius: 6px;                /* Bordes redondeados */
+    font-family: inherit;              /* Evita la letra de "programador" si prefieres */
+    overflow-x: hidden;                /* Elimina la barra de desplazamiento horizontal */
+}
+
+/* Opcional: Si quieres que el código dentro se vea normal */
+.markdown-body code {
+    white-space: pre-wrap !important;
+}
+
+#contenedor-chats-sidebar {
+    height: 90%;             /* Obliga al contenedor a no imponer su propio tamaño inicial */
+    flex: 1 1 auto;        /* Le dice que ocupe todo el espacio sobrante del aside */
+    overflow-y: auto;      /* Activa el scroll vertical solo cuando es necesario */
+    overflow-x: hidden;    /* Evita el scroll horizontal molesto */
+}
+
+/* Opcional: Estilizar la barra de scroll para que sea más fina y moderna */
+#contenedor-chats-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+#contenedor-chats-sidebar::-webkit-scrollbar-thumb {
+    background-color: #dee2e6;
+    border-radius: 10px;
+}
