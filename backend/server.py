@@ -16,7 +16,7 @@ CORS(app, resources={
 })
 
 # En Docker, usamos el nombre del servicio definido en docker-compose
-OLLAMA_API_URL = "http://ollama:11434/api/generate"
+OLLAMA_API_URL = "http://ollama:11434/api/chat"
 MODELO_IA = os.getenv("MODELO_IA", "llama3") # o "llama3"
 
 # Verificación de datos de entrenamiento (SGSP)
@@ -45,7 +45,11 @@ def chat():
             "3. Fundamenta siempre con la información oficial proporcionada. Si no está allí, admite que no tienes la información."
         )
 
-        restricciones = "[Restricciones estrictas] Responde siempre en español, con lenguaje técnico-jurídico pero comprensible. Cita textual cuando sea necesario."
+        restricciones = (
+            "[Restricciones estrictas]"
+            "1. Responde siempre en español, con lenguaje técnico-jurídico pero comprensible. Cita textual cuando sea necesario."
+            "2. NO utilices bloques de código, triple comillas (```) ni etiquetas Markdown como <pre> para responder. Entrega el texto como párrafos de texto plano y limpio."
+        )
 
         ejemplo = (
             "[Ejemplo de respuesta] 'Artículo 340 (Hurto): El que se apoderare de cosa mueble ajena...'. "
@@ -84,6 +88,7 @@ def chat():
             "NO agregues introducciones, explicaciones ni comentarios personales. "
             "Si el texto no tiene errores, responde ÚNICAMENTE: 'El texto no presenta errores ortográficos'. "
             "Si hay errores, devuelve solo el texto con todas las correcciones realizadas."
+            "NO utilices bloques de código, triple comillas (```) ni etiquetas Markdown como <pre> para responder. Entrega el texto como párrafos de texto plano y limpio."
         )
 
         formato_salida = (
@@ -121,6 +126,7 @@ def chat():
             "[Restricciones estrictas] "
             "NO incluyas saludos, opiniones personales ni comentarios adicionales. "
             "Limítate a la recomendación técnica del manual."
+            "NO utilices bloques de código, triple comillas (```) ni etiquetas Markdown como <pre> para responder. Entrega el texto como párrafos de texto plano y limpio."
         )
 
         formato_salida_sgsp = (
@@ -150,10 +156,12 @@ def chat():
     def generate():
         payload = {
             "model": MODELO_IA,
-            "prompt": prompt,
-            "system": system_prompt,
+            "messages": [  # Antes decía "prompt"
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
             "stream": True,
-            "optiosns": {
+            "options": {
                 "temperature": 0.1,
                 "num_predict": 2048
             }
@@ -164,8 +172,10 @@ def chat():
                 for line in r.iter_lines():
                     if line:
                         chunk = json.loads(line.decode('utf-8'))
-                        response_text = chunk.get("response", "")
-                        yield response_text
+                        if 'message' in chunk:
+                            response_text = chunk['message'].get("content", "")
+                            clean_text = response_text.replace("```", "")
+                            yield clean_text
                         if chunk.get("done"):
                             break
         except Exception as e:
