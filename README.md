@@ -13,6 +13,13 @@
 - Descargar el nuevo modelo en Ollama: `docker exec -it ollama_server ollama pull flori/llama3.1-abliterated:Q4_K_M`
 - Verificar en la lista que el modelo se haya descaragdo correctamente: `docker exec -it ollama_server ollama list`
 
+## Bugs detectados
+- En ocasiones, cuando se carga un modelo potente, se carga en la RAM de la maquina, al cerrar el modelo o cambiarlo, dokcer y wsl no se comunican bien y el modelo persiste en la ram
+- para liberar la RAM, es necesario reiniciar el servicio de wsl o reiniciar la PC
+```bash
+docker exec -it ollama_server ollama stop flori/llama3.1-abliterated:bf16 o mistral-small:latest
+```
+
 ## Instalación y Configuración de HDA (Help Desk Assistant) con Docker y GPU
 ### Prerequisitos
 - Docker Desktop (con soporte para WSL2 en Windows)

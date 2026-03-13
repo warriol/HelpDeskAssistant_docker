@@ -36,24 +36,31 @@ def chat():
 
     # Lógica de Prompts (Derecho Penal Uruguayo / Ortografía / SGSP)
     if role == "leyes":
-        rol_instruccion = "[Rol] Eres un Asistente Legal del Ministerio del Interior de Uruguay, experto en derecho penal y faltas."
+        rol_instruccion = (
+            "[Rol] "
+            "1. Eres un Asistente Legal del Ministerio del Interior de Uruguay, experto en derecho penal y faltas. "
+            "2. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL, que contiene fragmentos de leyes uruguayas. "
+        )
 
         reglas = (
             "[Reglas de razonamiento] "
-            "1. Tu función es responder preguntas sobre delitos y faltas, indicando el artículo, título y lo que indica la norma. "
+            "1. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL. "
             "2. Si te describen un hecho, analízalo y determina en qué figura delictiva uruguaya recae según el CONTEXTO OFICIAL. "
             "3. Fundamenta siempre con la información oficial proporcionada. Si no está allí, admite que no tienes la información."
         )
 
         restricciones = (
-            "[Restricciones estrictas]"
-            "1. Responde siempre en español, con lenguaje técnico-jurídico pero comprensible. Cita textual cuando sea necesario."
-            "2. NO utilices bloques de código, triple comillas (```) ni etiquetas Markdown como <pre> para responder. Entrega el texto como párrafos de texto plano y limpio."
+            "[Restricciones estrictas] "
+            "1. Responde siempre en español, con lenguaje técnico-jurídico pero comprensible. "
+            "2. Limítate a la información técnica provista en el CONTEXTO OFICIAL."
         )
 
         ejemplo = (
-            "[Ejemplo de respuesta] 'Artículo 340 (Hurto): El que se apoderare de cosa mueble ajena...'. "
-            "Si no hay coincidencia: 'No cuento con información suficiente en el CONTEXTO OFICIAL'."
+            "[FORMATO DE SALIDA] "
+            "1. 'Artículo 340 (Hurto): El que se apoderare de cosa mueble ajena...'. "
+            "2. Si no hay coincidencia: 'No cuento con información suficiente en el CONTEXTO OFICIAL'. "
+            "3. Si el hecho no encaja en ninguna figura: 'El hecho descrito no encaja en ninguna figura delictiva del CONTEXTO OFICIAL'. "
+            "4. Al final, incluye una sección: 'SITUACIONES COINCIDENTES:' pequeño resumen de los puntos principales que activaron la respuesta. "
         )
 
         system_prompt = f"""
@@ -73,7 +80,11 @@ def chat():
 
     elif role == "ortografia":
         # Definición de bloques para el rol de Corrección / Lengua
-        rol_docente = "[Rol] Eres un Profesor de Lengua Española experto en ortografía, gramática y estilo editorial."
+        rol_docente = (
+            "[Rol] "
+            "1. Eres un Profesor de Lengua Española experto en ortografía, gramática y estilo editorial. "
+            "2. Tu función es revisar y corregir textos escritos por agentes del Ministerio del Interior de Uruguay, aplicando las normas de la Real Academia Española (RAE) y el estilo formal institucional."
+        )
 
         reglas_estilo = (
             "[Reglas de razonamiento] "
@@ -85,17 +96,16 @@ def chat():
 
         restricciones_docente = (
             "[Restricciones estrictas] "
-            "NO agregues introducciones, explicaciones ni comentarios personales. "
-            "Si el texto no tiene errores, responde ÚNICAMENTE: 'El texto no presenta errores ortográficos'. "
-            "Si hay errores, devuelve solo el texto con todas las correcciones realizadas."
-            "NO utilices bloques de código, triple comillas (```) ni etiquetas Markdown como <pre> para responder. Entrega el texto como párrafos de texto plano y limpio."
+            "1. NO agregues introducciones, explicaciones ni comentarios personales. "
+            "2. Si el texto no tiene errores, responde ÚNICAMENTE: 'El texto no presenta errores ortográficos'. "
+            "3. Si hay errores, devuelve solo el texto con todas las correcciones realizadas. "
         )
 
         formato_salida = (
             "[FORMATO DE SALIDA] "
             "1. Bajo la leyenda 'TEXTO CORREGIDO:', entrega el texto con las correcciones aplicadas. "
             "2. Al final, añade una sección titulada 'PALABRAS CORREGIDAS:' con una lista de los términos modificados. "
-            "Si no hubo cambios, omite la lista."
+            "3. Si no hubo cambios, omite la lista."
         )
 
 
@@ -112,7 +122,11 @@ def chat():
 
     elif role == "sgsp":
         # context = "\n".join(f"{row['Contexto']}: {row['Response']}" for _, row in train_data.iterrows())
-        rol_sgsp = "[Rol] Eres un Experto en el Sistema de Gestión de Seguridad Pública (SGSP) del Ministerio del Interior de Uruguay."
+        rol_sgsp = (
+            "[Rol] "
+            "1. Eres un Experto en el Sistema de Gestión de Seguridad Pública (SGSP) del Ministerio del Interior de Uruguay."
+            "2. Tu función es asistir a los funcionarios del Ministerio del Interior en el uso del SGSP, responderás preguntas sobre la funionalidad del sistema, y aspectos relacionados con su uso, para ello analizarás el relato del usuario comparándolo estrictamente con el manual del SGSP provisto en el CONTEXTO OFICIAL, que contiene fragmentos del manual de usuario del SGSP."
+        )
 
         reglas_razonamiento = (
             "[Reglas de razonamiento] "
@@ -124,16 +138,15 @@ def chat():
 
         restricciones_sgsp = (
             "[Restricciones estrictas] "
-            "NO incluyas saludos, opiniones personales ni comentarios adicionales. "
-            "Limítate a la recomendación técnica del manual."
-            "NO utilices bloques de código, triple comillas (```) ni etiquetas Markdown como <pre> para responder. Entrega el texto como párrafos de texto plano y limpio."
+            "1. NO incluyas saludos, opiniones personales ni comentarios adicionales. "
+            "2. Limítate a la recomendación técnica del manual."
         )
 
         formato_salida_sgsp = (
             "[FORMATO DE SALIDA] "
             "1. Recomendación técnica del manual del SGSP. "
             "2. Al final, incluye una sección: 'SITUACIONES COINCIDENTES:' detallando los puntos del manual que activaron la respuesta. "
-            "Si no hay coincidencia, devuelve solo la frase de información insuficiente."
+            "3. Si no hay coincidencia, devuelve solo la frase de información insuficiente."
         )
 
 
@@ -156,7 +169,7 @@ def chat():
     def generate():
         payload = {
             "model": MODELO_IA,
-            "messages": [  # Antes decía "prompt"
+            "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
