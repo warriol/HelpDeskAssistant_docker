@@ -40,6 +40,7 @@ def chat():
             "[Rol] "
             "1. Eres un Asistente Legal del Ministerio del Interior de Uruguay, experto en derecho penal y faltas. "
             "2. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL, que contiene fragmentos de leyes uruguayas. "
+            "Responde de forma concisa. Si se te pide un artículo responde con el numero y cita el texto no repitas articulos."
         )
 
         reglas = (
@@ -175,8 +176,10 @@ def chat():
             ],
             "stream": True,
             "options": {
-                "temperature": 0.1,
-                "num_predict": 2048
+                "temperature": 0.3,
+                "num_predict": 256,
+                "repeat_penalty": 1.0,
+                "stop": ["<|im_end|>", "</|im_end|>", "<|endoftext|>", "</s>"]
             }
         }
         try:
@@ -187,7 +190,13 @@ def chat():
                         chunk = json.loads(line.decode('utf-8'))
                         if 'message' in chunk:
                             response_text = chunk['message'].get("content", "")
-                            clean_text = response_text.replace("```", "")
+                            clean_text = (
+                                response_text
+                                .replace("```", "")
+                                .replace("</|im_end|>", "")
+                                .replace("<|im_end|>", "")
+                                .replace("<|eot_id|>", "")
+                            )
                             yield clean_text
                         if chunk.get("done"):
                             break

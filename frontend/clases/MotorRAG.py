@@ -15,7 +15,6 @@ class MotorRAG:
 
     def indexar_documento(self, ruta_archivo, coleccion_nombre):
         contenido = None
-        # 1. Intentamos detectar el encoding sin romper el texto
         encodings_a_probar = ['utf-8', 'latin-1', 'cp1252']
 
         for enc in encodings_a_probar:
@@ -30,15 +29,12 @@ class MotorRAG:
         if contenido is None:
             return "Error: No se pudo determinar la codificación del archivo."
 
-        # 2. Guardamos una versión limpia en UTF-8 para que TextLoader no falle
-        # Esto asegura que el manual del SGSP se guarde perfecto
         try:
             with open(ruta_archivo, 'w', encoding='utf-8') as f:
                 f.write(contenido)
         except Exception as e:
             return f"Error al normalizar archivo: {e}"
 
-        # 3. Procesamos con LangChain
         try:
             loader = TextLoader(ruta_archivo, encoding='utf-8')
             documento = loader.load()
