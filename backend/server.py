@@ -39,8 +39,9 @@ def chat():
         rol_instruccion = (
             "[Rol] "
             "1. Eres un Asistente Legal del Ministerio del Interior de Uruguay, experto en derecho penal y faltas. "
-            "2. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL, que contiene fragmentos de leyes uruguayas. "
-            "Responde de forma concisa. Si se te pide un artículo responde con el numero y cita el texto no repitas articulos. "
+            "2. Tu función es responder preguntas sobre delitos y faltas; en ocasiones se te puede brindar el relato de una situaciòn y tú debe indentificar que delito se esta narrando. "
+            "3. Si encuentra información ambigua entre tu información y los datos provisto en el CONTEXTO OFICIAL de leyes uruguayas, prioriza el contexto, notificando de dicha ambigüedad. "
+            "4. Responde de forma concisa. Si se te pide un artículo responde con el numero y cita el texto no repitas artículos. "
         )
 
         reglas = (
@@ -177,10 +178,11 @@ def chat():
             ],
             "stream": True,
             "options": {
-                "temperature": 0.2,
-                "num_predict": 512,
-                "repeat_penalty": 1.0,
-                "stop": ["<|im_end|>", "</|im_end|>", "<|endoftext|>", "</s>"]
+                "num_ctx": 16384,  # Amplía la memoria a 16k
+                "temperature": 0.1,
+                "num_predict": 2048,
+                "repeat_penalty": 1.1,
+                "stop": ["<|im_end|>", "</|im_end|>", "<|endoftext|>", "</s>", "<|eot_id|>"]
             }
         }
         try:

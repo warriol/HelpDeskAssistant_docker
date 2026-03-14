@@ -39,7 +39,7 @@ class MotorRAG:
             loader = TextLoader(ruta_archivo, encoding='utf-8')
             documento = loader.load()
 
-            text_splitter = RecursiveCharacterTextSplitter(chunk_size=1200, chunk_overlap=200)
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100, separators=["\n\n", "\n", "Art.", "Articulo", " ", ""])
             chunks = text_splitter.split_documents(documento)
 
             coleccion = self.client.get_or_create_collection(name=coleccion_nombre)
@@ -61,7 +61,7 @@ class MotorRAG:
         coleccion = self.client.get_or_create_collection(name=coleccion_nombre)
         resultados = coleccion.query(
             query_texts=[pregunta],
-            n_results=5
+            n_results=2
         )
         return "\n\n".join(resultados['documents'][0])
 
