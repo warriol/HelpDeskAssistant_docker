@@ -40,20 +40,20 @@ def chat():
             "[Rol] "
             "1. Eres un Asistente Legal del Ministerio del Interior de Uruguay, experto en derecho penal y faltas. "
             "2. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL, que contiene fragmentos de leyes uruguayas. "
-            "Responde de forma concisa. Si se te pide un artículo responde con el numero y cita el texto no repitas articulos."
+            "Responde de forma concisa. Si se te pide un artículo responde con el numero y cita el texto no repitas articulos. "
         )
 
         reglas = (
             "[Reglas de razonamiento] "
             "1. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL. "
             "2. Si te describen un hecho, analízalo y determina en qué figura delictiva uruguaya recae según el CONTEXTO OFICIAL. "
-            "3. Fundamenta siempre con la información oficial proporcionada. Si no está allí, admite que no tienes la información."
+            "3. Fundamenta siempre con la información oficial proporcionada. Si no está allí, admite que no tienes la información. "
         )
 
         restricciones = (
             "[Restricciones estrictas] "
             "1. Responde siempre en español, con lenguaje técnico-jurídico pero comprensible. "
-            "2. Limítate a la información técnica provista en el CONTEXTO OFICIAL."
+            "2. Limítate a la información técnica provista en el CONTEXTO OFICIAL. "
         )
 
         ejemplo = (
@@ -72,10 +72,10 @@ def chat():
         """
 
         prompt = f"""
-            CONTEXTO OFICIAL:
+            [CONTEXTO OFICIAL]:
             {contexto}
         
-            PREGUNTA DEL USUARIO:
+            [PREGUNTA DEL USUARIO]:
             {question}
         """
 
@@ -89,10 +89,10 @@ def chat():
 
         reglas_estilo = (
             "[Reglas de razonamiento] "
-            "1. Revisa el texto proporcionado y aplica sangrías de 5 espacios al inicio de cada párrafo. "
+            "1. Revisa el texto proporcionado y aplica sangrías de 5 espacios al inicio de cada párrafo. Al comienzo de cada párrafo, la primer letra debe ser mayúscula. "
             "2. Identifica pasajes textuales (citas) y colócalos entre COMILLAS y en MAYÚSCULAS. "
             "3. Aplica un interlineado (línea en blanco) de separación entre cada párrafo. "
-            "4. Corrige errores ortográficos y gramaticales manteniendo el sentido original."
+            "4. Corrige errores ortográficos y gramaticales manteniendo el sentido original. "
         )
 
         restricciones_docente = (
@@ -117,7 +117,7 @@ def chat():
             {formato_salida}
         """
         prompt = f"""
-            [TEXTO A REVISAR]
+            [TEXTO A REVISAR]:
             {question}
         """
 
@@ -125,8 +125,9 @@ def chat():
         # context = "\n".join(f"{row['Contexto']}: {row['Response']}" for _, row in train_data.iterrows())
         rol_sgsp = (
             "[Rol] "
-            "1. Eres un Experto en el Sistema de Gestión de Seguridad Pública (SGSP) del Ministerio del Interior de Uruguay."
-            "2. Tu función es asistir a los funcionarios del Ministerio del Interior en el uso del SGSP, responderás preguntas sobre la funionalidad del sistema, y aspectos relacionados con su uso, para ello analizarás el relato del usuario comparándolo estrictamente con el manual del SGSP provisto en el CONTEXTO OFICIAL, que contiene fragmentos del manual de usuario del SGSP."
+            "1. Eres un Experto en el Sistema de Gestión de Seguridad Pública (SGSP) del Ministerio del Interior de Uruguay. "
+            "2. Tu función es asistir a los funcionarios del Ministerio del Interior en el uso del SGSP. "
+            "3. Responderás preguntas sobre la funcionalidad del sistema, y aspectos relacionados con su uso; para ello analizarás el relato del usuario comparándolo estrictamente con el manual del SGSP provisto en el CONTEXTO OFICIAL, que contiene fragmentos del manual de usuario del SGSP. "
         )
 
         reglas_razonamiento = (
@@ -134,20 +135,20 @@ def chat():
             "1. Tu función es analizar el relato del usuario comparándolo estrictamente con el manual del SGSP provisto en el CONTEXTO OFICIAL. "
             "2. Solo debes responder si el contexto del manual fue enviado; de lo contrario, solicita el material. "
             "3. Si el hecho coincide con un procedimiento del manual, entrega la recomendación operativa técnica. "
-            "4. Si no hay una coincidencia exacta, responde: 'No cuento con información suficiente en el manual del SGSP para dar una respuesta precisa'."
+            "4. Si no hay una coincidencia exacta, responde: 'No cuento con información suficiente en el manual del SGSP para dar una respuesta precisa'. "
         )
 
         restricciones_sgsp = (
             "[Restricciones estrictas] "
             "1. NO incluyas saludos, opiniones personales ni comentarios adicionales. "
-            "2. Limítate a la recomendación técnica del manual."
+            "2. Limítate a la recomendación técnica del manual. "
         )
 
         formato_salida_sgsp = (
             "[FORMATO DE SALIDA] "
             "1. Recomendación técnica del manual del SGSP. "
             "2. Al final, incluye una sección: 'SITUACIONES COINCIDENTES:' detallando los puntos del manual que activaron la respuesta. "
-            "3. Si no hay coincidencia, devuelve solo la frase de información insuficiente."
+            "3. Si no hay coincidencia, devuelve solo la frase de información insuficiente. "
         )
 
 
@@ -158,10 +159,10 @@ def chat():
             {formato_salida_sgsp}
         """
         prompt = f"""
-            [CONTEXTO / MANUAL SGSP]
+            [CONTEXTO OFICIAL / MANUAL SGSP]:
             {contexto}
     
-            [RELATO DEL USUARIO]
+            [RELATO DEL USUARIO]:
             {question}
         """
     else:
@@ -176,8 +177,8 @@ def chat():
             ],
             "stream": True,
             "options": {
-                "temperature": 0.3,
-                "num_predict": 256,
+                "temperature": 0.2,
+                "num_predict": 512,
                 "repeat_penalty": 1.0,
                 "stop": ["<|im_end|>", "</|im_end|>", "<|endoftext|>", "</s>"]
             }
@@ -193,8 +194,9 @@ def chat():
                             clean_text = (
                                 response_text
                                 .replace("```", "")
-                                .replace("</|im_end|>", "")
+                                .replace("|<im_end|>", "")
                                 .replace("<|im_end|>", "")
+                                .replace("|<eot_id|>", "")
                                 .replace("<|eot_id|>", "")
                             )
                             yield clean_text
