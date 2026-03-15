@@ -4,10 +4,38 @@
 # Autor: Wilson Arriola
 
 ## Actualizaciones
-- [release estable](https://github.com/warriol/HelpDeskAssistant_docker/releases/latest)
-- Actualizaciones en proceso
-  - Nuevo modelo a utilizar: flori/llama3.1-abliterated:Q4_K_M
-    - porque abliterated: permite realizar consultas sin las restricciones de seguridad que otros modelos imponen, lo que es ideal para un entorno de help desk donde se necesita acceso completo a la información legal sin censura.
+## [release estable](https://github.com/warriol/HelpDeskAssistant_docker/releases/latest)
+### Actualizaciones en proceso
+#### [v1.4] Sistema de Memoria Persistente y Moderación (Redis + RAG)
+
+En esta actualización, hemos integrado Redis como una capa de caché inteligente y un panel de administración avanzado para gestionar la calidad de las respuestas generadas por la IA.
+
+🛠️ Nuevas Funcionalidades
+1. Capa de Memoria Inteligente (Redis Cache)
+    Caché de Respuestas: El sistema ahora almacena las respuestas exitosas de la IA en Redis. Si un usuario realiza la misma pregunta, el sistema responde de forma instantánea (<0.1s), evitando llamadas innecesarias al backend y a Ollama.
+    Filtro de Calidad por Votos: No todas las respuestas se guardan para siempre. Solo aquellas que reciben votos positivos son elegibles para ser servidas desde el caché a otros usuarios, asegurando que la comunidad valide la información.
+    Persistencia de Datos: Configuración de volúmenes en Docker y modo appendonly yes para asegurar que los votos y respuestas no se pierdan al reiniciar los contenedores.
+
+2. Sistema de Feedback (Votación en Tiempo Real)
+    Componente de Votos: Interfaz integrada en el chat para calificar respuestas (Pulgar arriba/abajo).
+    Actualización Dinámica: El contador de votos se actualiza mediante AJAX/Fetch sin necesidad de recargar la página, brindando una experiencia fluida.
+
+3. Panel de Administración Avanzado
+    Gestión de Usuarios: Nuevo buscador dinámico por nombre o email para gestionar grandes volúmenes de usuarios registrados.
+    Moderación de Redis: * Contadores de Salud: Visualización en tiempo real del total de respuestas en caché.
+        Detección de "Basura": Identificación automática de respuestas con reputación negativa (votos ≤−5).
+        Limpieza Masiva: Botón para purgar automáticamente respuestas descartadas por la comunidad.
+        Buscador de Redundancias: Herramienta para localizar preguntas similares o erróneas en la base de datos de Redis y eliminarlas manualmente.
+
+4. UX & Optimización en FAQs
+    Paginación del Lado del Cliente: Las FAQs ahora se cargan en bloques de 10 registros, mejorando drásticamente el rendimiento de la página cuando hay cientos de preguntas.
+    Búsqueda Global Instantánea: Filtro de búsqueda que recorre toda la base de datos de FAQs en tiempo real.
+    Efectos Visuales: Implementación de animaciones Fade-In.
+
+ 
+#### [v1.3] 
+- Nuevo modelo a utilizar: flori/llama3.1-abliterated:Q4_K_M
+  - porque abliterated: permite realizar consultas sin las restricciones de seguridad que otros modelos imponen, lo que es ideal para un entorno de help desk donde se necesita acceso completo a la información legal sin censura.
   - Cambios en el backend para mejorar la comunicación con el nuevo modelo y optimizar la gestión de conversaciones.
   - Mejoras en el frontend para maquetar el nuevo formato de respuestas del modelo y agregar nuevas funcionalidades de gestión de chats.
 - Descargar el nuevo modelo en Ollama: `docker exec -it ollama_server ollama pull flori/llama3.1-abliterated:Q4_K_M`

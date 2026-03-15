@@ -1,6 +1,9 @@
 import os
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+import redis
+import json
 
 # Importamos tus clases
 from clases.Usuarios import Usuarios
@@ -13,6 +16,22 @@ admin_bp = Blueprint('admin', __name__)
 # Instanciamos lo que el admin necesita
 auth_service = Auth()
 rag = MotorRAG()
+
+load_dotenv()
+
+# Conexión a Redis
+try:
+    r = redis.Redis(
+        host=os.getenv('REDIS_HOST', 'redis'),
+        port=int(os.getenv('REDIS_PORT', 6379)),
+        decode_responses=True,
+        socket_connect_timeout=2
+    )
+    # Probar conexión
+    r.ping()
+except Exception as e:
+    print(f"⚠️ Redis no disponible: {e}")
+    r = None
 
 # Configuración de subida
 UPLOAD_FOLDER = 'documentos/temp'
@@ -96,6 +115,33 @@ def update_user():
         flash("Error interno.", "danger")
 
     return redirect(url_for("admin.index"))
+
+
+@admin_bp.route('/admin/delete_faq', methods=['POST'])
+def delete_faq():
+    if session.get("rol") != 1:
+        return redirect(url_for("chat.dashboard"))
+
+    data = request.json
+    key = f"{data['role']}:{data['question'].strip().lower()}"
+    r.delete(key) # 'r' es tu conexión a Redis
+    return jsonify({"status": "ok"})
+
+@admin_bp.route('/admin/clear_discarded', methods=['POST'])
+def clear_discarded():
+    if session.get("rol") != 1:
+        return redirect(url_for("chat.dashboard"))
+
+    keys = r.keys('*')
+    borrados = 0
+    for k in keys:
+        raw_data = r.get(k)
+        if raw_data:
+            data = json.loads(raw_data)
+            if data.get('votos', 0) <= -5:
+                r.delete(k)
+                borrados += 1
+    return jsonify({"status": "ok", "borrados": borrados})
 
 @admin_bp.route('/api/stats_rag')
 def stats_rag():

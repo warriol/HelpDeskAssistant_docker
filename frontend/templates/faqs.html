@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-cpu-fill me-2 text-primary"></i>HDA - Legal IT
+        </a>
+        <div class="d-flex align-items-center">
+            <button class="btn btn-outline-light btn-sm me-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarHistorial">
+                <i class="bi bi-clock-history"></i>
+            </button>
+
+            <div class="dropdown">
+                <button class="btn btn-outline-light dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
+                    {{ session['nombre'] }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="{{ url_for('perfil.ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="row g-0" style="height: calc(100vh - 56px); margin-top: -1.5rem; overflow: hidden;">
+
+    <aside class="col-md-2 col-lg-2 bg-white border-end d-none d-md-block p-3">
+        <div class="nav flex-column nav-pills gap-2">
+            <a href="{{ url_for('chat.dashboard') }}" class="nav-link text-dark">
+                <i class="bi bi-plus-lg me-2"></i>Nuevo Chat
+            </a>
+
+            <a href="{{ url_for('chat.faqs') }}" class="nav-link {{ 'active' if not session['active_conv'] else 'text-dark' }}">
+                <i class="bi bi-patch-question me-2"></i>FAQs
+            </a>
+
+            {% if session['rol'] == 1 %}
+            <a href="{{ url_for('admin.index') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <main class="col d-flex flex-column bg-light bg-opacity-50 border-end" style="height: 100%;">
+
+        <div class="flex-grow-1 p-4 overflow-auto" style="height: 0;">
+            <div class="col-md-10 col-lg-10">
+
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold"><i class="bi bi-patch-question-fill text-primary me-2"></i>Preguntas Frecuentes</h2>
+                    <p class="text-muted">Mejora las respuestas de la IA votando las consultas de la comunidad.</p>
+
+                    <div class="row g-2 mt-4 shadow-sm p-3 bg-white rounded-4">
+                        <div class="col-md-4">
+                            <select id="faqRoleFilter" class="form-select border-0 bg-light fw-bold" onchange="cargarFAQs()">
+                                <option value="todos">Todos los Agentes</option>
+                                <option value="leyes">⚖️ Leyes</option>
+                                <option value="sgsp">🚔 SGSP</option>
+                                <option value="ortografia">✍️ Ortografía</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-text border-0 bg-light"><i class="bi bi-search"></i></span>
+                                <input type="text" id="faqSearch" class="form-control border-0 bg-light" placeholder="¿Qué estás buscando?" onkeyup="filtrarFAQsLocal()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contenedor-faqs" class="row g-3">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary"></div>
+                    </div>
+                </div>
+
+                <nav aria-label="Navegación de FAQs" class="mt-4">
+                    <ul class="pagination justify-content-center" id="pagination-container">
+                        </ul>
+                </nav>
+
+            </div>
+        </div>
+    </main>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/marked-3.min.js') }}"></script>
+<script>
+    // Variables globales para el estado de la página
+    let todasLasFaqs = [];
+    let faqsFiltradas = [];
+    let paginaActual = 1;
+    const registrosPorPagina = 10;
+
+    async function cargarFAQs() {
+        const rol = document.getElementById('faqRoleFilter').value;
+        const container = document.getElementById('contenedor-faqs');
+
+        try {
+            const res = await fetch(`/get_faqs?role=${rol === 'todos' ? '' : rol}`);
+            todasLasFaqs = await res.json();
+
+            // Al cargar o cambiar filtro de rol, reseteamos la búsqueda local
+            document.getElementById('faqSearch').value = "";
+            faqsFiltradas = [...todasLasFaqs];
+
+            renderizarPagina(1);
+        } catch (e) {
+            container.innerHTML = '<div class="alert alert-danger">Error al conectar con el servidor de caché.</div>';
+        }
+    }
+
+    function renderizarPagina(pagina) {
+        paginaActual = pagina;
+        const container = document.getElementById('contenedor-faqs');
+
+        if (faqsFiltradas.length === 0) {
+            container.innerHTML = '<div class="text-center text-muted py-5">No se encontraron preguntas registradas.</div>';
+            actualizarPaginacion(0);
+            return;
+        }
+
+        container.classList.remove('faq-fade-in');
+        void container.offsetWidth;
+        container.innerHTML = "";
+
+        // paginado
+        const inicio = (pagina - 1) * registrosPorPagina;
+        const fin = inicio + registrosPorPagina;
+        const itemsParaMostrar = faqsFiltradas.slice(inicio, fin);
+
+        container.innerHTML = itemsParaMostrar.map((faq) => `
+            <div class="col-12 faq-item">
+                <div class="card border-0 shadow-sm rounded-4 faq-card mb-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-opacity-10 ${getBadgeClass(faq.rol)} text-dark mb-2">
+                                ${faq.rol.toUpperCase()}
+                            </span>
+                            <div class="btn-group bg-light rounded-pill p-1">
+                                <button class="btn btn-sm btn-link text-success p-0 px-2" onclick="votar('${faq.pregunta.replace(/'/g, "\\'")}', '${faq.rol}', 1, this)">
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                </button>
+                                <span class="fw-bold px-1 vote-count">${faq.votos}</span>
+                                <button class="btn btn-sm btn-link text-danger p-0 px-2" onclick="votar('${faq.pregunta.replace(/'/g, "\\'")}', '${faq.rol}', -1, this)">
+                                    <i class="bi bi-hand-thumbs-down-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h5 class="fw-bold mb-3">${faq.pregunta}</h5>
+                        <div class="markdown-body text-secondary" style="font-size: 0.95rem;">
+                            ${marked.parse(faq.respuesta)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        container.classList.add('faq-fade-in');
+
+        actualizarPaginacion(faqsFiltradas.length);
+    }
+
+    function actualizarPaginacion(totalRegistros) {
+        const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina);
+        const paginationContainer = document.getElementById('pagination-container');
+
+        if (!paginationContainer) return;
+        paginationContainer.innerHTML = "";
+
+        if (totalPaginas <= 1) return;
+
+        // Botón Anterior
+        paginationContainer.innerHTML += `
+            <li class="page-item ${paginaActual === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0)" onclick="renderizarPagina(${paginaActual - 1})">Anterior</a>
+            </li>`;
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            paginationContainer.innerHTML += `
+                <li class="page-item ${i === paginaActual ? 'active' : ''}">
+                    <a class="page-link" href="javascript:void(0)" onclick="renderizarPagina(${i})">${i}</a>
+                </li>`;
+        }
+
+        // Botón Siguiente
+        paginationContainer.innerHTML += `
+            <li class="page-item ${paginaActual === totalPaginas ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0)" onclick="renderizarPagina(${paginaActual + 1})">Siguiente</a>
+            </li>`;
+    }
+
+    // Nueva función de filtrado local corregida
+    function filtrarFAQsLocal() {
+        const buscado = document.getElementById('faqSearch').value.toLowerCase();
+
+        // Filtramos sobre la totalidad de lo que trajo el servidor para ese rol
+        faqsFiltradas = todasLasFaqs.filter(faq =>
+            faq.pregunta.toLowerCase().includes(buscado) ||
+            faq.respuesta.toLowerCase().includes(buscado)
+        );
+
+        renderizarPagina(1); // Siempre volvemos a la 1 tras buscar
+    }
+
+    function getBadgeClass(rol) {
+        if (rol === 'leyes') return 'bg-warning';
+        if (rol === 'sgsp') return 'bg-success';
+        return 'bg-info';
+    }
+
+    async function votar(pregunta, rol, valor, btn) {
+        try {
+            const res = await fetch('/votar_pregunta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: pregunta, role: rol, voto: valor })
+            });
+            const data = await res.json();
+            if (data.status === 'ok') {
+                btn.parentElement.querySelector('.vote-count').textContent = data.nuevos_votos;
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarFAQs);
+</script>
+{% endblock %}
