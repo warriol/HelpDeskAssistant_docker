@@ -34,6 +34,11 @@
             <a href="{{ url_for('chat.dashboard') }}" class="nav-link {{ 'active' if not session['active_conv'] else 'text-dark' }}">
                 <i class="bi bi-plus-lg me-2"></i>Nuevo Chat
             </a>
+
+            <a href="{{ url_for('chat.faqs') }}" class="nav-link text-dark">
+                <i class="bi bi-patch-question me-2"></i>FAQs
+            </a>
+
             {% if session['rol'] == 1 %}
             <a href="{{ url_for('admin.index') }}" class="nav-link text-dark"><i class="bi bi-shield-lock me-2"></i>Panel Admin</a>
             {% endif %}
@@ -79,6 +84,13 @@
                                     {{ agent_name }}
                                 </small>
                                 <div class="markdown-body">{{ msg.contenido | safe }}</div>
+
+                                {% if msg.rol != 'user' %}
+                                    <div class="votos-historial">
+
+                                    </div>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -155,6 +167,25 @@
 <script src="{{ url_for('static', filename='js/marked-3.min.js') }}"></script>
 
 <script>
+    function renderizarComponenteVotos(pregunta, rol, votos = 0, idUnico) {
+        // Normalizamos para evitar problemas con comillas en el onclick
+        const preguntaEscapada = pregunta.replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+        return `
+        <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top border-opacity-10">
+            <div class="btn-group shadow-sm bg-light rounded-pill p-1">
+                <button class="btn btn-sm btn-link text-success p-0 px-2" onclick="votarRedis('${preguntaEscapada}', '${rol}', 1, this)">
+                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                </button>
+                <span id="contenedor-votos" class="fw-bold small px-1 vote-count">${votos}</span>
+                <button class="btn btn-sm btn-link text-danger p-0 px-2" onclick="votarRedis('${preguntaEscapada}', '${rol}', -1, this)">
+                    <i class="bi bi-hand-thumbs-down-fill"></i>
+                </button>
+            </div>
+            <small class="text-muted opacity-50" style="font-size: 0.6rem;">ID: ${rol.toUpperCase()}</small>
+        </div>`;
+    }
+
     // Variable para saber si estamos en un chat existente o uno nuevo
     let current_conv_id = {{ session['active_conv'] if session['active_conv'] else 'null' }};
 
@@ -287,10 +318,18 @@
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
+
                 fullResponse += decoder.decode(value, { stream: true });
+
                 responseTextElement.innerHTML = marked.parse(fullResponse);
                 responseHistory.scrollTop = responseHistory.scrollHeight;
             }
+
+            // --- INSERCIÓN DE VOTOS ---
+            const contenedorVotos = document.createElement('div');
+            contenedorVotos.id = `votos-${idColapse}`;
+            contenedorVotos.innerHTML = renderizarComponenteVotos(question, selectedRole, 0, idColapse);
+            responseTextElement.parentNode.appendChild(contenedorVotos);
 
             const endTime = performance.now();
             responseTimeElement.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
@@ -324,5 +363,49 @@
             }
         });
     });
+
+    /**
+     * Función universal para votar (sirve para chat en vivo e historial)
+     * @param {string} pregunta - El texto de la pregunta
+     * @param {string} rol - El agente (leyes, sgsp, ortografia)
+     * @param {number} valor - El voto (+1 o -1)
+     * @param {HTMLElement} btn - El botón presionado para actualizar la UI
+     */
+    async function votarRedis(pregunta, rol, valor, btn) {
+        const preguntaKey = pregunta.trim().toLowerCase();
+
+        try {
+            const response = await fetch('/votar_pregunta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "question": preguntaKey,
+                    "role": rol,
+                    "voto": valor
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'ok') {
+                // Buscamos el contador dentro del grupo de botones
+                const contenedor = btn.closest('.btn-group');
+                const contador = contenedor.querySelector('.vote-count');
+
+                // Actualizamos el número con el valor que devuelve el servidor
+                contador.textContent = data.nuevos_votos;
+
+                // Feedback visual: animamos el botón y lo desactivamos brevemente
+                btn.classList.add('animate__animated', 'animate__bounceIn', 'text-primary');
+                setTimeout(() => {
+                    btn.classList.remove('animate__animated', 'animate__bounceIn');
+                }, 1000);
+            } else {
+                console.error("Error en la respuesta del servidor:", data.message);
+            }
+        } catch (error) {
+            console.error("Error de red al votar:", error);
+        }
+    }
 </script>
 {% endblock %}

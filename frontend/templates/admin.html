@@ -43,11 +43,23 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-4 mt-2">
-    <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
-        <h4 class="mb-0 fw-bold text-dark">Usuarios Registrados</h4>
-        <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addUserModal">
-            <i class="bi bi-person-plus-fill me-2"></i>Nuevo Usuario
-        </button>
+    <div class="card-header bg-white border-0 py-3">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <h4 class="mb-0 fw-bold text-dark">Usuarios</h4>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" id="userSearch" class="form-control bg-light border-0" placeholder="Buscar por nombre o email..." onkeyup="filtrarUsuarios()">
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <i class="bi bi-person-plus-fill me-2"></i>Nuevo
+                </button>
+            </div>
+        </div>
     </div>
     <div class="table-responsive p-3">
         <table class="table table-hover align-middle">
@@ -99,6 +111,47 @@
         </table>
     </div>
 </div>
+
+
+<div class="card border-0 shadow-sm rounded-4 mt-4 mb-4">
+    <div class="card-header bg-dark text-white py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-cpu-fill me-2"></i>Gestión de Respuestas en Redis (FAQs)</h5>
+            <div class="badge bg-warning text-dark" id="total-redis">Total: 0</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="p-3 border rounded-4 bg-light">
+                    <h6 class="fw-bold text-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i>Respuestas Descartadas</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="h4 fw-bold" id="count-discarded">0</span>
+                            <small class="text-muted"> con votos ≤ -5</small>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="limpiarDescartados()">
+                            <i class="bi bi-trash-fill me-1"></i> Borrar Descartados
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 border rounded-4 bg-light">
+                    <h6 class="fw-bold text-primary">Buscador de Preguntas</h6>
+                    <div class="input-group">
+                        <input type="text" id="redisSearchInput" class="form-control" placeholder="Identificar redundantes o errores...">
+                        <button class="btn btn-primary" onclick="buscarEnRedis()"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="redis-search-results" class="list-group list-group-flush border-top" style="max-height: 300px; overflow-y: auto;">
+            </div>
+    </div>
+</div>
+
 
 <div class="container mt-5">
     <div class="card shadow-sm border-0">
@@ -243,6 +296,93 @@
     }
     // Llamar al cargar la página
     document.addEventListener('DOMContentLoaded', actualizarStats);
+
+    // Filtrar Usuarios Localmente
+    function filtrarUsuarios() {
+        const term = document.getElementById('userSearch').value.toLowerCase();
+        const rows = document.querySelectorAll('table tbody tr');
+
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(term) ? '' : 'none';
+        });
+    }
+
+    // Cargar Stats de Redis
+    async function cargarRedisStats() {
+        try {
+            const res = await fetch('/get_faqs'); // Reutilizamos tu ruta actual
+            const faqs = await res.json();
+
+            const descartados = faqs.filter(f => f.votos <= -5);
+
+            document.getElementById('total-redis').innerText = `Total: ${faqs.length}`;
+            document.getElementById('count-discarded').innerText = descartados.length;
+
+            // Guardamos en variable global para el buscador
+            window.allRedisData = faqs;
+        } catch (e) { console.error(e); }
+    }
+
+    // Buscar preguntas redundantes en Redis
+    function buscarEnRedis() {
+        const term = document.getElementById('redisSearchInput').value.toLowerCase();
+        const resultsContainer = document.getElementById('redis-search-results');
+
+        if(!term) return;
+
+        const matches = window.allRedisData.filter(f =>
+            f.pregunta.toLowerCase().includes(term) || f.respuesta.toLowerCase().includes(term)
+        );
+
+        resultsContainer.innerHTML = matches.map(f => `
+            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                <div class="me-3">
+                    <small class="badge bg-light text-dark border">${f.rol}</small>
+                    <div class="fw-bold mt-1">${f.pregunta}</div>
+                    <div class="text-muted small text-truncate" style="max-width: 500px;">${f.respuesta}</div>
+                </div>
+                <button class="btn btn-sm btn-outline-danger border-0" onclick="eliminarPreguntaRedis('${f.pregunta}', '${f.rol}')">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+
+    // 4. Eliminar pregunta (Necesitarás crear esta ruta en Python)
+    async function eliminarPreguntaRedis(pregunta, rol) {
+        if(!confirm("¿Estás seguro de eliminar esta respuesta de la memoria permanente?")) return;
+
+        try {
+            const res = await fetch('/admin/delete_faq', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ question: pregunta, role: rol })
+            });
+            if(res.ok) {
+                alert("Eliminado con éxito");
+                cargarRedisStats(); // Recargar
+                document.getElementById('redis-search-results').innerHTML = "";
+            }
+        } catch(e) { alert("Error al eliminar"); }
+    }
+
+    async function limpiarDescartados() {
+        if (!confirm("¿Deseas eliminar permanentemente todas las preguntas con -5 votos o menos?")) return;
+
+        const res = await fetch('/admin/clear_discarded', { method: 'POST' });
+        const data = await res.json();
+
+        if (data.status === 'ok') {
+            alert(`Se han eliminado ${data.borrados} preguntas de la memoria.`);
+            cargarRedisStats(); // Recarga los contadores
+        }
+}
+
+    // Añadir al DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarRedisStats();
+    });
 
     document.getElementById('uploadForm').onsubmit = async (e) => {
         e.preventDefault();

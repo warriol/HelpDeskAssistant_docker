@@ -210,3 +210,4 @@ flask_session
 /frontend/pdfs/
 /frontend/documentos/
 chroma_data
+/redis_data/

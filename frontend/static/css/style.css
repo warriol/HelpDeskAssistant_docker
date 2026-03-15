@@ -54,3 +54,33 @@ pre {
 .dropdown {
   margin-right: 8px;
 }
+
+.faq-card {
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.faq-card:hover {
+    transform: translateY(-3px);
+}
+
+.vote-badge {
+    font-size: 0.9rem;
+    min-width: 45px;
+}
+/* Definimos la animación de desvanecimiento */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* Un pequeño movimiento hacia arriba */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Esta clase aplicará la animación */
+.faq-fade-in {
+    animation: fadeIn 0.5s ease-out; /* Duración de 0.5 segundos */
+}

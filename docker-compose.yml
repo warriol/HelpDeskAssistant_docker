@@ -56,6 +56,8 @@ services:
     environment:
       - OLLAMA_HOST=http://ollama:11434
       - MODELO_IA=${MODELO_IA}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
     ports:
       - "5000:5000"
     networks:
@@ -80,6 +82,21 @@ services:
       - DATABASE=${DB_NAME}
       - URLIA=http://localhost:5000
       - CHROMA_HOST=http://chroma:8000
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    networks:
+      - hda-net
+
+# Redis para Caché y Votaciones
+  redis:
+    image: redis:7.2-alpine
+    container_name: HDA_redis
+    restart: always
+    command: ["redis-server", "--appendonly", "yes", "--save", "60", "1"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
     networks:
       - hda-net
 
@@ -92,3 +109,4 @@ volumes:
   ollama_data:
   mysql_data:
   chroma_model_cache:
+  redis_data:
