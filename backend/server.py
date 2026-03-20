@@ -1,3 +1,5 @@
+from asyncio import timeout
+
 import requests
 import pandas as pd
 from flask import Flask, request, jsonify, Response
@@ -31,8 +33,11 @@ else:
 def chat():
     data = request.json
     question = data.get("question", "").strip()
-    contexto = data.get("contexto", "").strip()
+    contexto = data.get("contexto", "").replace("\n\n", "\n").strip()
     role = data.get("role", "leyes").strip()
+
+    system_prompt = "Eres un asistente virtual del Ministerio del Interior."
+    prompt = f"Pregunta: {question}"
 
     # Lógica de Prompts (Derecho Penal Uruguayo / Ortografía / SGSP)
     if role == "leyes":
@@ -46,7 +51,7 @@ def chat():
 
         reglas = (
             "[Reglas de razonamiento] "
-            "1. Tu función es responder preguntas sobre delitos y faltas, comparándolo estrictamente con los datos provisto en el CONTEXTO OFICIAL. "
+            "1. Tu función es responder preguntas sobre delitos y figuras policiales basándote en el CONTEXTO OFICIAL. Si el contexto menciona definiciones o condiciones para un concepto (como muerte dudosa), úsalas para explicar la respuesta al usuario. "
             "2. Si te describen un hecho, analízalo y determina en qué figura delictiva uruguaya recae según el CONTEXTO OFICIAL. "
             "3. Fundamenta siempre con la información oficial proporcionada. Si no está allí, admite que no tienes la información. "
         )
@@ -60,25 +65,14 @@ def chat():
         ejemplo = (
             "[FORMATO DE SALIDA] "
             "1. 'Artículo 340 (Hurto): El que se apoderare de cosa mueble ajena...'. "
-            "2. Si no hay coincidencia: 'No cuento con información suficiente en el CONTEXTO OFICIAL'. "
+            "2. Si no hay coincidencia exacta o el contexto está vacío, responde obligatoriamente: 'No se encontró información específica en los textos legales cargados'. "
             "3. Si el hecho no encaja en ninguna figura: 'El hecho descrito no encaja en ninguna figura delictiva del CONTEXTO OFICIAL'. "
             "4. Al final, incluye una sección: 'SITUACIONES COINCIDENTES:' pequeño resumen de los puntos principales que activaron la respuesta. "
         )
 
-        system_prompt = f"""
-            {rol_instruccion}
-            {reglas}
-            {restricciones}
-            {ejemplo}
-        """
+        system_prompt = f"{rol_instruccion}\n{reglas}\n{restricciones}\n{ejemplo}".replace("    ", "")
 
-        prompt = f"""
-            [CONTEXTO OFICIAL]:
-            {contexto}
-        
-            [PREGUNTA DEL USUARIO]:
-            {question}
-        """
+        prompt = f"\n[CONTEXTO OFICIAL]:\n{contexto}\n[PREGUNTA DEL USUARIO]:\n{question}".replace("    ", "")
 
     elif role == "ortografia":
         # Definición de bloques para el rol de Corrección / Lengua
@@ -111,16 +105,9 @@ def chat():
         )
 
 
-        system_prompt = f"""
-            {rol_docente}
-            {reglas_estilo}
-            {restricciones_docente}
-            {formato_salida}
-        """
-        prompt = f"""
-            [TEXTO A REVISAR]:
-            {question}
-        """
+        system_prompt = f"{rol_docente}\n{reglas_estilo}\n{restricciones_docente}\n{formato_salida}\n".replace("    ", "")
+
+        prompt = f"[TEXTO A REVISAR]:\n{question}"
 
     elif role == "sgsp":
         # context = "\n".join(f"{row['Contexto']}: {row['Response']}" for _, row in train_data.iterrows())
@@ -153,19 +140,10 @@ def chat():
         )
 
 
-        system_prompt = f"""
-            {rol_sgsp}
-            {reglas_razonamiento}
-            {restricciones_sgsp}
-            {formato_salida_sgsp}
-        """
-        prompt = f"""
-            [CONTEXTO OFICIAL / MANUAL SGSP]:
-            {contexto}
-    
-            [RELATO DEL USUARIO]:
-            {question}
-        """
+        system_prompt = f"\n{rol_sgsp}\n{reglas_razonamiento}\n{restricciones_sgsp}\n{formato_salida_sgsp}".replace("    ", "")
+
+        prompt = f"[CONTEXTO OFICIAL / MANUAL SGSP]:\n{contexto}\n[RELATO DEL USUARIO]:\n{question}".replace("    ", "")
+
     else:
         return jsonify({"response": "Rol no reconocido."}), 400
 
@@ -178,36 +156,55 @@ def chat():
             ],
             "stream": True,
             "options": {
-                "num_ctx": 16384,  # Amplía la memoria a 16k
-                "temperature": 0.1,
-                "num_predict": 2048,
+                "num_ctx": 4096, # 16384,  # Amplía la memoria a 16k
+                "temperature": 0.2,
+                "num_predict": 1024,
                 "repeat_penalty": 1.1,
                 "stop": ["<|im_end|>", "</|im_end|>", "<|endoftext|>", "</s>", "<|eot_id|>"]
             }
         }
         try:
-            with requests.post(OLLAMA_API_URL, json=payload, stream=True) as r:
+            with requests.post(OLLAMA_API_URL, json=payload, stream=True, timeout=60) as r:
                 r.raise_for_status()
-                for line in r.iter_lines():
+
+                for line in r.iter_lines(decode_unicode=True):
                     if line:
-                        chunk = json.loads(line.decode('utf-8'))
-                        if 'message' in chunk:
-                            response_text = chunk['message'].get("content", "")
-                            clean_text = (
-                                response_text
-                                .replace("```", "")
-                                .replace("|<im_end|>", "")
-                                .replace("<|im_end|>", "")
-                                .replace("|<eot_id|>", "")
-                                .replace("<|eot_id|>", "")
-                            )
-                            yield clean_text
-                        if chunk.get("done"):
-                            break
+
+                        try:
+                            chunk = json.loads(line)
+                            if 'message' in chunk:
+                                response_text = chunk['message'].get("content", "")
+
+                                clean_text = (
+                                    response_text
+                                    .replace("```", "")
+                                    .replace("<|im_end|>", "")
+                                    .replace("<|eot_id|>", "")
+                                )
+
+                                if clean_text:
+                                    yield clean_text
+
+                            if chunk.get("done"):
+                                break
+
+                        except json.JSONDecodeError:
+                            continue
+
+                    else:
+                        # En caso de recibir una línea vacía, enviamos un espacio para mantener el stream activo
+                        yield ""
+
+        except requests.exceptions.Timeout:
+            yield "⚠️ Error: Ollama tardó demasiado en procesar las leyes. Intenta con una pregunta más corta."
+
+        except requests.exceptions.RequestException as e:
+            yield f" Error de red con Ollama: {str(e)}"
+
         except Exception as e:
             yield f" Error de conexión con Ollama: {str(e)}"
 
-    return Response(generate(), content_type='text/plain')
+    return Response(generate(), content_type='text/event-stream')
 
 @app.route('/')
 def saludo():
