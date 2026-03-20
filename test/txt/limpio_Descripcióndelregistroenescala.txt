@@ -1,0 +1,314 @@
+Descripción del registro en escalafón 
+ 
+Al menú Gestión Escalafón se accede a través del permiso EscalafonDependencia que viene heredado del los Roles Ingreso y Consulta. 
+
+Menú: Otro Servicios - Gestión - Escalafón
+Al seleccionar esta opción de menú se ingresa a la funcionalidad del escalafón y se verá así: 
+
+Sobre el margen izquierdo aparecen 3 botones: Carga, Movimiento Móvil y Movimiento Funcionario. 
+ 
+Inicialmente, la aplicación hace foco en Carga y sobre el área de trabajo aparecen todas las secciones vacías, se muestra la leyenda "No hay datos disponibles". 
+
+En la parte superior aparecen los botones: Carga, Exportar, Ipmrimir, Agregar, Resumen y Guardar
+ 
+Para iniciar la carga del escalafón se debe cliquear sobre el botón Cargar que se muestra al centro del formulario y a la izquierda de la siguiente botonera. 
+ 
+El efecto que produce es levantar de la base de datos los registros del ultimo escalafón guardado para el turno. 
+ 
+Esto es conocido como "la foto", porque lo que hace es sacar la foto al ultimo escalafón guardado para el turno. 
+ 
+Si el turno se repite exactamente igual que el día anterior, entonces basta con cliquear en guardar. 
+ 
+Igualmente durante todo el turno se puede continuar editando los registros de cada funcionario. 
+ 
+Sobre la distribución en la zona de trabajo. 
+Oficiales de la Dependencia 
+Los oficiales de las dependencias aparecen siempre en esta sección sin importar su situación o función. No se reubican por sección. 
+Sin embargo para que su jornada laboral se refleje, debe guardarse al menos en alguno de los turnos. 
+Funcionarios de escala básica se distribuirán dentro de las siguiente regiones de trabajo dependiendo de su Situación o Función. 
+ 
+Sobre las situaciones y funciones 
+ 
+La situación de un funcionario representa si está efectivamente cumpliendo una tarea o no. Para el cumplimiento de una tarea es necesaria la presencia del funcionario en la unidad. Por lo tanto las situaciones se dividen entre Presente y Ausente. 
+ 
+Las situaciones que representan la presencia del funcionario en la unidad son: 
+	En servicio 
+	Formalizado S/P - Presente 
+	Sumariado Presente 
+	Horario Maternal 
+ 
+Todas estas situaciones que representan presencia en la unidad deberán registrar las funciones que el funcionario cumple durante su jornada de trabajo. 
+ 
+Las áreas que agrupan funciones y por consiguiente presencia de funcionarios son: 
+ Servicios Internos de la UU 
+ Servicios Calle (Personal Superior y Subalterno) 
+ Servicios Exteriores 
+ 
+ 
+Las siguientes son las funciones agrupadas por sección: 
+Servicios Internos de la UU 
+	Archivo 
+	Ayudante del Interno 
+	Encargado de Dependencia 
+	Encargado de Flota Vehicular 
+	Encargado de la Oficina de Tramites Administrativos (OTA) 
+	Encargado de la Policía Comunitaria 
+	Encargado de Sub Comisaria (Comisaria Móvil) 
+	Encargado de Turno 
+	Encargado Depósito Judicial 
+	Fajina 
+	Guardia de Comisaría 
+	Guardia en Destacamento o Sub Comisaría 
+	Guardia en Kiosko Policial, Destacamento o Sub Comisaría (Comisaría Móvil) 
+	Guardia Interna 
+	Interno 
+	Jefe de Dependencia 
+	Mantenimiento 
+	Oficial de Guardia 
+	Oficina de Tramites Administrativos (OTA) 
+	Radio Operador Telefonista 
+	Segundo Jefe de Dependencia 
+	Servicio de Atención a la Ciudadanía 
+	Sub Crio. de Servicio 
+ 
+Servicios Calle (Personal Superior y Subalterno) 
+	Acompañante de Vehículo 
+	Adiestrador 
+	Chofer 
+	Citaciones Judiciales 
+	Conducción a Juzgado 
+	Correísta 
+	Custodia en Domicilio de la Víctima 
+	Custodia en Vía Pública 
+	Custodia Personal 
+	Custodia PPL 
+	Encargado de Patrullaje 
+	Imaginaria 
+	Mecánico Aeronáutico 
+	Observador 
+	Patrulla Ciclista 
+	Patrulla con Equinos 
+	Patrulla de Can 
+	Patrulla de Civil 
+	Patrullaje a Pie 
+	Pericias Técnicas 
+	Piloto 
+	Policía Comunitaria 
+	Policía orientado a Solución de Problemas 
+	Seguimiento de Denuncias 
+	Servicio Exterior 
+	Vigilancia 
+ 
+Servicios Exteriores 
+	Investigación de Delitos 
+	Referente en VDG 
+ 
+Todas las situaciones que representan ausencia en la unidad, no deberán registrar funciones, y algunas, por ejemplo las licencias, exigirán la carga del lapso que las comprende. 
+ 
+Las áreas que agrupan situaciones y por consiguiente ausencia de funcionarios son: 
+ Licencias (Anuales, Semanales, Maternales, etc) 
+ Otros 
+ 
+Las siguientes son las situaciones agrupadas por sección: 
+Licencias (Anuales, Semanales, Maternales, etc) 
+	Descanso por Compensación de Nocturnidad 
+	Licencia Anual 
+	Licencia Especial por ley nº16168 (donación de sangre) y Examen PSA 
+	Licencia por Embarazo 
+	Licencia por Enfermedad 
+	Licencia Por Estudio 
+	Licencia por Estudio Ginecotomamario 
+	Licencia Por Extraordinaria 
+	Licencia Por Fallecimiento 
+	Licencia Por Maternidad 
+	Licencia por Matrimonio 
+	Licencia Por Paternidad 
+	Licencia Por Retiro 
+	Licencia Sin Goce de Sueldo 
+	Licencia Sindical 
+ 
+Otros 
+ 
+	Abandono de Cargo 
+	Citado al Juzgado 
+	Comisión 
+	Cursos 
+	Descanso Semanal 
+	Faltante al Turno 
+	Formalizado C/P 
+	Formalizado S/P - Ausente 
+	No apto por la Junta Médica Nacional de Aptitud - DNSP 
+	Separado del Cargo 
+	Sumariado Ausente 
+	Suspendido 
+Personas Sin Turno 
+Funcionarios sin asignación de un turno. 
+ 
+Sobre el registro situaciones y funciones 
+ 
+Para registrar las situaciones y funciones que cumplirá un funcionario en la unidad, se ingresa por el icono identificador de la edición que esta a la derecha del funcionario. 
+ 
+Se ingresará entonces a editar un funcionario y se verán los datos relacionados al mismo. A esta vista la llamaremos Escalafón-Persona. 
+
+ 
+Como fue explicado anteriormente lo primero que se debe cargar es la situación del funcionario pues esto será lo que determine si él está presente en la unidad o no. 
+ 
+Una vez que se define la situación, presente o ausente, se define si se debe cargar una función o no. Se recuerda que solo las situaciones que representan presencia del funcionario en la unidad requieren del registro de funciones. 
+ 
+En caso que el funcionario posea una situación de ausencia bastará con seleccionar la que corresponda, agregar el turno actual y luego guardar la ficha del funcionario. 
+ 
+Nota: Las situaciones de ausencia no controlan el turno seleccionado, para registrarlo correctamente se deberá seleccionar el actual. 
+ 
+Por el contrario, si el funcionario esta "En servicio" se debe registrar la función que este cumple dentro de la unidad. 
+El SGSP controla esto con el siguiente mensaje: 
+ 
+El siguiente paso es completar los datos de la función que se cumple en la unidad. 
+ 
+Para ello se despliega el siguiente formulario: 
+A esta vista la llamaremos Función-Persona. 
+
+Sobre las distintas funciones que se encuentran disponibles se han dispuesto diferentes requerimientos. 
+ 
+Todas exigen al menos la carga del rango de hora en que cumple dicha función, pudiendo ésta ser igual al tiempo total del turno definido para la dependencia o menor, pero nunca mayor. 
+ 
+Nota: Los funcionarios que cumplen servicio en 2 turnos, es decir, inicia sus tareas a mitad de un turno y las culmina en otro turno, debe registrar cada fracción en cada turno. 
+ 
+
+Como mencionamos anteriormente se requiere para algunas funciones la carga de datos obligatorios. 
+ 
+En algunos casos se exige la carga de Handy y Vehículo. 
+ 
+Sobre el dato Handy, es destacable el comportamiento dual que el SGSP tiene al respecto. 
+Este dato es administrado por una dependencia distinta de la División Sistemas de Información y es un dato utilizado en la medición del cumplimiento de metas institucionales. 
+Este dato es asignado a una Dependencia del SGSP en una base de datos distinta del SGSP y ese dato es consumido por el SGSP para que pueda ser asignado a una función. 
+Luego que ese valor fue relacionado a una Dependencia debe asegurarse que el equipo este encendido para que pueda emitir trazas y ser visible en SGSP. 
+ 
+El comportamiento dual al que hacemos referencia arriba, refiere a que las dependencias que nunca estuvieron relacionadas en la base de datos externa, podrán hacer un registro manual del numero de handy; mientras que las dependencias que poseen datos relacionados en la base externa, deben hacer una selección de datos en una lista. 
+ 
+El dato vehículo es propiedad del SGSP, se crean en División Sistema de Información y se mueven entre dependencias a través de la funcionalidad Movimiento Móvil (se desarrollará más adelante). 
+ 
+Nota: Para que los móviles aparezcan visibles en el combo, deben tener estado DISPONIBLE. 
+ 
+Este estado es editable durante la carga del escalafón diario, en la pestaña llamada Vehículos. Esta pestaña esta disponible en la vista Escalafón-Turno. 
+
+Al ingresar la pestaña se inicia vacía y se debe presionar en botón cargar para listar los vehículos de la Dependencia. Si previamente si cliqueo sobre botón cargar para la carga del escalafón, los vehículos se listarán apenas se cambie de una pestaña a otra. 
+ 
+Sobre la derecha de la grilla de vehículos se mostrará el icono de edición. Éste icono estará disponible para aquellos vehículos que no han sido asignados en alguna función del turno. 
+ 
+
+Volviendo al cuadro de registro de la función para la persona, vemos que tenemos los campos Unidad Ejecutora, Dependencia y Observaciones. 
+ 
+Estos campos no son obligatorios pero se agregaron para poder reflejar las funciones de patrullaje fuera de la jurisdicción. 
+Es decir, cuando se realiza el patrullaje en una jurisdicción distinta a la de la Dependencia donde pertenece, debe agregar en estos campos la jurisdicción correspondiente a donde realiza la función. 
+
+Luego de completado el formulario Función-Persona se guarda la función, la que se agrega al listado de funciones dentro del registro del Funcionario o lo que llamamos Escalafón-Persona. 
+ 
+
+No hay limites para la cantidad de funciones dentro del turno pero hay que tener presente que las mismas no pueden solaparse. 
+En la imagen mostrada arriba se ven las funciones Chofer y Archivo entre las 10 y las 11. 
+Esto no esta permitido y aunque allí parezca haberlo aceptado esta validación se aplicará cuando se intente guardar el formulario Escalafón-Persona. 
+ 
+Nota: no se podrá cargar dos choferes en el mismo vehículo al mismo tiempo. 
+ 
+Una vez corregida la secuencia de funciones se puede pasar a guardar el Escalafón-Persona en el botón Guardar que se ve abajo a la derecha. 
+Al guardar el Escalafón-Persona, el SGSP se posiciona en la vista del Escalafón-Turno. 
+ 
+Allí se producirá la distribución automática de las funciones agregadas para el Funcionario en las distintas organizaciones establecidas y definidas anteriormente. 
+ 
+Es por esto que si un Funcionario cumple diversas Funciones puede ocurrir que se muestre mas de 1 vez en la vista Escalafón-Turno. 
+ 
+O lo que es lo mismo, se mostrará tantas veces como Funciones cumpla y distribuido según corresponda entre las distintas listas de agrupamiento. 
+ 
+Nota: El agrupamiento de los Oficiales no se verá afectado por la cantidad de Funciones que cumplan. 
+Una vez que se completan las Funciones para todos los Funcionarios del turno entonces se puede guardar el Escalafón en botón guardar en la parte superior Derecha del formulario Escalafón-Turno. 
+ 
+Escalafón puede guardarse infinitas veces persistiendo en la base de datos los cambios hechos en la ultima vez que se guarda. 
+ 
+Con el Escalafón guardado se habilitan los botones Exportar e Imprimir. 
+ 
+Cliqueando el botón Exportar se permite Abrir o Guardar en formato de planilla electrónica el archivo "escalafónTurno.xlsx" 
+ 
+El exportable se mostrará así: 
+ 
+Cliqueando el botón Imprimir se muestra la opción de imprimir Turno o Resumen. 
+ 
+Estas impresiones se mostraran en formato pdf. 
+
+Las imágenes ultimas están editadas para poder utilizarlas como representación del original. En la impresión del Resumen se muestran todas las Situaciones y Funciones. 
+ 
+ 
+Una vez que seleccionamos Cargar en la botonera y se produce la distribución de los Funcionarios según "la foto", se habilitan los botones Agregar y Resumen 
+ 
+El botón Agregar esta relacionado con la sección de Escalafón-Turno denominada Personas Sin Turno. 
+ 
+En esta sección se incluirán inicialmente aquellos Funcionarios que en algún momento estuvieron en algún Escalafón del turno que estoy editando y los que hayan sido movidos a la Dependencia. 
+ 
+Por otro lado, en el botón Agregar, se mostrarán todos los Funcionarios de la Dependencia que están sin turno. 
+
+Este formulario posee un buscador que permite reducir el numero de Funcionarios. 
+ 
+Una vez identificado el Funcionario que se desea sumar al Escalafón se cliquea sobre el ícono a la derecha y se agrega al turno. 
+
+ 
+Se sumarán al listado de Personas Sin Turno para luego ingresar a editar el Escalafón-Persona y entonces agregarle la Situación y Función correspondiente. 
+ El botón Resumen ofrece una serie de contadores que muestran la distribución de la fuerza efectiva en el momento de la carga. 
+Dentro del formulario Escalafón-Persona y debajo del listado de funciones se muestra la siguiente sección: 
+
+El propósito de esta área es poder registrar el control sobre las herramientas que le fueron asignadas a los Funcionarios. 
+ 
+El chaleco se muestra separado porque es un objeto que inició su administración en el anterior escalafón y hay funcionarios con datos relacionados en ese lugar por lo que no puede ocultarse. Aún no ha sido integrado como el resto de objetos y próximamente se corregirá esta vista. 
+ 
+El arma es un objeto dinámico administrado por Dabep-Oca, es decir, el flujo de entrega del arma al Funcionario lo realiza esa Dependencia. Por lo que de constatarse la falta de este dato se deberá hacer el reclamo a la Oca correspondiente. 
+ 
+El resto de objetos son estáticos, son datos fijos, no hay trazabilidad de esos objetos, sirve el registro para asentar el estado del objeto en una fecha determinada. 
+ 
+La forma de hacerlo es editar el objeto y completar los datos del formulario que se muestra. En el caso de las armas se verá primero los datos del arma y debajo los datos de la revista. 
+
+Esta revisión quedará guardada momentáneamente en el formulario de Escalafón-Persona y se podrá distinguir en la grilla de objetos con un check (no editable), así: 
+
+Sin embargo para que la Revista efectivamente quede asociada al Funcionario se debe guardar el formulario Escalafón-Persona y luego el Escalafón-Turno. 
+ 
+ 
+Movimiento Móvil 
+
+El botón Movimiento Móvil esta asociado al permiso "EscalafonPrestarMoviles", este permiso debe ser gestionado a través del referente para SGSP en cada Unidad Ejecutora. 
+ 
+El formulario esta siempre visible pero ocurre que si no se tiene el permiso, al momento de realizar una búsqueda, el SGSP desloguea al usuario. 
+
+Los movimientos de móviles siempre deben relacionar la dependencia del usuario. 
+Es decir, el usuario logueado podrá mover móviles desde su dependencia a otra y de otra a su dependencia pero no podrá mover móviles entre dependencias distintas a la de su pertenencia. 
+
+El formulario se inicia con el combo Matrícula posicionado en Dependencia. 
+
+Esto hace que la búsqueda se realice entre los móviles actuales de la dependencia y con la intención de moverlos a otra. 
+Si la intención es traer un móvil de otra dependencia a la mía, entonces deberé buscar en la opción Otras. 
+ 
+Luego agregó el numero de matrícula que deseo buscar y el formulario muestras las coincidencias. 
+
+Cuando identificó el móvil que debo traer a mi dependencia ingreso al ícono de la derecha de la grilla con título "Mover" y completo el siguiente formulario. 
+
+Los datos a editar son UUEE, Dependencia y Supervisa; deben corresponder con la Dependencia en la que estoy logueado. 
+ 
+movimiento ubica el móvil en nuestra dependencia pero debe editarse en la pestaña Vehículo mencionada arriba y colocarlo como disponible para que pueda ser utilizado en alguna función dentro del escalafón. 
+ 
+Una vez completado el movimiento, se comunicará de forma automática, vía correo electrónico, a las partes vinculadas. 
+ 
+Movimiento Funcionario 
+
+El botón Movimiento Funcionario esta asociado al permiso "EscalafonPrestarPolicias", este permiso debe ser gestionado a través del referente para SGSP en cada Unidad Ejecutora. 
+ 
+El formulario esta siempre visible pero ocurre que si no se tiene el permiso, al momento de realizar una búsqueda, el SGSP desloguea al usuario. 
+
+Los movimientos de funcionarios siempre deben relacionar la dependencia del usuario. 
+
+decir, el usuario logueado podrá mover funcionarios desde su dependencia a otra y de otra a su dependencia pero no podrá mover funcionarios entre dependencias distintas a la de su pertenencia. 
+ 
+Los Funcionarios pueden ser identificados de dos formas dentro del SGSP, por cédula y por nombre de usuario. 
+ 
+Por esta razón el combo de búsqueda permite ambas: 
+
+Al buscar el SGSP cargará el formulario con los datos actuales, los que deberán ser editados. 
+ 
+ 
+ 
+ 

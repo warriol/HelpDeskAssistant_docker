@@ -1,0 +1,573 @@
+Ministerio del Interior División de Sistemas de Información
+MANUAL DE USUARIO
+Registro de Información de Seguridad Pública
+
+Sistema de Gestión de Seguridad Pública (SGSP)
+
+
+Introducción
+El presente Manual busca sintetizar los pasos básicos a seguir para el ingreso de una novedad en el Sistema de Gestión de Seguridad Pública (en adelante SGSP). 
+Se pasará a detallar la manera de completar las cuatro pestañas básicas que son exigidas para grabar una novedad (intervinientes, ubicación, narración e informes y título), las fichas de objetos (vehículos, armas, cheques y objetos (generales)) y las pestañas complementarias (violencia doméstica, tránsito, suicidio y abigeato).
+Evento - Ingreso
+Para ingresar eventos en el SGSP el usuario debe seleccionar en el Menú de Evento el servicio Ingreso. 
+Una vez seleccionada la opción que invoca este servicio, el sistema desplegará el formulario para Ingreso de Eventos SGSP el cual está compuesto por los cuatro pestañas principales (mostradas de manera vertical a la izquierda de la pantalla) a los cuales se puede acceder con un clic en cada una de ellas. 
+Para ingresar un evento el usuario debe obligatoriamente registrar datos en las cuatro pestañas que conforman el Formulario de Ingreso de Eventos.
+El usuario puede navegar indistintamente por las cuatro pestañas para registrar los datos que reciba.
+Cada pestaña cuenta con una serie de campos que deben ser completados de manera obligatoria por lo que al seleccionar una nueva pestaña el sistema le informará mediante una alerta que Existen campos inválidos y le preguntará si ¿desea abandonar el formulario y perder los cambios?. En caso de seleccionar Cancelar el sistema lo mantendrá en el formulario mientras que si hace clic en Aceptar, perderá la información a la cual no le ha dado guardar.
+A su vez, el sistema genera otra alerta en color amarillo que da cuenta de los datos faltantes. Por ejemplo: Ubicación Debe corregir los siguientes errores: Debe localizar una dirección.
+La primera palabra refiere a la pestaña, mientras que la viñeta a la información requerida.
+Las cuatro pestañas básicas tienen especificaciones particulares las cuales se muestran a continuación:
+
+Especificación de Sub Formularios
+Pestañas de Ingreso de Eventos
+
+Pestaña Intervinientes
+Se registran los datos personales de todas las personas que participan en el evento, incluyendo el domicilio. Representante Legal: registra datos profesionales y no personales.
+Las personas se clasifican según el ROL que desempeñan en el evento:  Denunciante  Indagado  Víctima  Conductor  Funcionario Actuante  Testigo del Evento  Testigo de la Actuación Administrativa
+Dependiendo donde resida se puede registrar:  Domicilio en Uruguay  Domicilio Extranjero  No tiene domicilio Para el domicilio en Uruguay se registra la ubicación geográfica utilizando el mapa digital de Uruguay integrado al SGSP.
+Pestaña Ubicación
+Se registran los datos de la ubicación temporal y espacial del evento ocurrido. Se puede realizar la derivación administrativa del evento.
+Para la ubicación temporal se registran:  Fecha y hora de inicio del evento  Fecha y hora de finalización del evento  Fecha y hora de Conocimiento del evento.  Para la ubicación espacial se registra la ubicación geográfica  el hecho utilizando el mapa digital de Uruguay integrado al SGSP.  Existe opción para utilizar una dirección ya ingresada en intervinientes facilitando el registro.
+Pestaña Narración e Informes
+Se registra la descripción detallada del evento siguiendo un patrón narrativo y descriptivo acordado (ver en ésta Guía el apartado Narración de la descripción del Hecho).
+El formulario ofrece al usuario la posibilidad de seleccionar una plantilla con texto pre-redactado para facilitar la redacción descriptiva.
+Apartados de la descripción de acuerdo al siguiente esquema:  Descripción del Evento  Diagnóstico Médico  Resolución Judicial
+Pestaña Título
+Se clasifica y se titula el evento en base al contenido registrado. El título tiene un alcance meramente estadístico y sin valor jurídico.
+Dispone de un apartado para gestión administrativa, control de la información y relevamiento de indicadores estadísticos.
+En éste formulario se registran los juzgados y fiscalías que intervienen en el caso y a los cuales posteriormente se les derivará la información.
+El sistema cuenta en el evento con un borrador que ayuda al Usuario a no perder la información que se está ingresando. Se incorpora a esta funcionalidad un autoguardado que se hace efectivo cada pocos minutos.
+Para acceder al borrador previamente guardado se debe ir al Menú Evento, Sub Menú Borradores. El mismo se guarda en el disco local de la computadora, por lo que solo se podrá acceder desde esa terminal.
+Los registros de borradores traen asociados la fecha y hora en que fueron guardados, el número de intervinientes ingresados y la tipificación.
+
+Pestaña Intervinientes
+En esta pestaña Intervinientes se registran los datos de todas las personas que participan en el evento de seguridad pública.
+Al seleccionar sobre la pestaña lo primero que aparecerá será un cuadro vacío.
+Para agregar personas debe hacer clic sobre el botón + Agregar. 
+La pestaña está dividida en tres secciones bien diferenciadas:
+ Cuadro para selección del Rol de la persona
+ Cuadro para registro de datos personales
+ Cuadro para registro del domicilio de la persona
+
+Selección del Rol de la persona
+En éste cuadro, el usuario debe seleccionar el Rol que desempeñó la persona durante el desarrollo del evento de seguridad pública, de acuerdo a la siguiente especificación:
+Personas Intervinientes
+Especificación de Roles
+VÍCTIMA: A la persona se le debe asignar el Rol Víctima cuando medie alguna de las siguientes circunstancias:  Es el propietario, tenedor o poseedor del objeto del hecho.  Es la persona que sufre la lesión o el daño o se ve afectada del goce de sus derechos.  En los casos de Suicidio o Tentativa de Suicidio.  Es peatón o un acompañante que sufre lesiones en siniestros de tránsito.
+DENUNCIANTE: A la persona se le debe asignar el Rol Denunciante cuando medie alguna de las siguientes circunstancias:  Es la persona que da aviso o pone en conocimiento a la Autoridad Judicial / Fiscal o Autoridad Policial la ocurrencia de un delito, siniestro o hecho no delictivo que altere la seguridad pública. Excepción: Si la persona es Denunciante y Víctima del hecho, solo se le asigna el Rol de Víctima.
+NDAGADO: A la persona se le debe asignar el Rol Indagado cuando medie alguna de las siguientes circunstancias:  Es el autor material del hecho delictivo.  Es el cómplice del autor material del hecho delictivo.  Es la persona indagada por la Justicia o Policía como uno de los posibles responsables del evento de seguridad pública.  Es la persona indagada por la Justicia o Policía como una de las personas que tuvo relación o vinculación directa en la ocurrencia del evento de seguridad pública.
+CONDUCTOR: A la persona se le debe asignar el Rol Conductor cuando medie alguna de las siguientes circunstancias:  Es el conductor del vehículo en un Siniestro de Tránsito, Inspección Vehicular, Falta a la OGT, Espirometria y todas las faltas de Conducciones de Vehículos Motorizados.
+FUNCIONARIO ACTUANTE: A la persona se le debe asignar el Rol Funcionario Actuante cuando medie alguna de las siguientes circunstancias:  Son todos los Policías y Funcionarios que actuaron y participaron en el
+hecho en cumplimiento de sus obligaciones y función pública. Nota: El sistema exige que se especifique el Funcionario que tomó la denuncia haciendo clic en el check de selección.
+TESTIGO DEL EVENTO: A la persona se le debe asignar el Rol Testigo del Evento cuando medie alguna de las siguientes circunstancias:  Es la persona que presenció la ocurrencia del hecho sin estar vinculada
+directamente o aporta datos del evento.
+TESTIGO DE LA ACTUACIÓN ADMINISTRATIVA: A la persona se le debe asignar el Rol Testigo de la Actuación Administrativa cuando medie alguna de las siguientes circunstancias:  Es la persona que NO presenció la ocurrencia del hecho NI está vinculada directamente, pero debido a su proximidad con el lugar del hecho, la Policía le realiza consultas en busca de datos o aportes que puedan ayudar a la investigación.  Es aquella que solo justifica una actuación administrativa (ej. entregar vehículo a persona habilitada).
+
+Ingreso de los Datos Personales
+En éste cuadro se deben ingresar los datos personales del interviniente y dependerá del Rol seleccionado los campos que aparecerán en el formulario para completar.
+Si el usuario ingresa el número del documento de identidad de una persona de nacionalidad uruguaya, el sistema interopera con la Base de Datos de la Dirección Nacional de Identificación Civil y auto-completa todos los datos correspondientes a la cédula de identidad.
+Similar al punto anterior, el sistema interopera con la Base de Datos del Prontuario Electrónico Criminal de la Dirección Nacional de Policía Científica y retorna un listado con todos los antecedentes criminales de la persona.
+Similar al punto anterior, el sistema verifica si la persona tiene Requisitorias Judiciales pendientes, Averiguaciones de Paradero, medidas de coerción relacionadas a violencia doméstica, o Procesamientos Judiciales y en caso afirmativo despliega una alerta en color rojo en la parte superior de la pantalla. 
+Si la persona se registra con el Rol Indagado o Conductor, el sistema despliega, además de los Datos Generales, Medidas de Coerción, otra serie de campos entre los que se encuentran el alias, la descripción física, la vestimenta, las señas particulares y otros.
+En el Rol de Víctima y Conductor se puede registrar el dato de Espirometría, Test de Drogas y Medidas de Coerción.
+El sistema da la posibilidad de adjuntar a los registros de dichos intervinientes archivos de imagen (Foto).
+Para los Funcionarios Actuantes se deben registrar sus Datos Funcionales e indicar cuál de ellos tomó la denuncia y a través de qué dispositivo.
+
+Ingreso de la Situación de la Persona
+El sistema exige en el cuadro de Datos Personales la carga de manera obligatoria de la situación de la persona. 
+El formulario dispone de una lista completa de situaciones para que el usuario seleccione la que corresponda, por ejemplo: Detenido, Procesado, Requerido, Internado, Fallecido, Denunciado, En Libertad, etc. 
+PRECAUCIÓN: Cuando el usuario determina que la situación de la persona es Requerido, significa que existe una Resolución Judicial que autoriza dicha decisión.
+Exclusivamente por Disposición Judicial se puede asignar la situación REQUERIDO a una Persona. La Policía NO está autorizada a disponer la requisitoria o el Sin efecto de requisitoria de Personas sin orden judicial.
+A su vez, debe existir resolución judicial para el ingreso de eventos de Averiguación de Paradero los cuales también generan una alerta en la ficha de intervinientes de la persona y en la consulta de Personas.
+
+Ingreso del Domicilio
+En esta sección se debe ingresar el domicilio de la persona interviniente pudiendo elegir entre las opciones; No tiene domicilio, Domicilio en el Extranjero o Domicilios en Uruguay.
+Si el domicilio es en Uruguay, el usuario tiene la posibilidad de utilizar el mapa digital de Uruguay para marcar manualmente el punto geográfico exacto del domicilio. También puede utilizar la funcionalidad del localizador geográfico completando los filtros que están a la derecha y el mapa automáticamente realiza un zoom al punto filtrado.
+Si previamente en el evento había cargado un interviniente con Domicilios en Uruguay, seleccionando el botón que dice Seleccionar dirección Ingresada puede traer y cargar el mismo domicilio.
+PROCEDIMIENTO
+Registro de domicilios de Uruguay
+1 Buscar la calle que necesitamos registrar
+1.1 En el campo Buscar calle digitamos el nombre de la calle.
+1.2 Hacemos clic en la imagen con el diseño de una lupa.
+2 Seleccionar la calle que necesitamos registrar
+2.1 En la parte superior del cuadro se muestra una lista con todas las calles encontradas.
+2.2 Seleccionamos la calle que necesitamos haciendo clic sobre el nombre de la calle.
+ Seleccionamos el Tipo de Ubicación
+1. Dependiendo de la información que tenemos disponible sobre la dirección, debemos seleccionar el tipo de ubicación:
+1.1. Calle / Esquina: Cuando solamente tengo el nombre de la calle principal y el nombre de la calle que se cruza en la esquina más cercana. Direcciones en ciudades y localidades del interior, o en Montevideo cuando no se tiene N.º de puerta (o N.º irregular).
+1.2. Calle / Número: Cuando solamente tengo el nombre de la calle principal y el número de puerta. Válido solamente para direcciones en Montevideo.
+1.3. Ruta / Km: Cuando solamente tenemos el nombre de la ruta nacional y el número de kilometro (rige para rutas fuera de la zona urbana).
+1.4. Balneario / Manzana: Para calles de zonas costeras, cuando solamente tenemos el nombre del Balneario y el número de la manzana.
+1.5. Padrón: Cuando solamente tenemos el número de padrón catastral del terreno donde está ubicado el domicilio.
+1.6. Punto en Mapa: Cuando NO tengo el nombre de la calle NI otro dato, debo seleccionar ésta opción y luego buscar manualmente en el mapa digital la ubicación geográfica del domicilio. Cuando encuentro el lugar hago clic sobre el
+mapa para marcar el punto geográfico. Cuando no es posible registrar una dirección (o lugar del hecho) por las opciones anteriores.
+1.6.1. Seguidamente debo escribir manualmente en el campo Buscar calle el nombre de la calle, ruta, senda o camino que corresponda (se escribe manualmente porque se entiende que esa calle no existe en el nomenclator de calles). 
+ Localizar la dirección geográfica
+1. Luego que ingresamos los datos según el tipo de ubicación seleccionada, hacemos clic en el botón Localizar.
+1.1. Inmediatamente el mapa localiza la dirección haciendo zoom en forma automática y a la derecha se actualizan los nombres de las calles que se cruzan en las esquinas más cercanas.
+1.2. Cumplida la localización, significa que la dirección fue ubicada y el domicilio está listo para grabarse.
+1.3. Luego de Localizado un punto no podrá ser modificado salvo que se seleccione el botón Cambiar dirección y se haga clic sobre un nuevo punto.
+ Excepciones:
+1. Si la dirección exacta no se puede ubicar el usuario debe localizar, como única excepción, el cruce más aproximado posible y completar manualmente el resto de los datos referidos a la ubicación (senda, block, sector, etc).
+Si el domicilio es en el Extranjero, el usuario debe seleccionar el país y luego completar en forma manual los datos que se requieren.
+Si el usuario selecciona la opción No tiene domicilio, el sistema no exigirá que se carguen otros datos y para esa persona no se registrarán domicilios. Se utiliza esta opción para personas en situación de calle o NNs o se desconoce realmente su domicilio. En este caso dejar constancia en el narración la causa por la que no tiene domicilio. 
+NOTA: aparecen contadores en la pestañas intervinientes, armas, objetos, vehículos y cheques.
+A la derecha de cada pestaña aparecerá la cantidad de registros ingresados en cada una. En caso de no haber registros se muestra el número 0.
+
+Pestaña Ubicación
+En la pestaña Ubicación se registran los datos de la ubicación temporal y espacial del evento de seguridad pública.
+La pestaña está divida en tres cuadros bien diferenciados:  Cuadro para registro de la Ubicación Temporal  Cuadro para registro de la derivación administrativa.  Cuadro para registro de la Ubicación Espacial
+Ingreso de la Ubicación Temporal
+En éste cuadro el usuario debe registrar la fecha y hora de ocurrido el hecho y la fecha y hora que la autoridad (policía, fuerzas armadas, justicia, etc.) tomó conocimiento por primera vez del hecho.
+Los cuadros centrales se utilizan para registrar hasta que fecha y hora final ocurrió el hecho.
+Ejemplo: La víctima declara que le hurtaron el domicilio entre el 1 de enero de 2014 hora 10:00 y el 31 de enero de 2014 hora 20:00 durante su licencia.
+Para análisis estadístico se debe indicar además si ese día fue feriado.
+
+Funcionalidad para Derivación Administrativa
+La derivación administrativa es una funcionalidad que permite derivar la responsabilidad administrativa del evento a otra Dependencia. La Dependencia que recibe la derivación asume la responsabilidad administrativa de todos los contenidos registrados en el evento.
+Esto puede ocurrir en los siguientes casos:  Por mandato Superior se dispone que éste Caso se derive a otra Dependencia.  La denuncia es recepcionada en una Dependencia distinta a la jurisdicción policial donde ocurrió el hecho.
+Para proponer la derivación del Evento a otra Dependencia es suficiente con seleccionar la Unidad Ejecutora y la Dependencia en cuadro Derivar a.
+NOTA: Cabe mencionar que al realizar la derivación, automáticamente el SGSP envía a las unidades involucradas en el movimiento del evento, correos notificando dicha acción.
+
+Ingreso de la Ubicación Espacial
+En éste cuadro el usuario debe registrar la ubicación geográfica y la dirección del lugar del hecho.
+Para el registro de ésta información se utilizan los mismos datos, el mismo procedimiento y el mismo formulario que el utilizado para el registro del domicilio de una persona (ver Ingreso de Domicilio). La única diferencia reside en que el sistema exige cargar el dato Tipo de Lugar entre los que se puede elegir Local Privado, Local Público y Vía Pública. 
+Si previamente en el evento había cargado intervinientes con Domicilios en Uruguay, seleccionando el botón Seleccionar dirección ingresada puede traer y cargar el mismo domicilio. Esto puede ser útil en los Hurtos de Casa de Familia, donde coincide el Lugar del Hecho con el domicilio de la/s víctima/s.
+
+Pestaña Narración e Informes
+En la pestaña Narración e Informes se registra la descripción narrativa del hecho, como así, se documenta el diagnóstico médico de todas las personas lesionadas y la Resolución Judicial/Fiscal dispuesta por el Juez o Fiscal que trabaje en el Caso.
+La pestaña Narración e Informes está dividido en seis cuadros bien diferenciados:  Cuadro para Cargar una Plantilla de Narración  Cuadro para documentar la Narración e Informe  Cuadro para seleccionar el Supervisor del Evento  Cuadro para documentar el Diagnostico Médico  Cuadro para documentar la Resolución Judicial  Cuadro de Datos  Cuadro Informe de Actuación (solo aparece cuando hay intevinientes con Circunstancia de la Detención flagrancia).
+Plantilla de Narración
+Esta funcionalidad permite seleccionar "textos predefinidos" de narraciones de eventos de seguridad pública. Para ello, el usuario debe seleccionar una plantilla y luego hacer clic en el botón "Seleccionar" para que el texto se muestre dentro del campo "Narración e Informes".
+El texto desplegado se presenta pre-desarrollado y espera que el usuario complete las oraciones que se muestran en punteado. Para ello, el usuario debe hacer doble clic sobre el punteado para sustituirlo por el texto o palabra que corresponda. Las partes del texto que no se adapten a la narración que se desea ingresar pueden eliminarse.
+
+Procedimiento para redactar la Narración del Hecho
+En éste cuadro se registra como sucedieron los hechos mediante la redacción ordenada y detallada de la descripción del hecho.
+La redacción del evento dependerá del Caso particular, pero la construcción del mismo requerirá del esfuerzo personal del Funcionario Actuante para relevar la mayor cantidad de datos que le permitan transformarlos en información útil para el instituto.
+La recolección de datos debe permitir describir el evento manteniendo la coherencia cronológica de cómo fueron sucediendo los hechos que conforman la historia del Caso, de acuerdo a los siguientes aspectos a relevar:  Referencia a la toma de conocimiento  Entrevistas realizadas a los involucrados  Relato histórico y detallado del hecho  Autoridades y Organismos presentes  Aportes Técnico-Policial
+
+PROCEDIMIENTO
+Narración de la Descripción del Hecho
+1. Toma de conocimiento
+1.1. El relato describe el momento que la Policía toma conocimiento del suceso haciendo referencia a la ubicación espacio-temporal del hecho, como así, las dotaciones policiales que concurrieron en atención de la emergencia.
+2. Entrevista a las personas involucradas
+2.1. Se describe el contenido detallado y en orden cronológico de las entrevistas que la dotación policial realiza a las distintas personas involucradas en el hecho.
+2.2. Se documenta el estado físico-emocional de las Víctimas e Indagados según la percepción técnica y experiencia del Funcionario Actuante.
+2.3. Se recuerda que: las personas se mencionan con su Rol y Nombre y Apellido. Ejemplo: ...el denunciante Juan PEREZ manifestó que...; los apellidos de las personas y los nombres de los Organismos e Instituciones en letras mayúsculas;
+2.4. Se debe indicar que medidas de seguridad se adoptaron con cada persona (detención, conducción, emplazamiento, etc).
+2.5. Se transcriben los comentarios y frases textuales de la declaración de los involucrados y además contenidos de cartas, mensajes electrónicos de voz y texto. 
+2.6. Cuando el denunciante presenta denuncia escrita se registra su contenido en forma textual (debe incluir las faltas de ortografía o gramaticales).
+2.7. Se recuerda que toda transcripción textual se encierra entre comillas dobles y es escrita en Mayúscula.
+2.8. No se deben pegar en la narración las actas completas, sino un resumen que de cuenta de lo medular. Se debe adjuntar el acta en un archivo multimedia en la pestaña Título.
+3. Relato histórico y detallado del hecho
+3.1. Narración detallada de como se sucedieron los hechos, en orden cronológico, según el relevamiento y comprensión técnico-profesional del Funcionario Actuante.
+3.2. Utilizar palabras simples y llanas del lenguaje uruguayo y evitar sinónimos complejos o demasiado técnico para significar palabras cotidianas o de corriente uso. Ejemplo: utilizar la palabra pelota en lugar de balón, utilizar la frase tacho de basura en lugar de recipiente de residuos, utilizar la frase caminaba por la vereda en lugar de transitaba por la acera, etc.
+3.3. Utilizar el corrector ortográfico y gramatical del navegador para revisar la ortografía y gramática utilizada. Se recomienda mantener actualizado el plugin que ofrece el servicio de corrector. Caso contrario, utilizar un diccionario del idioma español para escribir correctamente. Evitar grabar la novedad sin previa revisión de la ortografía y gramática.
+3.4. Armar párrafos cortos, simples y claros al momento de transmitir la idea; emplear adecuadamente los signos de puntuación y evitar oraciones extensas.
+3.5. Evitar divagar o filosofar al momento de transmitir la información ya que puede inducir a interpretaciones equivocadas o desviar la investigación del Caso en supuestos. En todo momento debe emplear párrafos concretos, con datos puntuales y sin ninguna omisión de información.
+3.6. Recordar que; la coma, signos de puntuación, etc. van pegados a la palabra anterior y se deja un espacio de la palabra siguiente; que toda transcripción textual se encierra entre comillas dobles; antes de iniciar cada párrafo dejar una sangría de 5 (cinco) espacios; separar los párrafos con un espacio.
+4. Autoridades u Organismos presentes
+4.1. Especificar las Emergencias Móviles, dotaciones de Bomberos, dotaciones
+de la Policía Científica, Equipos de la Intendencia Municipal u otro Organismo con sus respectivos responsables que hayan concurrido a la escena del hecho.
+4.2. Especificar toda Autoridad Pública o Referentes de Instituciones, Organismos o Locales que se hagan presente en la escena del hecho.
+4.3. Mencionar que actividad o tarea desempeñaron durante su estadía y puntualmente destacar si ingresaron o no a la escena del hecho con la autorización o competencia correspondiente.
+5. Aportes Técnico-Policial
+5.1. Se agrega toda información que pueda ser considera como prueba, testimonio o indicio de lo sucedido que pueda ser de utilidad para la aclaración del hecho.
+5.2. Se agregan las medidas adoptadas y recomendadas para la seguridad del entorno y de los involucrados que puedan ser de utilidad para el Juez o Fiscal Competente al momento de tomar definiciones de primera instancia sobre las medidas de protección necesarias.
+
+Ingreso del Supervisor del Evento
+En éste cuadro se debe seleccionar al Funcionario de la dependencia que supervisará el evento ingresado por el Operador.
+ Perfil del Supervisor:  corresponde, preferentemente, a un Funcionario de mayor jerarquía policial y experiencia administrativa que el Operador. Se pretende que el Supervisor designado haya tenido experiencia como Operador SGSP y principalmente mayor experiencia y conocimiento policial que el Operador. El perfil ideal sería el de Sargento y Sub Oficial Mayor. En su defecto, puede cumplir ésta función el Oficial o Sub Oficial Encargado de Guardia, el Encargado de Turno o el Jefe o Encargado de la Dependencia. La función de Supervisor no puede ser cumplida por un Alistado de igual jerarquía al Operador, salvo extrema necesidad en Dependencias de personal reducido previa justificación formal del Jefe de la Dependencia.
+Se podrá seleccionar como supervisor del evento funcionarios de la dependencia que ingresa el evento, de la dependencia de la jurisdicción del lugar del hecho (en caso que la jurisdicción sea diferente a la de la dependencia de ingreso) o de la dependencia a la que se deriva el mismo.
+ La tarea del Supervisor  corresponde a la de leer y revisar nuevamente todo el contenido ingresado por el Operador y disponer los cambios o agregados que correspondan. 
+El Supervisor es el responsable del primer control de calidad del evento ingresado, debiendo controlar las omisiones de datos y disponer los nuevos relevamientos para completar dichas omisiones. Debe verificar que la redacción del caso corresponda con el verdadero desarrollo de lo ocurrido debiendo disponer que se agreguen todos los tópicos policiales correspondientes a la actuación de la Policía que el Operador haya omitido agregar o consultar por su inexperiencia.
+El Supervisor debe controlar que la actuación policial haya cumplido con la formalidad del procedimiento y en caso de omisiones, debe disponer que se entreviste nuevamente a los Funcionarios Actuantes para profundizar la información y en caso de omisiones, debe disponer que concurran a la escena del hecho entrevisten testigos o involucrados para recuperar la información que fue omitida.
+
+Ingreso del Diagnóstico Médico
+En éste cuadro se transcribe en forma textual el diagnóstico médico aportado por el profesional competente de la Institución sanitaria que haya asistido a los involucrados lesionados o eventualmente fallecidos. Se recuerda que la transcripción textual se encierra entre comillas dobles y se escribe en letras mayúsculas (el sistema ya está validado). 
+El diagnóstico médico NO debe transcribirse en la narración, sino que debe agregarse únicamente en este campo.
+En la narración SI se debe mencionar quién recibió la lesión, en que momento y quién lo asistió.
+
+Ingreso de la Resolución Judicial / Fiscal
+En éste cuadro se transcribe en forma textual la resolución judicial o fiscal aportada por el Juez o Fiscal competente. Se recuerda que la transcripción textual se encierra entre comillas dobles, se escribe en letras mayúsculas y en formato "negrita" (el sistema ya está validado). La misma sólo se ingresa en este campo y no en la narración. En la narración sí se debe menciona en que momento, quién, y a quién se da intervención.
+
+Cuadro de Datos
+A la derecha del cuadro Narración aparece el campo Datos el cual precarga información proveniente de las pestañas Intervinientes, Ubicación, objetos, cheques, armas y vehículos. Si se seleccionar sobre el botón + o se arrastra el registro sobre el cuadro de narración los datos se pegan automáticamente. Esta función puede ayudar a que el Usuario no cometa errores de transcripción a la hora de completar las actuaciones policiales.
+
+Informe de Actuación en evento
+Cuando en el evento se ingresa un interviniente con situación Detenido o Conducido con Circunstancias de la Detención en flagrante delito se desplegará en la pestaña Narración e Informes la ficha de Informe de Actuación. 
+Además de cargar la narración, el sistema le exigirá que ingrese el informe de actuación, completando los datos de Fecha de Ejecución, Informe de Actuación y Resultados de la Investigación. 
+
+Pestaña Título
+En la pestaña Título se registra la novedad con una tipificación acorde a lo que dictamina la resolución Judicial / Fiscal o de lo que se desprende de la pestaña Narración e Informes. A su vez reúne una serie de datos de carácter estadístico que luego pueden ser utilizados por otras dependencias a la hora de hacer estadísticas o análisis.
+La misma está dividida en las siguientes secciones:
+ Cuadro de título
+ Cuadro de autoridades intervinientes
+ Cuadro de armas utilizadas
+ Cuadro de Juzgados y/o Fiscalías intervinientes
+ Cuadro de indicadores administrativos
+ Cuadro de Novedades Aclaradas
+ Cuadro motivo que deriva la ocurrencia
+ Cuadro consecuencias de la aclaración
+ Cuadro para agregar archivos multimedia
+
+Ingreso del Título del evento
+En éste cuadro se clasifica al evento a través de la asignación de un título.
+La novedad se puede clasificar de 4 formas:
+ Crímenes : Los eventos deben ser clasificados como Crímenes cuando su contenido describa un hecho delictivo del Estado contra una persona.
+ Delito o Falta : Los eventos deben ser clasificados como "Delito o Falta" cuando su contenido describa una acción u omisión contra la ley penal.
+ Hecho Policial : Los eventos deben ser clasificados como "Hecho Policial" cuando su contenido NO describa una acción u omisión contra la ley penal, pero la Policía tomó conocimiento y/o participó y/o intervino.
+ Accidente : Los eventos deben ser clasificados como Accidente cuando refiere a un hecho fortuito o acción no deseada que por negligencias propias o de terceros o por factores externos, se llega a un fin no deseado.
+
+Dependiendo de la clasificación del evento y del título el sistema habilitará la selección de un Complemento y Modalidad:
+ En el caso que el evento se clasifique como Delito o Falta o Crímenes, los títulos que podemos seleccionar corresponden a los nombres de delitos y faltas definidos en el Código Penal y a nombres de Leyes Especiales que establecen figuras delictivas.
+ En el caso que el evento se clasifique como Hecho Policial, los títulos que podemos seleccionar corresponden a nombres de procedimientos, actuaciones policiales o acciones no delictivas.
+ En el caso que el evento se clasifique como Accidente, los títulos que podemos seleccionar corresponden a nombres de accidentes.
+ El Complemento del título es un agregado que indica cual es la víctima impersonal afectada por el evento. Facilita la interpretación del título y permite generar la sub clasificación del evento.
+ En éste cuadro además podemos seleccionar la modalidad delictiva utilizada para la ejecución del evento.
+
+Ingreso de las Autoridades Intervinientes
+En éste cuadro se seleccionan las autoridades representantes de Organismos que estuvieron presentes en la escena del hecho, luego de la ocurrencia del evento.
+Las "Autoridades Intervinientes" que podemos seleccionar son:
+ Policía 
+ Dirección Nacional de Tránsito
+ Emergencia Móvil
+ Bomberos
+ Policía Científica
+ Autoridades Judiciales
+ Inspectores Municipales
+
+Ingreso de las Armas Utilizadas
+En éste cuadro se seleccionan las armas que se utilizaron o participaron en el evento. Para seleccionar el arma se deber hace clic sobre la misma en Armas existentes lo que la posicionará en el cuadro de la derecha de Armas utilizadas.
+En caso que sea necesario remover un arma seleccionada, se debe hacer clic sobre la misma en la sección Armas utilizadas.
+
+Ingreso de los Juzgados y Fiscalías Intervinientes
+En éste cuadro se seleccionan los Juzgados y las Fiscalías que juzgarán a las personas involucradas. Para seleccionar un Juzgado o Fiscalía se hace clic sobre el registro lo que la cargará en la lista que está a la derecha.
+En caso que sea necesario remover un Juzgado o Fiscalía debe seleccionar el registro en Juzgados Utilizados. 
+
+Ingreso de los Indicadores Administrativos
+En éste cuadro se pueden marcar diferentes indicadores administrativos que permiten activar comunicaciones o simplemente ser considerados como variables estadísticas.
+
+Enviar al Parte: permite indicar que el evento es de relativa importancia para las Autoridades y que necesariamente debe integrar el Reporte Diario de Novedades ya que su contenido requiere gestión, investigación o decisión.
+Enviar al Juzgado: permite indicar al sistema que éste evento debe ser enviado al Juzgado. La selección del check habilita la impresión del reporte de autoridad judicial. 
+Enviar a Fiscalía: permite indicar al sistema que éste evento debe ser enviado a la Fiscalía. La selección del check habilita la impresión del reporte de autoridad judicial. 
+Reservar la Denuncia: permite indicar al sistema que clasifique la información como "Reservado", limitando el acceso a usuarios distintos. Los eventos que viajan al SIPPAU (Sistema de Información del Proceso Penal Acusatorio del Uruguay) de Fiscalía se reservan automáticamente y solo son accesibles por los integrantes del Equipo de Trabajo. Por otro lado, los eventos reservados manualmente y que no viajaron a SIPPAU son accesibles por cualquier Usuario de la dependencia de ingreso.
+Tentativa: permite indicar que el evento fue tentado y no fue "consumado. Ejemplo: en un delito de hurto la cosa hurtada no fue apoderada por el autor para su directa disponibilidad.
+Hecho Aclarado: permite indicar que el evento fue aclarado por las autoridades competentes. 
+Importante: al indicar que el evento fue "aclarado" se entiende que la Policía no seguirá investigando ni trabajando en el Caso, excepto, por disposición judicial, Fiscal o decisión superior y en éste caso se deberá quitar el check "Evento Aclarado".
+De Impacto Público o Institucional: permite indicar que el evento tiene trascendencia pública en los medios de prensa o algunos de sus intervinientes es una autoridad pública, militar, policíal o persona pública.
+Control de Calidad: permite indicar que la información del evento fue revisada y controlada por la División de Sistemas de Información del Ministerio del Interior.
+Hay Drogas Involucradas: permite indicar que en el evento hay estupefacientes incautados, fueron usados, comercializados o mencionados.
+Hay armas involucradas: permite indicar que en el evento se incautaron, se utilizaron, se observaron, se mencionaron o  participaron armas.
+Total Avaluado: cuando refiere a delitos contra la propiedad es necesario ingresar el monto económico avaluado del total de las cosas que son objetos del delito. 
+Nro. Formulario: cuando el evento se transcribe desde un Formulario de Actuación Policial en papel, en este campo se debe indicar el número de ese formulario.
+
+Ingreso de las Novedades Aclaradas
+En éste cuadro se ingresan todas las novedades que serán aclaradas cuando se grabe el evento. Para indicar que éste evento aclara otros eventos previamente registrados, se debe digitar el número de evento y luego presionar sobre el registro que aparece.
+Al seleccionar los registros los números de eventos se listarán debajo del cuadro de texto conjuntamente con un botón para quitar (X) la selección en caso de equivocación o error.
+Importante: para cada evento que se agregue en éste listado se activará el check Hecho Aclarado en forma automática.
+
+Ingreso del motivo que se deriva la ocurrencia
+En éste cuadro se puede seleccionar el motivo o el título del evento por el cual derivó o motivó la ocurrencia del evento, es decir, la ocurrencia del evento está vinculada o fue motivada por alguna razón previa claramente identificada.
+
+Ingreso de la Consecuencia de la Aclaración
+Si el evento fue aclarado, es necesario seleccionar la consecuencia administrativa que ocasionó la aclaración de éste evento. Permite evaluar los efectos de la actuación policial, los cuales pueden ser los siguientes: 
+ Al menos a un Imputado le fue impuesta una medida sustitutiva o de coerción.
+ Al menos un Imputado fue procesado o se inicia procedimiento como menor infractor.
+ Caso Cerrado: Archivo de las actuaciones por Orden Judicial.
+ El Imputado falleció antes de la detención o procesamiento.
+ Imputados fueron identificados pero la Justicia otorgó Libertad o entrega a sus Padres.
+ Todos los Imputados fueron procesados o se inició procedimiento como menores infractores.
+
+Agregar archivos multimedia
+En éste cuadro se ingresan los archivos multimedia que se quieran agregar al evento como anexo de información. Para ingresar un archivo multimedia se debe hacer clic sobre el símbolo que aparece en esa sección para luego seleccionar el archivo y agregarlo al evento.
+Los archivos que se van agregando se listan debajo del cuadro y permite quitarlos en caso de equivocación o error.
+Los archivos multimedia que se pueden anexar al evento son:
+ Archivos digitales de texto (pdf, ods, doc, etc.)
+ Archivos digitales de imágenes (jpg)
+ Archivos digitales de audio (mp3)
+ Archivos digitales de vídeo (mp4, avi)
+ Otros
+El sistema permite cargar como máximo 100 archivos de 10 MB cada uno entre el eventos y las ampliaciones que lo componen.
+
+Grabar la novedad
+Una vez finalizado el ingreso de todos los datos relacionados a la novedad, se debe seleccionar el botón Grabar que se encuentra encima y a la derecha del formulario.
+Al hacer clic sobre el botón el sistema le preguntará si ¿Está seguro que el Hecho NO está aclarado?. En caso de seleccionar Si, el sistema grabará la novedad y le dará un número de SGSP y en caso de ser un tipo de evento que viaje a SIPPAU un Número único de Noticia Criminal (NUNC). En caso de seleccionar No el sistema lo mantendrá en el formulario para que así pueda completar las causas de la aclaración y hacer clic en el check de Hecho Aclarado.
+Por otro lado, hay algunos títulos que pueden estar relacionadas con Violencia Doméstica por lo que al seleccionar Guardar el sistema pregunta lo siguiente: ¿Está vinculado a Violencia Doméstica? Ley 17514 del 2-7-2002 Artículo 2º.- Constituye violencia doméstica toda acción u omisión, directa o indirecta, que por cualquier medio menoscabe, limitando ilegítimamente el libre ejercicio o goce de los derechos humanos de una persona, causada por otra con la cual tenga o haya tenido una relación de noviazgo o con la cual tenga o haya tenido una relación afectiva basada en la cohabitación y originada por parentesco, por matrimonio o por unión de hecho. En caso de seleccionar No, el sistema grabará la novedad, mientras que si se selecciona Si, no se guardará el evento y el sistema le exigirá completar la pestaña complementaria de Violencia Doméstica.
+Finalmente, el sistema exige de manera obligatoria para determinados títulos la carga de una serie de datos, pudiendo ser tipos de objetos, monto avaluado, la modalidad, etc. 
+Por ejemplo: Si se tipifica una novedad como Hurto debe de ingresar de manera obligatoria por lo menos un objeto con el estado hurtado.
+
+Pestaña Objetos
+En éste apartado se ingresarán seres vivos distintos a los humanos u objetos materiales que participan, se mencionan o son involucrados en el evento, ya sea como elemento o cosa de sustracción, apoderamiento, utilización o afectación. 
+Por decisión estratégica Ministerial, algunos Objetos se ingresarán en pestaña específicos y el resto en pestañas genéricas.
+Los objetos que tendrán tratamiento especial y por ende, disponen de una pestaña exclusiva son:
+ Vehículos
+ Armas de Fuego
+ Cheques
+Los restantes objetos se registrarán en la pestaña Objetos. Para activar una pestaña de Objetos, se debe hacer clic en la opción Nueva pestaña y luego sobre la opción requerida.
+
+Ingreso de Vehículos
+En la pestaña Vehículos se registran datos correspondiente a los vehículos (chapas matrículas, motores, etc.), como así también, se identifica a las personas que ocupaban el vehículo durante el evento.
+Téngase en cuenta que al ingresar la matrícula y seleccionar sobre la lupa el sistema dispara una consulta interna y si existe información previa sobre el mismo en el SGSP precarga todos los datos del vehículo para optimizar la digitación y facilitar el registro. Estos datos son editables, por lo que pueden ser modificados en caso de omisiones en la información o inexactitudes.
+Los estados hurtado, extraviado y requerido generan alertas de requisitoria a nivel nacional y del MERCOSUR.
+NOTA: Antes de la carga de un vehículo, el sistema preguntara si el vehículo a cargar está involucrado a un Siniestro de Transito. La pregunta afectara la información que aparecerá en la pestaña complementaria de transito. Si responde que NO está ingresando un Siniestro no será necesario involucrar a los ocupantes con el vehículo. Si responde que SI, los Ocupantes del Vehículo aparecerán con dicha nomenclatura en la ficha de tránsito. Si no los vincula a un vehículo, aparecerá en la ficha de Transito como peatón.
+
+Ingreso de Armas de Fuego
+En ésta pestaña Armas se registran datos correspondiente a las armas que son objetos del hecho o instrumentos del hecho.
+Se diferencian de las armas utilizadas en que no solo son mencionadas sino que existe plena certeza de su participación en el hecho ya sea por estar Hallada, Incautada, Hurtada, Extraviada o Requerida.
+El botón Buscar permite consultar la base de armas del SGSP en la búsqueda de armas coincidentes. En caso de que encuentre algún registro auto completará los campos respectivos. La consulta puede traer datos de armas ingresadas en el instituto por DABEP.
+El botón Limpiar borra los datos ingresados hasta ese momento, habilitando una nueva búsqueda de armas o un nuevo ingreso. 
+El botón Guardar genera el ingreso del arma, tanto con los datos de la búsqueda en el SGSP o siendo un registro ingresado desde cero sin consultar la base de datos.
+Los estados hurtado, extraviado y requerido generan alertas de requisitoria a nivel nacional y del MERCOSUR.
+
+Ingreso de Cheques
+En ésta pestaña Cheques se registran datos correspondiente a los cheques y chequeras.
+Téngase en cuenta que la pestaña dispone de un simulador de la "banda magnetizable" para facilitar el llenado de los datos solicitados. Posicionándose en los números del simulador el sistema indica lo que se debe completar. 
+El Usuario podrá identificar en el campo Tipo Denuncia si se trata de un Hurto, Extravío u Otro Motivo, como si se trata de un Cheque o una Chequera en el campo Tipo Documento.
+En la sección Titular se puede elegir si se trata de una Persona o de una Empresa. Si el interviniente es Uruguayo debe agregarse en Origen la opción Uruguay, y en Documento el número de cédula y luego seleccionar sobre la lupa lo que pre cargará los datos de DNIC. En caso de ser una empresa se debe agregar número de RUT, el cual es validado en la base de DGI.
+
+Ingreso de Objetos en General
+En ésta pestaña Objetos se registran datos correspondiente a cualquier tipo de objeto material o ser vivo distinto al humano.
+La pestaña presenta un cuadro para búsqueda y filtrado de objetos donde se puede consultar por el nombre completo o parcial del objeto. El sistema despliega una lista con todos los objetos candidatos y al seleccionar el objeto encontrado el sistema despliega en forma dinámica los campos necesarios a completar. 
+En la figura Nº 40 se muestra un ejemplo donde el usuario seleccionó el objeto televisor y el sistema desplegó los campos a completar correspondientes a ese objeto.
+Se debe completar por lo menos uno de los campos y el estado del objeto para poder cargar el mismo.
+Tambien el usuario puede agregar informacion si el objeto es Instrumento de Delito.
+
+Pestañas Complementarias
+En éste apartado se ingresará información complementaria de utilidad estratégica para el Ministerio del Interior que permitirá la generación de indicadores estadísticos e indicadores de evaluación de desempeño para asegurar la adecuada gestión.
+Cada ficha complementaria permitirá la recolección de datos complementarios para el tipo específico de evento que se está registrando o para eventos asociados al mismo tipo, a saber, es obligatorio completar la ficha complementaria para los siguientes tipos de eventos:
+ Eventos con el título Violencia Domestica
+ Eventos asociados a Violencia Domestica
+ Eventos con el título Siniestro de Tránsito
+ Eventos con el título Suicidio
+ Eventos con el título Abigeato
+Para activar una Ficha Complementaria, se debe hacer clic sobre Nueva pestaña y luego seleccionar la ficha requerida.
+
+Pestaña complementaria de Violencia Doméstica
+En ésta ficha complementaria de Violencia Doméstica se registra el detalle de la entrevista especializada que la Policía le realiza a la víctima del hecho, tomando en cuenta que todo evento SGSP con el titulo Violencia Doméstica o todo evento SGSP que tenga elementos asociados a Violencia Doméstica requiere de forma obligatoria completar ésta ficha.
+Cuando en el marco de una situación de violencia doméstica se registra más de una víctima, la Policía deberá realizar tantas entrevistas como víctimas tenga el evento.
+Cuando no se dispone del nombre ni datos de la víctima, la Policía deberá registrar en ésta ficha complementaria la información proporcionada por el/la Denunciante.
+Si la información proporcionada por la víctima no coincide con las alternativas de respuesta que ofrece la ficha complementaria, la Policía deberá documentar dicha información en el campo habilitado para la redacción de la Narración del Hecho.
+La información documentada en la ficha complementaria permite a la Policía disponer de información básica para evaluar la situación de riesgo y definir la estrategia de protección con la Autoridad Judicial y Fiscal.
+
+Selección de las víctimas de Violencia Doméstica
+En éste cuadro se listan todas las víctimas ingresadas en el evento, el usuario deberá seleccionar aquella a la cual realizará la Entrevista y por ende, completar la ficha complementaria. 
+Una vez seleccionada la víctima, el sistema muestra los nombres y apellidos de la persona y despliega abajo, uno a continuación del otro, todos los cuadros de información que se deben consultar a la víctima y completar. 
+
+Ingreso de la Situación del Hecho
+En éste cuadro se trata de identificar y ubicar el contexto de donde sucedieron los hechos debiéndose tomar en cuenta que si bien las acciones de violencia doméstica tienden mayoritariamente a ocurrir dentro del hogar, en ocasiones también ocurren en otros escenarios.
+Para la consulta ¿Donde ocurrió el hecho?, el sistema brinda las siguientes opciones:
+ En el trabajo de/la agresor/a
+ En su hogar
+ En su trabajo
+ Hogar del Agresor
+ Vía pública
+ Otros
+Para la consulta ¿Usted tuvo que irse de su hogar por ésta situación?, Si selecciona la opción SI, debe de completar una de las siguientes opciones:
+ Con sus hijas/os
+ Sin sus hijas/os
+ Solo sus hijas/os
+Para la consulta ¿El agresor se fue del hogar?, Si selecciona la opción SI, debe de completar una de las siguientes opciones:
+ Con sus hijas/os
+ Sin sus hijas/os
+
+Ingreso del Tipo y Frecuencia del Maltrato
+En éste cuadro se identifican los Tipos de Violencia Domestica establecidos en la Ley 17.514:
+ Violencia Física.
+ Violencia Psicológica.
+ Violencia Sexual
+ Violencia Patrimonial
+Para cada tipo de violencia se identifica el Tipo de Maltrato y además la Frecuencia que utilizó el Agresor para ejecutar ese maltrato. Para cada tipo de violencia el sistema brinda las siguientes opciones de frecuencias de maltrato:
+ Primera vez
+ Ocasional
+ Algunos días de la semana
+ Todos los días
+ Nunca
+ No sabe
+Generalmente la víctima en su relato suele centrarse en los aspectos más evidentes de la agresión o que la han impactado con mayor fuerza como es el caso de la violencia física ejercida sobre ella o los hijos/as y de la violencia patrimonial, expresada en el daño ocasionado a sus pertenencias o a la vivienda, omitiendo mencionar en su declaración situaciones anteriores de violencia doméstica u otras manifestaciones de la misma.
+Si selecciona como frecuencia del maltrato la opción Nunca, el sistema bloqueará las opciones de la izquierda. 
+
+Ingreso de la Consulta Médica
+En éste cuadro se registra si la Víctima requirió consulta médica como consecuencia del maltrato recibido y además, si presenta a la Policía el certificado médico con la fecha de dicha asistencia. Se deberá adjuntar a las actuaciones copia de dicho certificado médico.
+
+Ingreso de los Factores de Riesgo
+En este cuadro se identifican los factores de riesgo, considerando que en las situaciones de violencia doméstica inciden y conviven factores de distinta índole: de orden personal, familiares, económicos, laborales, psico-sociales, entre otros. La identificación específica de los factores de riesgo debe basarse no sólo en las declaraciones de la víctima, sino también en la del indagado, de testigos, familiares y otras personas de su entorno cercano.
+Existen factores de riesgo que están presentes tanto en la víctima como en el agresor, como es el caso de las adicciones y los antecedentes familiares de abuso y maltrato infantil, los cuales potencian el desencadenamiento de hechos de violencia. Los factores de riesgo constituyen aspectos centrales de la actuación policial en materia de violencia doméstica, permitiendo a la autoridad judicial evaluar la peligrosidad inminente del agresor, y en base a ella para tomar decisiones fundamentales respecto a la gestión del vínculo entre éste y la víctima.
+Desde el punto de vista cognitivo la predicción del riesgo de violencia doméstica constituye una herramienta indispensable para contribuir a su erradicación. De hecho, cuando estos factores son identificados a tiempo permiten evitar la concreción de nuevas agresiones y prevenir posibles situaciones de violencia doméstica.
+
+Ingreso de la Situación Socio-Económica
+En éste cuadro se intenta establecer el panorama aproximado de la realidad en la cual se encuentra inmersa la víctima con el fin de conocer los recursos que tiene disponible desde el punto de vista humano, social y económico para evitar la vulnerabilidad del ambiente familiar, así como establecer un panorama base acerca del grado de aislamiento, cercanía, confianza o apoyo mutuo que mantiene con su entorno social más cercano.
+La Policía debe informar a la Víctima que ésta pregunta es abierta, de manera que pueda señalar varias personas a las cuales eventualmente podría acudir o que constituyen referentes sociales.
+Es relevante señalar a que persona la Víctima otorga mayor prioridad para evaluar en investigaciones posteriores el nivel de esa dependencia e impacto que pueda tener dentro del contexto.
+En éste cuadro se intenta conocer cuáles son los medios de ingresos económicos que tiene la Víctima y además, se registra la cantidad total (o personas a cargo) de hijos y la cantidad de hijos por franja etárea.
+
+Ingreso del Apoyo Institucional
+En éste cuadro se comunica y se registra el acceso que tiene la Víctima a prestaciones sociales y servicios de organismos de contención que ofrece el Estado a personas en situación de violencia doméstica.
+Generalmente la vergüenza social, el temor a represalias y la falta de información constituyen los principales obstáculos que dificultan el acceso de las víctimas a sistemas de soporte y acogida de personas en situación de violencia doméstica.
+El registro de esta información permite evaluar el grado de efectividad de las políticas y programas institucionales destinada a la protección, atención y apoyo a las víctimas de violencia doméstica, así como el nivel de articulación de la policía con las redes ínter-institucionales y los servicios existentes en la comunidad.
+Por último, es necesario especificar además si la Víctima debió concurrir a revisión de Médico Forense.
+
+Ingreso de las Medidas de Protección
+En la ficha de interviniente de la víctima e indagado se encuentra la sección Medidas de Coerción. En la misma se deben registrar las medidas de protección dispuestas por la Justicia (Ley 17.514, Capítulo 4º, Artículo 9º) para evaluar el grado de eficacia de los sistemas de protección que dispone el Estado para las víctimas de violencia doméstica.
+La Policía debe informar a la Víctima en qué consisten dichas medidas, como asimismo su alcance y duración. También indicar que debe avisar de inmediato en caso de incumplimiento por parte del agresor/a a fin de informar a la autoridad correspondiente.
+Dentro del conjunto de medidas, la autoridad correspondiente podrá indicar la utilización de tobilleras electrónicas como medio preventivo y control digital del radio de aproximación del agresor/a.
+En caso de seleccionar alguna de las medidas de protección el sistema generará una alerta que avisará al operador que esa persona mantiene medidas vigentes tanto en la Consulta personas como en la ficha de interviniente.
+
+Pestaña complementaria de Siniestro de Tránsito
+En ésta ficha de Siniestro de Transito se registran los datos complementarios referidos a este tipo de siniestro.
+Los datos aquí relevados son de especial interés de la Unidad Nacional de Seguridad Vial (UNASEV) de Presidencia de la República.
+El sistema de análisis y monitoreo de la siniestralidad vial que administra la UNASEV está conectado al SGSP y procesa diariamente toda la información de siniestros de tránsito. Con esa información se diseñan indicadores y se definen políticas de gestión referidas a la ingeniería vial o cambios de infraestructura.
+La calidad de la información relevada y registrada en éste formulario es de vital importancia para la seguridad vial en nuestro país.
+Pre-condición: para completar el formulario de Siniestro de Transito, previamente el Operador debe registrar las personas que intervienen en el siniestro, los vehículos que participan y debe localizar las vías donde ocurrió el siniestro. Cumplido ésto, puede invocar el formulario complementario para anexar los indicadores que se solicitan para cada uno de estos temas.
+Las secciones predefinidas en dicha ficha son las siguientes:
+ Datos Generales
+ Datos sobre el ambiente
+ Circunstancias concurrentes
+ Personas involucradas
+ Datos sobre las vías
+
+Ingreso Datos Generales del Siniestro
+En éste cuadro se presenta un resumen cuantitativo de todos los involucrados en el siniestro como referencia a la cantidad de datos que se deben completar.
+Luego es necesario establecer los datos generales del siniestro lo cual permite ubicar en que contexto general ocurrió el evento.
+Para determinar el Tipo de Siniestro, el sistema brinda las siguientes opciones:
+ Atropello con animales
+ Atropello de peatón
+ Caída
+ Colisión con obstáculos en calzada
+ Colisión entre vehículos
+ Despiste
+Para determinar la Jurisdicción, el sistema brinda las siguientes opciones:
+ Departamental
+ Nacional
+Para determinar la Zona, el sistema brinda las siguientes opciones:
+ Rural
+ Suburbana
+ Urbana
+
+Datos sobre el ambiente
+En éste cuadro se debe cargar la información sobre en que contexto se generó el siniestro y para ellos se pide completar los siguientes datos:
+ Estado meteorológico
+ Iluminación 
+ Luz artificial
+ Visibilidad
+
+Figura Nº 53: Cuadro Datos sobre el ambiente.
+Ingreso Datos de las Circunstancias Concurrentes
+      En éste cuadro se deben registrar aquellos datos que pudieron haber propiciado o facilitado el siniestro de tránsito. Se pide completar las:
+ Circunstancias del conductor
+ Circunstancias del vehículo
+ Circunstancias de la vía
+ Circunstancias del entorno
+
+Personas involucradas
+En esta sección se muestran las personas cargadas en la ficha de intervinientes que cumplen con una serie de requisitos, y de los cuales se definirá su calidad:
+
+Personas Intervinientes
+Calidad en Ficha de tránsito
+Calidad: Descripción 
+Conductor: - Persona ingresada en la ficha de intervinientes con el Rol Conductor.
+Pasajero: - Persona ingresada en la ficha de intervinientescon el Rol Víctima y asignada a un vehículo en la ficha de vehículos. - Persona ingresada en la ficha de intervinientescon el Rol Testigo del Evento y asignada a un vehículo en la ficha de vehículos.
+Peatón: - Persona ingresada en la ficha de intervinientes con el Rol Víctima y no asignada a un vehículo en la ficha de vehículos.
+Sin registro en tránsito: - Persona ingresada en la ficha de intervinientescon el Rol Testigo del Evento y no asignada a un vehículo en la ficha de vehículos. - Personas ingresadas en la ficha de intervinientescon los Roles Denunciante, Indagado, Testigo de la Actuación Administrativa y Funcionario Actuante.
+NOTA: Los pasajeros que sufrieron algún tipo de lesión deben ser ingresados con el Rol Víctima, mientras que aquellos que salieron ilesos con el de Testigo del Evento.
+
+a. Datos de la persona
+A la derecha de la columna Calidad aparecerá para cada interviniente el botón Editar, el cuál seleccionado desplegará una serie de campos a completar.
+La primera sección corresponde a los Datos de la persona. La misma es indistinta a la calidad que presente el interviniente en la ficha de tránsito. 
+El primer campo que aparece es el de Resultado y para ello el sistema nos brinda las siguientes opciones:
+ Fallecido en Centro de Asistencia
+ Fallecido en el lugar
+ Herido grave
+ Herido leve
+ Ileso
+En referencia a la forma que se retira del lugar, el sistema nos brinda las siguientes opciones:
+ En ambulancia
+ Por sus propios medios
+ Trasladado por otro particular
+ Trasladado por personal policial
+En referencia a la Institución de salud a la que se trasladó, el sistema enumera Hospitales (Hospital 1, hospital 2) con el objetivo de identificar si todos los traslados son hacia el mismo nosocomio.
+Dependiendo de la Calidad del interviniente el sistema desplegará nuevas secciones con campos a completar.
+
+b. Ingreso Datos del Conductor
+En caso de seleccionar la persona cuya calidad es la de conductor del vehículo el sistema mostrará la sección Datos de conductor que dispone de los siguientes campos: categoría de la licencia de conducir, Autoridad que expidió la licencia, Fecha de expedición de la licencia, Fecha de vencimiento de la licencia, Relación con el propietario del vehículo y Tiempo estimado de conducción previo. 
+El resultado de la espirometría se tomará de los valores cargados en la opción espirometría de la ficha de interviniente del conductor. 
+Por otro lado, el sistema pedirá determinados datos del ocupante dependiendo del tipo de vehículo en el que este viajaba.
+Si el traslado es a través de ciclomotores, motocicletas, cuadriciclos o bicicleta le aparecerán para completar los campos de Usa casco, Es casco reglamentario, El casco estaba abrochado y Lleva cinta o chaleco reflectivo.
+Si el traslado es a través de vehículos del tipo automotores debe completar los campos Llevaba cinturón de seguridad abrochado, Usa sistema de retención infantil (SRI) y Ubicación del SRI dentro del vehículo (solo para menores). 
+
+c. Ingreso Datos del Pasajero
+Para los pasajeros que viajaban en el vehículo el sistema le pedirá completar únicamente los Datos de la persona y Datos de ocupantes. Este último dependerá del tipo de vehículos en el cual era acompañante.
+
+d. Ingreso Datos del Peatón
+En éste cuadro se debe registrar la Ubicación del peatón, Color de ropa del peatón y si Lleva puesto elementos de seguridad. 
+El resultado de la espirometría se tomará de los valores cargados en la opción espirometría cuando se cargó la ficha de interviniente de la víctima.
+
+Ingreso Datos de las Vías
+En este cuadro aparecerán por defecto los datos cargados en la pestaña Ubicación. Se mostrará la dirección de la calle principal y de su más próxima intersección. 
+Una vez seleccionada cualquiera de las vías se desplegará una serie de campos a completar, solicitando la siguiente información Tipo de vía, Sentido de circulación, Carriles por sentido, Elementos de diseño, Tipo de pavimento, Condición de pavimento, Acera, Banquina, Tipo de regulación y Otros dispositivos de control y Parada de transporte. Cada uno de estos campos desplegarán opciones que ayudarán a realizar una selección más sencilla.
+
+Pestaña complementaria de Suicidio
+En ésta ficha de Suicidio se registran todos los datos complementarios a éste suceso.
+Importante: Téngase en cuenta que la persona que se suicida o intenta hacerlo debe registrarse con el Rol VÍCTIMA, ya que se entiende que es víctima de alguna circunstancia precipitante o riesgo inminente que motivó su suicidio.
+La ficha está divida en tres cuadros donde agrupa la información en detalles del suicidio, factores de riesgo y circunstancias precipitantes.
+Detalles del Suicidio
+En el cuadro detalles del suicidio es necesario identificar el lugar donde ocurrió el suceso y para ello el sistema nos brinda las siguientes opciones:
+ Local Privado
+ Local Público
+ Vía Pública
+En referencia al método empleado el sistema nos brinda las siguientes opciones:
+ Ahogamiento por inmersión
+ Ahorcamiento
+ Disparo de arma de fuego
+ Exposición a gases
+ Exposición al fuego
+ Ingestión de sustancia tóxica
+ Lesión por arma blanca
+ Lesión por objeto cortante
+ Salto de lugar elevado
+ Sofocación 
+ Otro método
+En referencia al entorno familiar el sistema nos brinda la lista completa de parentescos familiares.
+ Abuelo/Abuela
+ Amigo(s)
+ Concubino(a)
+ Esposo/Esposa
+ Hermano/Hermana
+ Hijastro/Hijastra
+ Hijo/Hija
+ Madre
+ Nieto/Nieta
+ Novio(a)
+ Otros parientes
+ Madrastra
+ Padre
+En referencia a la pregunta ¿la víctima había intentado matarse?, el sistema nos brinda las siguientes opciones:
+ Si
+ No
+ Sin información
+
+Factores de Riesgo
+En referencia a los factores de riesgos que pudieron haber motivado el suicidio, el sistema nos brinda las siguientes opciones:
+ Víctima era víctima de abuso sexual
+ Víctima era víctima de violencia doméstica
+ Víctima sufría alguna enfermedad psiquiátrica
+ Víctima consumía alcohol o drogas
+
+Circunstancias Precipitantes
+En éste cuadro se deben indicar cuáles fueron las circunstancias que pudieron haber motivado el desenlace del suceso.
+
+Ficha complementaria de Abigeato
+En esta ficha de Abigeato se registran los datos complementarios referidos a este tipo de evento.
+
+Datos del Denunciante
+La primera sección a completar se denomina Datos del Denunciante. En la misma se debe cargar el Nº Dicose (División de Contralor de Semovientes). Una vez cargado el sistema realizará electrónicamente una consulta sobre la base del MGAP.  Si el retorno es positivo se precargará el valor Razón Social con el mismo en la base de datos consultada.
+La carga del responsable del establecimiento es obligatoria y puede ocurrir que no coincida con la Razón Social, en cuyo caso se deberá identificar dentro de los intervinientes ya ingresados. La lista de responsables se actualiza automáticamente acorde a las personas ingresadas en la ficha de intervinientes.
+
+Datos Establecimiento/Predio De Donde Fueron Sustraídos los Animales
+En el primer sector se deben agregar datos relacionados con las vías de acceso al establecimiento y la carga de al menos uno de estos datos es obligatoria.
+ Rutas Nacionales
+ Caminos Vecinales
+ Sendas de Paso
+ Ríos, arroyos, cañadas
+En el segundo sector se deben agregar fechas de recuento, de movimiento, lectura de Campo y quién detectó el faltante. Son datos que aportan a la investigación y esclarecimiento del hecho pero no son obligatorios.
+Por último, debajo se mostrará la señal o marca que identifica al propietario, en caso que la consulta de DICOSE del MGAP retorne una.

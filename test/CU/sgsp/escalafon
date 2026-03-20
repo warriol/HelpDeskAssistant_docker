@@ -1,0 +1,58 @@
+Este quinto archivo es fundamental para la gestión de recursos humanos y logística operativa dentro del Ministerio. El documento Descripción del registro en escalafón detalla el funcionamiento interno de una herramienta crítica para la organización diaria de las unidades.
+
+Aquí tienes 20 preguntas técnicas para asegurar que el asistente domine la operativa del escalafón:
+🔑 Categoría: Acceso y Permisos
+
+Estas preguntas validan que el sistema entienda quién y cómo puede usar la herramienta.
+
+    ¿A través de qué permiso específico se accede al menú 'Gestión Escalafón' y de qué roles se hereda?
+
+    ¿Cuál es la ruta exacta dentro del menú del sistema para ingresar a la funcionalidad de Escalafón?
+
+    ¿Qué sucede si un usuario intenta realizar una búsqueda en 'Movimiento Funcionario' sin tener el permiso correspondiente?
+
+    ¿A qué permiso está asociado específicamente el botón de 'Movimiento Funcionario' y quién debe gestionarlo?
+
+🖥️ Categoría: Interfaz y Funciones Iniciales
+
+Para verificar si el RAG reconoce la disposición de los elementos en pantalla.
+
+    ¿Qué tres botones aparecen sobre el margen izquierdo al ingresar a la funcionalidad?
+
+    ¿En qué botón hace foco la aplicación inicialmente y qué leyenda se muestra en el área de trabajo en ese momento?
+
+    ¿Qué botones de acción aparecen en la parte superior de la pantalla (menciona al menos cuatro)?
+
+    ¿Qué efecto produce cliquear el botón 'Cargar' al inicio de la jornada?
+
+    ¿A qué se refiere el manual cuando utiliza el término 'la foto' en el proceso de carga?
+
+👥 Categoría: Gestión de Personal (Situaciones y Funciones)
+
+Preguntas sobre la lógica de clasificación de los funcionarios.
+
+    ¿Cuál es la diferencia principal en la distribución de los 'Oficiales de la Dependencia' respecto a la 'Escala Básica'?
+
+    ¿Qué representa la 'situación' de un funcionario y en qué dos grandes grupos se dividen?
+
+    Menciona tres situaciones que representen la presencia efectiva del funcionario en la unidad.
+
+    ¿Cuáles son las tres áreas principales que agrupan las funciones de los funcionarios presentes?
+
+    Si un funcionario está en situación de 'Ausente', ¿debe registrar funciones según el manual?
+
+    ¿Cómo se accede a la vista 'Escalafón-Persona' para editar a un funcionario específico?
+
+🚛 Categoría: Movimientos de Recursos (Móviles y Funcionarios)
+
+Para probar el conocimiento sobre el traslado de recursos entre dependencias.
+
+    ¿Qué datos deben editarse obligatoriamente al realizar un 'Movimiento Móvil' para que sea válido?
+
+    ¿Qué paso es necesario realizar en la pestaña 'Vehículo' para que un móvil movido pueda ser utilizado en el escalafón?
+
+    ¿Cómo se comunica de forma automática la finalización de un movimiento de móvil a las partes vinculadas?
+
+    ¿Bajo qué restricción de pertenencia debe realizarse siempre el movimiento de un funcionario (quién puede mover a quién)?
+
+    ¿De qué dos formas se puede identificar a un funcionario dentro del buscador de movimientos del SGSP?
