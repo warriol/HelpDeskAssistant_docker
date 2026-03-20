@@ -1,0 +1,55 @@
+🎯 Categoría: Objetivos y Relevancia del Sistema
+
+Estas preguntas prueban si el RAG entiende la importancia de la calidad del dato.
+
+    ¿Cuál es el objetivo principal del documento de Criterios para Ingreso y Control de Calidad del SGSP?
+
+    ¿Con qué sistema de la Fiscalía General de la Nación interopera el SGSP y bajo qué concepto impacta la información allí?
+
+    Menciona dos objetivos secundarios que busca la División Sistemas de Información con este manual.
+
+    ¿Por qué es 'imprescindible' para la institución tener un sistema de información dinámico y garante de calidad?
+
+📝 Categoría: Reglas de Oro del Registro
+
+Preguntas sobre la estructura técnica del 'Evento'.
+
+    ¿Qué establece la Primera Regla de Oro respecto a la cantidad de eventos que deben crearse para un mismo hecho?
+
+    Según la Segunda Regla de Oro, ¿qué debe suceder si un evento involucra varios delitos (ej. hurto y lesiones)?
+
+    ¿Cuál es la Tercera Regla de Oro sobre la veracidad de la información y la responsabilidad del funcionario?
+
+    ¿Qué indica la Quinta Regla de Oro sobre el uso de mayúsculas y la redacción en el sistema?
+
+    ¿Cuál es el criterio para registrar a una persona como 'Indagado' según el manual?
+
+🛠️ Categoría: El Proceso de Registro (Paso a Paso)
+
+Para verificar si el RAG sabe explicar el flujo de trabajo en el sistema.
+
+    ¿Cuáles son los 4 criterios para clasificar la Naturaleza del Hecho (Paso 1 del proceso)?
+
+    ¿En qué paso del proceso se especifican las autoridades intervinientes y los canales de comunicación con juzgados?
+
+    ¿Qué tipos de archivos multimedia se pueden adjuntar en el Paso 7 del procedimiento?
+
+    ¿Qué son los Indicadores de Gestión y qué aspectos permiten determinar (ej. evaluación del evento, armas utilizadas)?
+
+🔍 Categoría: Calidad y Errores Frecuentes
+
+Preguntas sobre la supervisión y los fallos que el sistema debe detectar.
+
+    ¿Cómo se define un 'Evento de Mala Calidad' según el glosario del documento?
+
+    ¿Qué significa que un evento esté en estado 'Tipificado'?
+
+    ¿Qué importancia tiene el Título del Evento y quién es el responsable de seleccionarlo correctamente?
+
+    ¿Qué sucede si se ingresa información errónea en el SGSP respecto a su difusión hacia otros organismos del Estado?
+
+    ¿Cómo debe clasificarse un evento según su impacto público o el grado de seguridad de la información (Paso 5)?
+
+    ¿Cuál es la diferencia entre un 'Hecho Policial' y un 'Delito o Falta' al momento de ingresar la naturaleza?
+
+    ¿Qué rol cumplen los Encargados del Control de Calidad pertenecientes a la División Sistemas de Información?

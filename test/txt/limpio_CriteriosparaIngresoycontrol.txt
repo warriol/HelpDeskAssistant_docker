@@ -1,0 +1,639 @@
+Criterios para Ingreso y control de Calidad SGSP
+División Sistemas de Información
+
+Introducción 
+El objetivo principal de este documento, es establecer una pauta de actuación  normalizada y homogénea para la utilización del Sistema de Gestión de Seguridad Pública (SGSP). La finalidad última, es ofrecer orientaciones al personal que cumple funciones en las unidades básicas operativas y a los encargados del control de calidad de los eventos (División Sistemas de Información).
+Este documento, tiene además otros objetivos secundarios:
+1. Sensibilizar al personal sobre la gravedad del ingreso de información errónea o de mala calidad al SGSP
+2. Promover la capacitación de los funcionarios asignados a la tarea de ingreso de información, mediante la definición de criterios claros de ingreso y control de calidad.
+Se debe tener en cuenta, que el SGSP interopera con el SIPPAU (Sistema de Información del Proceso Penal Acusatorio del Uruguay) de Fiscalía General de la Nación, y la información que se ingresa en el SGSP, impacta en el antes mencionado como una Noticia Criminal.
+
+Además, la información, no solo es difundida dentro de la Institución policial, sino que es compartida con otros organismos del estado, así como con las autoridades judiciales, medios de comunicación y la ciudadanía en general.
+Teniendo como punto de partida que para toda la institución resulta imprescindible tener un sistema de información dinámico, garante de una información efectiva y de calidad, se evidencia la necesidad de consolidar un texto que contenga no solo los conceptos generales de calidad y herramientas administrativas para mantenerla y mejorarla, como las diferentes estrategias encaminadas a asegurar y controlar la calidad del dato, los que respondan a los principios de integridad, confiabilidad y credibilidad.
+
+
+Gestión de Información
+
+Ingreso de Información
+El SGSP es la herramienta válida para realizar el ingreso y gestión de los datos de manera centralizada y única, evitando la duplicidad de información en los procedimientos.
+En acuerdo con la Fiscalía General de la Nación, las estructuras públicas tales como Ministerios, Fiscalía General de la Nación, Entes Autónomos, Servicios Descentralizados, Direcciones Nacionales, Jefaturas Departamentales, Especialidades Nacionales, etc. que radican denuncias penales, realizan el registro de los hechos y gestionan las mismas, así como las actuaciones de forma integral en el SGSP.
+El ingreso de datos en el SGSP realizará en cada lugar en la que se reciba la información de la fuente primaria: denunciante, funcionario, etc., de tal manera que los datos ingresados sean correspondientes con la realidad de manera fiel.
+
+Responsabilidad de Informar
+Los Jefes de cada unidad que generan información, son los responsables del cumplimiento cabal de las disposiciones respecto al Sistema de Información, incluyendo el control del cumplimiento en tiempo y forma.
+
+Supervisión
+El Supervisor, es el responsable de validar el evento registrado, debiendo verificar las omisiones de datos y completar dichas omisiones. Debe verificar que la redacción del caso corresponda con el verdadero desarrollo de lo ocurrido debiendo disponer que se agreguen todos los tópicos policiales correspondientes a la actuación de la Policía que el Operador haya omitido, agregar o consultar.
+El Supervisor debe controlar que la información haya cumplido con la formalidad del procedimiento y en caso de omisiones, debe disponer que se entreviste nuevamente a los policías que participaron en la investigación para profundizar la información y debe disponer que concurran a la escena del hecho, entrevisten testigos o involucrados para recuperar la información que fue omitida.
+El Perfil del Supervisor corresponde a un funcionario de mayor jerarquía y principalmente con mayores conocimientos y experiencia que el Operador. Esta tarea deberá ser garantizada por los Jefes de Unidad.
+
+Control de Calidad de la Información
+La calidad del dato, corresponden con información basada en su exactitud, consistencia, completamiento, oportunidad, puntualidad e integridad. Esta tarea será desarrollada por un equipo de trabajo con funcionarios de la División Sistemas de Información, para el control centralizado de las informaciones que se ingresan a nivel nacional.
+Este servicio tiene como finalidad normalizar el registro de las informaciones que se ingresan en el sistema, en base al control de datos atípicos, control de datos faltantes, control de errores ortográficos, control de errores gramaticales y control de errores conceptuales.
+
+
+Modelo de Gestión de la Información
+La gestión de información referida o vinculada a seguridad pública se administra en base a los siguientes componentes de información:
+a) Eventos ocurridos o denunciados
+Todos los eventos de seguridad pública ocurridos o denunciados y los procesos de actuación policial ocurridos en todo el territorio nacional se identifican y registran con los siguientes datos: 
+	Datos generales y domicilios de todas las personas que intervienen o participan en hechos de seguridad pública;
+	Descripción física y antecedentes judiciales o policiales de aquellas personas que se clasifiquen con el rol de "indagado";
+	Objetos o elementos materiales que se utilicen o participen en el evento, mediante el relevamiento de todos los atributos posibles de cada objeto o elemento;
+	Ubicación temporal y espacial exacta del evento, como así, la toma de conocimiento y la concurrencia física de la autoridad pública que asume el procedimiento;
+	Descripción narrativa minuciosa y detallada de cada circunstancia que motivó el desenlace del incidente con los testimonios de terceras personas que aporten o que integran los formularios de relevamiento de información.
+
+b) Clasificación de eventos ocurridos o denunciados
+Deberán registrarse todas situaciones enmarcadas en la legislación o normativas vigentes de acuerdo al siguiente detalle:
+
+Crimen
+Delitos de lesa-humanidad considerados en la legislación internacional
+Delito o Falta
+Los eventos deben ser clasificados como 'Delito o Falta' cuando su contenido describa una acción u omisión contra la ley penal, por lo tanto todos los delitos y faltas establecidos en el Código Penal Uruguayo y leyes especiales que establecen figuras delictivas.
+
+Accidentes
+Todos los eventos que por su desarrollo, desenlace y resultado se tipifique como siniestro o accidente.
+
+Hechos Policiales
+Los eventos deben ser clasificados como 'Hechos Policiales' cuando su contenido no describa una acción u omisión contra la ley penal, pero la Policía tuvo conocimiento y/o participó y/o intervino. Toda otra situación que no se enmarque dentro de los delitos, faltas, pero conlleva una intervención o actuación policial o judicial.
+
+c) Información Complementaria de Seguridad Pública
+Toda información especializada que por su relevancia o decisión estratégica se debe relevar con mayor especificidad y detalle, entre ellos:
+	Información complementaria de Delitos de Violencia Doméstica o delitos asociados a violencia doméstica,
+	Información de ingeniería vial sobre Siniestralidad del Tránsito,
+	Información complementaria de delitos de Abigeato,
+	Información complementaria de Suicidios
+
+d) Comunicaciones a Juzgados y Fiscalías
+Registro de todas las comunicaciones realizadas a Fiscalías y Juzgados, referidas a Delitos o Faltas, como así, las resoluciones adoptadas por los mismos.
+
+e) Diagnósticos Médicos
+Todos los diagnósticos médicos con la respectiva identificación del móvil y profesional actuante dictaminado a personas lesionadas o fallecidas intervinientes en eventos de seguridad pública.
+
+f) Recursos de información vinculados a seguridad pública
+La gestión nacional de las requisitorias y cierres de frontera, el inventario y movimiento de armas y equipos policiales, el registro de los movimientos de la población alojada en hoteles, pensiones o inquilinatos, la gestión del cambio de contenido en eventos de seguridad pública y el escalafón de servicio diario del Personal de las Unidades Básicas Operativas.
+
+
+Control de Calidad del Dato en el SGSP
+
+Conceptos referidos al Control de Calidad del Dato: 
+El "Control de Calidad del Dato" es el grado de cumplimiento de los procesos de relevamiento y gestión de la información.
+	Concepto de Dato: El "dato" es una representación simbólica (numérica, alfabética, etc), atributo o característica de una entidad.
+	Concepto de Información: La "información" es un conjunto organizado de datos, que constituyen un mensaje sobre un determinado ente o fenómeno.
+	Concepto de Conocimiento: El "conocimiento" se crea cuando la información se pone en contexto general.
+	Concepto de Calidad del Dato: Es el grado con que nuestros datos corresponden con la verdadera información basada en su exactitud, consistencia, completitud, oportunidad, puntualidad e integridad.
+
+Tipos de Errores que afectan la Calidad del Dato
+Se especifican los tipos de errores que se deben controlar y documentar para posteriormente planificar los cambios necesarios que permitan abordar una solución integral o minimizar su impacto.
+	Datos Atípicos: Son aquellos datos con características diferentes de las demás y que no tienen nada que ver con el contexto de la información. Estos tipos de datos surgen por error de procedimiento al momento de cargar o seleccionarlos de una lista.
+	Datos Faltantes: Son aquellos datos que se omiten su carga o selección de una lista ya que por razones funcionales no son requeridos por sistema pero necesarios o sensibles que se registren y por lo tanto quedan ausentes en los registros.
+	Errores Conceptuales: Se refiere al resultante de ingresar datos o contenidos que no pueden aplicarse a un evento concreto por no cumplir las condiciones mínimas necesarias que conducen a una novedad o noticia con sentido.
+	Errores Ortográficos: Se refiere a la omisión de las reglas y convenciones que rigen el sistema de escritura de la lengua española.
+	Errores Gramaticales: Se refiere a la omisión de las reglas y principios que regulan el uso de la lengua española y la organización de las palabras dentro de una oración.
+
+Auditoría de Control de Calidad del Dato
+Revisión sistemática, aleatoria e independiente para determinar si las actividades de control de calidad y los resultados relacionados obedecen a los cambios planificados, y además, si los cambios se llevan a cabo efectivamente en tiempo y forma y si son convenientes.
+	Auditoría de calidad del proceso: Examen sistemático de los elementos del proceso para determinar si las actividades y los resultados relativos a la calidad satisfacen las disposiciones establecidas.
+	Auditoría de calidad del producto: Estimación cuantitativa del cumplimiento de las características requeridas del producto, el dato.
+	Auditoría interna de calidad: Auditoría desarrollada por un usuario del sistema.
+	Auditoría externa de calidad: Auditoría desarrollada por un organismo independiente de las partes, que verifica la
+efectividad del sistema de calidad y el cumplimiento de las normas establecidas.
+	Planes de Mejoras de la Calidad: Secuencia de pasos orientados a eliminar las debilidades en la obtención y registro del dato. Utiliza el resultado de las "no conformidades", resultado de las "auditorías internas de calidad" y las "revisiones de la Dirección".
+
+De la División Sistemas de Información
+La DSI, es la encargada de dar los lineamientos generales de ingreso de eventos, como de la estandarización en los procesos y unificación de criterios. La capacitación en el uso de la herramienta a nivel nacional es coordinada por dicha división, descentralizándola en el interior del país en los Referentes departamentales
+
+De la Mesa de Ayuda
+La Mesa de de Ayuda, es un equipo de trabajo, que funciona como punto único de contacto con los usuarios mediante el cual se resuelven y/o canalizan sus necesidades relativas al uso de recursos y servicios de las plataformas tecnológicas que se encuentran bajo la órbita de la División Sistemas de Información.
+Su  objetivo principal, es responder de una manera oportuna, eficiente y con alta calidad a las peticiones que dichos usuarios realicen y realizar el control de calidad de la información de seguridad pública, normalizando el registro de las informaciones que se ingresan en el sistema, ajustando los procesos de gestión para satisfacer los requerimientos.
+
+El control de calidad se focaliza en 10 items que se describen en el cuadro siguiente:
+- Intervinientes
+- Domicilio de Intervinientes
+- Domicilio del Evento
+- Formato de la Narración
+- Relato de la Narración
+- Ortografía
+- Diagnóstico Médico y Resoluciones Judiciales
+- Título
+- Objetos
+- Indicadores Estadísticos
+Estos checks son marcados por el control al momento de identificar el error, dependiendo de la cantidad o tipo de errores, de acuerdo a los criterios definidos más adelante, los mismos son corregidos o se rechaza el evento y notifica para que el operador que lo ingreso lo corrija y generar una retroalimentación que mejore el ingreso de los datos.
+
+Se describen a continuación, los criterios que son tenidos en cuenta por la mesa de ayuda de la División Sistemas de Información, al momento de realizar el control de calidad de la información registrada en el SGSP. 
+
+Especificación de Criterios de Control de Calidad del Dato
+Se especifican los criterios de control que se deben realizar en cada módulo durante el proceso de registro de información en el SGSP.  Algunos de los controles son validados y controlados en forma rígida por el propio "sistema" (registro obligatorio), pero el resto, deben ser controlados manualmente por un "humano" (registros no obligatorios, registros seleccionables y registros de texto libre). 
+
+Los "registros no obligatorios" permiten al Usuario la omisión de su carga ya que al momento de tomar una Denuncia existe la posibilidad que ese dato no exista, pero más adelante se pueden registrar.  Estas variables de 'tiempo', 'oportunidad' y 'libertad' habilitan a los usuarios menos comprometidos a eludir la completitud para evitar un mayor esfuerzo.   
+
+Los "registros seleccionables" permiten al Usuario optar por la selección de una o varias posibilidades dentro de un conjunto de datos posibles. Estas variables de 'selección y ''libertad'  habilitan a los usuarios menos comprometidos a seleccionar cualquier opción con el único objetivo de cumplir con el requerimiento informático sin importar la verdad.  
+
+Los "registros de texto libre" permiten a los Usuarios a que registren libremente la información. Esta variable de 'libertad' habilita al Usuario que reitere datos ya ingresados, omita referirse a datos registrados, cometa errores conceptuales al tomar una denuncia, cometa errores ortográficos y gramaticales.
+ 
+1. Módulo: PERSONAS INTERVINIENTES
+1.	Selección del Rol DENUNCIANTE:
+o	Es la persona que da aviso o pone en conocimiento a la Autoridad Judicial o Autoridad Policial la ocurrencia de un delito, siniestro o hecho no delictivo que altere la seguridad pública.
+o	Es aquella persona que informa un hecho que no le perjudica a él.
+o	Excepción:  Si la persona es Denunciante y Víctima del hecho, solo se le asigna el Rol de Víctima.
+
+2.	Selección del Rol VÍCTIMA:
+o	Es el propietario o el inquilino  del objeto del hecho.
+o	Es la persona que sufre la lesión o el daño o se ve afectada del goce de sus derechos.
+o	En los casos de Suicidio o Tentativa de Suicidio.
+
+3.	Selección del Rol INDAGADO:
+o	Es el autor material del hecho delictivo.
+o	Es el cómplice del autor material del hecho delictivo.
+o	Es la persona indagada por la Justicia o Policía como uno de los posibles responsables del evento de seguridad pública. 
+o	Es la persona indagada por la Justicia o Policía como una de las personas que tuvo relación o vinculación directa en la ocurrencia del evento de seguridad pública
+
+4.	Selección del Rol CONDUCTOR:
+o	Es el conductor del vehículo en un siniestro de tránsito, inspección vehicular o choque simple.
+o	Agregar a cada Conductor los datos de espirometría que están en el texto.
+
+5.	Selección del Rol TESTIGO DEL EVENTO:
+o	Persona que aporta datos concretos del hecho sin estar vinculado directamente.
+o	En los Siniestros de Transito son los 'Acompañantes no lesionados'
+
+6.	Selección del Rol TESTIGO DE LA ACTUACION ADMINISTRATIVA:
+o	Persona que NO aporta datos del hecho NI está vinculada directamente, pero debido a su proximidad con el lugar del hecho, la Policía le realiza consultas en busca de datos o aportes que puedan ayudar a la investigación. Permite documentar que la Policía trabajó en el hecho. 
+
+7.	Selección del Rol FUNCIONARIO ACTUANTE:
+o	Son todos los Funcionarios  que actuaron y participaron en el hecho en cumplimiento de sus obligaciones.
+
+8.	Selección de la Situación:
+o	Es obligatorio registrar la situación o estado de las personas.
+o	Exclusivamente por Disposición Judicial se puede asignar la situación REQUERIDO a una Persona. La Policía NO está autorizada a disponer la requisitoria o el 'sin efecto de requisitoria' de Personas sin orden judicial.
+o	Verificar que las situaciones y los estados de las personas se hayan actualizado acorde a la realidad, decisión policial, disposición judicial o circunstancia del hecho, así como el juzgado competente.
+o	Las situaciones y los estados de las personas son muy dinámicos y requieren especial atención y corroboración de que están actualizados ya que dependen de decisiones humanas ajenas al control del sistema.
+o	Cambiar las Situaciones incorrectas que no coinciden con el texto. 
+
+9.	Registrar los datos correctos o faltantes:
+o	Los datos personales de los intervinientes deben ser los correctos.
+o	Registrar los datos de las personas efectivamente correspondan con los intervinientes (un número de cédula equivocado puede cambiar la persona).
+o	Agregar a cada Persona todos los datos faltantes que están en la narración.
+o	Agregar a cada Conductor los datos de espirometría que están en el texto.
+o	Si conocemos la edad de la persona y desconocemos la fecha de nacimiento, documentar como mínimo el año de nacimiento, registrando la fecha 'comodin'  31/12/año. El 'año' se calcula: ((añoActual - edad)-1). Con esto evitamos registrar personas con edad cero. 
+
+2. Módulo: DOMICILIO DE PERSONAS
+1.	Registrar domicilios correctos:
+o	Que el domicilio de los intervinientes sean los correctos (especial atención que no carguen domicilio extranjero cuando en el detalle indica que es en Uruguay).
+o	Para los domicilios del interior del país cuando el cruce existe se debe ingresar manualmente el número de puerta si fuera posible.
+o	Para los domicilios que el sistema no devuelva la intersección, se deberá cargar la dirección por la funcionalidad "Punto en el Mapa" y registrar manualmente el nombre de la calle principal, la intersección y el número de puerta si existe.
+
+3. Módulo: UBICACION DEL HECHO
+1.	Coincidir fecha/hora con el inicio del hecho:
+o	Que la fecha y el lugar del hecho coincida con el inicio relatado en la descripción de la narración. 
+o	Verificar que se haya indicado el día feriado.
+2.	Registrar el Lugar del Hecho en forma correcta:
+o	Para los lugares del hecho del interior del país cuando el cruce existe se debe ingresar manualmente el número de puerta si fuera posible.
+o	Para el lugar del hecho que el sistema no devuelva la intersección, se deberá cargar la dirección por la funcionalidad "Punto en el Mapa" y registrar manualmente el nombre de la calle principal, la intersección y el número de puerta si existe.
+
+4. Módulo: NARRACIÓN DEL HECHO
+1.	Criterios relativos al formato del texto:
+o	Antes de iniciar cada párrafo dejar una sangría de 5 (cinco) espacios.
+o	Separar los párrafos con un renglón en blanco.
+o	La 'coma' va pegada a la palabra anterior y se deja un espacio de la palabra siguiente.
+o	Luego de cada 'punto' se dejan 2 (dos) espacios en blanco
+o	Toda transcripción textual se encierra entre "comillas dobles".
+o	Las actas se pueden adjuntar al evento, pero en la narración, solo se menciona el resumen medular de la misma (no toda el acta textual con pregunta/respuesta)
+
+2.	 Criterios relativos al registro de la "Toma de Conocimiento":
+o	Describir el medio por el cual la Policía toma conocimiento del suceso, haciendo referencia a la fecha y hora.
+o	Indicar las dotaciones policiales que concurrieron en atención de la emergencia.
+
+3.	 Criterios relativos al registro de las "Entrevistas de los Involucrados":
+o	Preservar el orden cronológico de las entrevistas que la dotación policial realiza a las distintas personas involucradas en el hecho.
+o	Documentar el estado físico-emocional de las 'Víctimas' e 'Indagados' según la percepción técnica y experiencia del Policía Actuante.
+o	Mencionar a las personas por su 'Rol', 'Nombre y Apellido' (Exclusivamente). 
+o	Los apellidos de las personas y los nombres de los Organismos e Instituciones en letras mayúsculas.
+o	Mencionar las medidas de seguridad que se adoptaron con cada persona (detención, conducción, emplazamiento, etc).
+o	Se transcriben los comentarios y frases textuales de la declaración de los involucrados y además contenidos de cartas, mensajes electrónicos de voz y texto.
+o	Cuando el denunciante presenta denuncia escrita se registra su contenido en forma "textual" (debe incluir las faltas de ortografía o gramaticales).
+
+4.	Criterios relativos al registro del "Relato del Hecho":
+o	Narración detallada de como se sucedieron los hechos y en orden cronológico.
+o	Utilizar palabras simples y llanas del lenguaje uruguayo y evitar sinónimos complejos o demasiado técnicos para significar palabras cotidianas o de corriente uso.
+o	Armar párrafos cortos, simples y claros al momento de transmitir la idea; emplear adecuadamente los signos de puntuación, evitar oraciones extensas y sin ninguna omisión de información. . 
+o	Evitar divagar o filosofar al momento de transmitir la información ya que puede inducir a interpretaciones equivocadas o desviar la investigación del Caso en supuestos.
+o	Utilizar el corrector ortográfico y gramatical del navegador para revisar la orografía y gramática utilizada.
+o	Las Resoluciones Judiciales o Fiscales, deben ser ingresadas en el campo correspondiente (no debe estar en la narración).
+o	Los Diagnósticos Médicos deben ser ingresados en el campo correspondiente (no debe estar dentro de la narración).
+
+5.	Criterios relativos al registro de las "Autoridades y Organismos presentes":
+o	Especificar las Emergencias Móviles, dotaciones de Bomberos, dotaciones de la Policía Científica, Equipos de la Intendencia Municipal u otro Organismo con sus respectivos responsables que hayan concurrido a la escena del hecho.
+o	Especificar toda Autoridad Pública o Referentes de Instituciones, Organismos  o Locales que se hagan presente en la escena del hecho.
+o	Mencionar que actividad o tarea desempeñaron durante su estadía.
+o	Puntualmente destacar si ingresaron o no a la "Escena del Hecho" con la autorización o competencia correspondiente.
+
+6.	Criterios relativos al registro de todos los "Aportes Técnico-Profesional de la Policía":
+o	Toda información que pueda ser considera como prueba, testimonio o indicio de lo sucedido que pueda ser de utilidad para la aclaración del hecho.
+o	Las medidas adoptadas y recomendadas para la seguridad del entorno y de los involucrados que puedan ser de utilidad para el Juez Competente al momento de tomar definiciones de primera instancia sobre las medidas de protección necesarias.
+
+5. Módulo: TITULO DEL HECHO
+1.	Titulo del Evento:
+o	Que el titulo coincida con la Resolución Judicial, y si no existe, que coincida con la Descripción de la Narración.
+o	Los eventos deben se clasificados como "Delito o Falta" cuando su contenido describa una acción u omisión contra la ley penal.
+o	Los eventos deben ser clasificados como "Hecho Policial" cuando su contenido NO describa una acción u omisión contra la ley penal, pero la Policía tomó conocimiento y/o participó y/o intervino.
+o	Los eventos deben ser clasificados como "Siniestro" cuando refiere a un hecho fortuito o acción no deseada que por negligencias propias o de terceros o por factores externos, se llega a un fin no deseado.
+
+2.	Indicadores Estadísticos:
+o	Que se marque como "Aclarado" todos los Eventos por los cuales la Justicia procesó a una Persona.
+o	IMPORTANTE: al indicar que el evento fue 'aclarado' se entiende que la Policía no seguirá investigando ni trabajando en el Caso, excepto, por disposición judicial o decisión superior y en éste caso se deberá quitar el check 'Evento Aclarado'.
+o	Que se ingrese el "Monto Avaluado" en los delitos contra la propiedad.
+o	Que se ingrese el "Arma Utilizada" en los delitos de rapiña.
+o	Seleccionar la "Modalidad" cuando se haya omitido. 
+o	Que se tipifique como "Atentado contra la seguridad de los transporte" cuando a un medio de transporte le arrojen proyectiles. El objeto del hecho es la parte dañada y no el medio de transporte. 
+
+6. Módulo: OBJETOS DEL HECHO
+1.	Quitar objetos de la narración:
+o	Verificar que todos los objetos y sus atributos estén ingresados en el formulario de objetos (controlar que no se ingresen en el texto).
+
+2.	Diferencia entre "Comercio" y "Local":
+o	Se deben registrar como 'Comercio' aquellos establecimientos que se dedican a la venta de productos o servicios.
+o	Se deben registrar como 'Local' aquellos establecimientos que NO se dedican a la venta de productos o servicios NI son Instituciones públicas o privadas.
+
+3.	Elementos que NO se deben registrar como objetos del hecho: 
+o	No se deben registrar como objetos del hecho: la "Casa de Familia", el "Taxi" o el "Ómnibus" en los delitos de Copamiento, Rapiña o Hurto (solo se deben ingresar los objetos que fueron afectados por el delito. 
+
+
+Prioridad para el Control de Eventos:
+Los integrantes de la mesa de ayuda en sus respectivos turnos, deben priorizar la tarea según el siguiente criterio:
+a)	Solicitudes de integrar equipos de trabajo
+b)	Solicitudes de cambio
+c)	Eventos marcados como de "Impacto Público o Institucional"
+d)	Homicidios
+e)	Suicidios
+f)	Muerte Dudosa
+g)	Secuestros
+h)	Copamientos
+i)	Rapiña
+j)	Violencia Domestica
+k)	Hurto
+l)	Otros Delitos
+m)	Otros Siniestros/Accidentes
+n)	Constancias Policiales
+o)	Otros Hechos policiales (solo si no quedan otros eventos para controlar)
+p)	Ampliaciones/Informes de Actuación (en el mismo orden marcados en puntos anteriores)
+
+Controles de Calidad que no se pueden omitir:
+a)	Que el titulo coincida con la Resolución Judicial, y si no existe, que coincida con la descripción de la narración.
+b)	Que la fecha y el lugar del hecho coincida con la descripción de la narración.
+c)	Que los roles de los intervinientes coincida con la descripción narrativa de la narración.
+d)	Que los datos personales de los intervinientes sean los correctos.
+e)	Que el domicilio de los intervinientes sean los correctos (especial atención que no carguen domicilio extranjero cuando en el detalle indica que es en Uruguay).
+f)	Que todos los objetos estén ingresados en el formulario de objetos.
+g)	Que la descripción de la narración mantenga el formato dispuesto.
+h)	Que  la descripción de la narración sean entendible y mantenga un orden coherente.
+i)	Que los formularios complementarios estén cargados
+j)	Que las ampliaciones amplíen el evento original correcto.
+k)	Que las personas u objetos mencionados en el texto de la ampliación se carguen en sus formularios respectivos.
+l)	Que las situaciones y los estados de las personas u objetos se hayan actualizado. 
+m)	Que los Indagados con "Situación: Detenido" tengan la Descripción Física cargada.
+n)	Que se ingrese como "Objeto del Hecho" el Comercio, el Local, la Oficina, la Empresa, la Institución u el Organismo en los delitos de Hurtos, Rapiñas o Daños. 
+o)	Que no se ingresen como Objetos del Hecho la Casa de Familia, el Taxi o el Ómnibus en los delitos de Copamientos, Rapiñas o Hurtos. Que solo se ingresen los objetos afectados del delito.
+p)	Que en los Siniestros de Transito los peatones embestidos y los acompañantes lesionados se clasifican con el Rol: Victima y los acompañantes no lesionados  se clasifican con el Rol: Testigos del Evento.
+q)	Siempre que amerite se deben ingresar tantos Eventos como Eventos se desprendan de la denuncia o actuación policial.
+r)	Que se marque como "aclarado" todos los Eventos por los cuales la Justicia procesó a una Persona.
+s)	Que se ingrese el "Monto Avaluado" en los delitos contra la propiedad.
+t)	Que se ingrese el "Arma Utilizada" en los delitos de rapiña.
+u)	Que se ingrese con el "Rol: Víctima" a la persona fallecida de un Suicidio.
+v)	Que se ingrese la "Situación: Denunciado" a los Indagados que no están requeridos o detenidos.
+w)	Que se tipifique como "Atentado contra la seguridad de los transporte" cuando a un medio de transporte le arrojen proyectiles. El objeto del hecho es la parte dañada y no el medio de transporte. 
+
+Errores que se deben corregir y no rechazar:
+
+a)	Seleccionar la Modalidad cuando se haya omitido.
+b)	Cambiar el título de la novedad cuando no requiere ficha complementaria.
+c)	Corregir las faltas de ortografía.
+d)	Agregar en el formulario Intervinientes hasta 2 (dos) personas que están en el texto.
+e)	Agregar en el formulario Objetos hasta 2 (dos) objetos que están en el texto.
+f)	Cambiar las Situaciones incorrectas que no coinciden con el texto.
+g)	Agregar a cada Conductor los datos de espirometría que están en el texto.
+h)	Agregar en el formulario Intervinientes los datos faltantes que están en el texto.
+i)	Cortar las Resoluciones Judiciales en el texto y pegarlas en el campo correspondiente.
+j)	Cortar los Diagnósticos Médicos en el texto y pegarlos en el campo correspondiente.
+
+
+
+Anexo 2
+  GESTIÓN DE INFORMACIÓN
+ Modelo de gestión de Información
+Los elementos fundamentales que conforman un Sistema de Información son:
+1)	el elemento humano, imprescindible para la ejecución eficaz de todas las tareas,
+2)	el soporte físico del sistema, que estaría compuesto por el conjunto de computadoras y,
+3)	la propia información que se debe procesar y utilizar en la toma de decisiones
+
+Aquí el elemento humano toma vital importancia, pues es él quien debe velar por cumplir los procedimientos operativos estándar diseñados para la calidad del sistema.
+
+El modelo de gestión de la información policial permite integrar los subsistemas de diferentes servicios para consolidar los recursos de información, simplificar los procesos internos de gestión para facilitar y promover el acceso expedito y distribución segura de la información, como un paso más a la integración y unificación de los servicios.
+
+El modelo propone la gestión de la información en seis etapas claramente definidas que tienen como objetivo establecer el proceso de gestión que permita a los interesados, formalmente autorizados, jugar un rol activo y participativo tendientes a la transparencia de la gestión pública.
+
+ 
+ILUSTRACIÓN 1: Diagrama conceptual de la centralización de información del SGSP
+
+El diseño del modelo, teniendo en consideración la aplicación de Tecnologías de la Información y Comunicaciones (TIC's) desde la concepción del modelo, incorpora características de eficiencia, como la simplificación de los flujos de información a través de la digitalización de los datos, permitiendo que los mismos fluyan de manera virtualmente instantánea, y dicho flujo sea transparente a los participantes del sistema.
+
+
+Fases de la Gestión
+1. Ingreso de Información
+El SGSP es la herramienta válida para realizar el ingreso y gestión de los datos de manera centralizada y única, evitando la duplicidad de información en los procedimientos.
+
+Todas las estructuras públicas tales como Ministerios, Fiscalía General de la Nación, Entes Autónomos, Servicios Descentralizados, Direcciones Nacionales, Jefaturas Departamentales, Especialidades Nacionales, etc. que radican denuncias penales, realizan el registro de los hechos y gestionan las mismas, así como las actuaciones de forma integral en el SGSP.
+
+El ingreso de datos en el SGSP realizará en cada lugar en la que se reciba la información de la fuente primaria: denunciante, funcionario, etc., de tal manera que los datos ingresados sean correspondientes con la realidad de manera fiel.
+
+Esto incluye la generación digital y normalizada (reporte unificado) de los Informes policiales que se elevan diariamente a las Autoridades Judiciales, Ministerio Público y Policiales (Parte Diario), en virtud de las informaciones producidas en los distintos eventos de seguridad que ocurren en el país.
+
+Es necesario el registro de todos los procesos de gestión de eventos documentados en la legislación vigente sobre delitos, faltas y leyes especiales, así como el registro de toda la información de interés policial y de todos aquellos sucesos operacionales que requieren la actuación, intervención o participación de la Policía Nacional.
+
+Para la gestión de un evento se deben registrar los datos generales de todas las personas intervinientes, ubicación temporal y espacial del evento ocurrido, descripción del suceso operacional, tipificación del evento, acciones administrativas adoptadas y documentación estructurada de todos los indicadores de gestión para los casos que especialmente se determine monitorear o evaluar, así como el registro y mantenimiento histórico de las actuaciones policiales, resoluciones, investigación de los hechos, decisiones y esclarecimientos, tendientes a la generación de la comunicación formal a las autoridades competentes.
+
+Cuando los instrumentos de ingreso de datos lo permitan, se debe ingresar la georreferenciación de los eventos sucedidos.
+
+Gestión de las Denuncias ingresadas por Internet: a través del SGSP se gestionan las denuncias recibidas por el Sistema de Denuncia en Línea y es responsabilidad de cada unidad jurisdiccional, cumplir con los procesos de gestión para atender éste servicio.
+
+Gestión de las Denuncias en Dispositivos Móviles: es la tarea de registro de información en el SGSP mediante el uso de dispositivos móviles, debiendo cumplir con los mismos pasos definidos con la versión de escritorio.
+
+2. Supervisión
+El Supervisor, es el responsable de validar el evento registrado, debiendo verificar las omisiones de datos y completar dichas omisiones. Debe verificar que la redacción del caso corresponda con el verdadero desarrollo de lo ocurrido debiendo disponer que se agreguen todos los tópicos policiales correspondientes a la actuación de la Policía que el Operador haya omitido, agregar o consultar.
+
+El Supervisor debe controlar que la información haya cumplido con la formalidad del procedimiento y en caso de omisiones, debe disponer que se entreviste nuevamente a los policías que participaron en la investigación para profundizar la información y debe disponer que concurran a la escena del hecho, entrevisten testigos o involucrados para recuperar la información que fue omitida.
+
+El Perfil del Supervisor corresponde a un funcionario de mayor jerarquía y principalmente con mayores conocimientos y experiencia administrativa que el Operador. Esta tarea deberá ser garantizada por los Jefes de Dependencias.
+La tarea del Supervisor corresponde leer y revisar nuevamente todo el contenido ingresado por el Operador y disponer los cambios o agregados que correspondan.
+
+3. Control de Calidad de la Información
+La calidad del dato, corresponden con información basada en su exactitud, consistencia, completamiento, oportunidad, puntualidad e integridad.
+
+Esta tarea será desarrollada por un equipo de trabajo con funcionarios de la División Sistemas de Información, para el control centralizado de las informaciones que se ingresan a nivel nacional.
+
+Este servicio tiene como finalidad normalizar el registro de las informaciones que se ingresan en el sistema, en base al control de datos atípicos, control de datos faltantes, control de errores ortográficos, control de errores gramaticales y control de errores conceptuales.
+
+4. Procesamiento de información
+El procesamiento de información, consiste en la centralización de datos, desde las fuentes de información, La centralización ocurre de manera automática y con frecuencia pre-establecida según los tipos de informaciones. 
+
+Componentes de Información
+
+Modelo de Gestión de la Información
+La gestión de información referida o vinculada a seguridad pública se administra en base a los siguientes componentes de información:
+
+a) Eventos ocurridos o denunciados
+Todos los eventos de seguridad pública ocurridos o denunciados y los procesos de actuación policial ocurridos en todo el territorio nacional se identifican y registran con los siguientes datos:
+	Datos generales y domicilios de todas las personas que intervienen o participan en hechos de seguridad pública;
+	Descripción física y antecedentes judiciales o policiales de aquellas personas que se clasifiquen con el rol de "indagado";
+	Objetos o elementos materiales que se utilicen o participen en el evento, mediante el relevamiento de todos los atributos posibles de cada objeto o elemento;
+	Ubicación temporal y espacial exacta del evento, como así, la toma de conocimiento y la concurrencia física de la autoridad pública que asume el procedimiento;
+	Descripción narrativa minuciosa y detallada de cada circunstancia que motivó el desenlace del incidente con los testimonios de terceras personas que aporten o que integran los formularios de relevamiento de información.
+
+b) Clasificación de eventos ocurridos o denunciados
+Deberán registrarse todas situaciones enmarcadas en la legislación o normativas vigentes de acuerdo al siguiente detalle:
+
+
+Crimen
+Delitos de lesa-humanidad considerados en la legislación internacional
+
+Delito o Falta
+Los eventos deben ser clasificados como 'Delito o Falta' cuando su contenido describa una acción u omisión contra la ley penal, por lo tanto todos los delitos y faltas establecidos en el Código Penal Uruguayo y leyes especiales que establecen figuras delictivas.
+
+Siniestros
+Todos los eventos que por su desarrollo, desenlace y resultado se tipifique como siniestro.
+
+Hechos Policiales
+Los eventos deben ser clasificados como 'Hechos Policiales' cuando su contenido no describa una acción u omisión contra la ley penal, pero la Policía tuvo conocimiento y/o participó y/o intervino. Toda otra situación que no se enmarque dentro de los delitos, faltas, pero conlleva una intervención o actuación policial o judicial
+
+c) Información Complementaria de Seguridad Pública
+Toda información especializada que por su relevancia o decisión estratégica se debe relevar con mayor especificidad y detalle, entre ellos:
+	Información complementaria de Delitos de Violencia Doméstica o delitos asociados a violencia doméstica,
+	Información de ingeniería vial sobre Siniestralidad del Tránsito,
+	Información complementaria de delitos de Abigeato,
+	Información complementaria de Suicidios
+
+
+d) Comunicaciones a Juzgados y Fiscalías
+Registro de todas las comunicaciones realizadas a Juzgados y Fiscalías referidas a Delitos o Faltas, como así, las resoluciones adoptadas por los Magistrados.
+
+e) Diagnósticos Médicos
+Todos los diagnósticos médicos con la respectiva identificación del móvil y profesional actuante dictaminado a personas lesionadas o fallecidas intervinientes en eventos de seguridad pública.
+
+f) Recursos de información vinculados a seguridad pública
+La gestión nacional de las requisitorias y cierres de frontera, el inventario y movimiento de armas y equipos policiales, el registro de los movimientos de la población alojada en hoteles, pensiones o inquilinatos, la gestión del cambio de contenido en eventos de seguridad pública y el escalafón de servicio diario del Personal de las Unidades Básicas Operativas.
+
+Gestión de Información
+Proceso para la Gestión de Información
+El ingreso de un evento consta de 4 (cuatro) Pestañas Iníciales (Intervinientes, Ubicación, Narración y Titulo) siendo estas pestañas comunes a todos los eventos a ingresar.
+
+Los eventos tipificados como Suicidio, Transito y/o Violencia Domestica generan una 5 pestaña obligatoria, cuya creación se instancia al presionar los botones respectivos al pie de cualquiera de las Pestañas Iniciales.
+
+Al lado de estos botones específicos encontramos los botones de Armas, Vehículos, Cheques y Objetos. Estos botones son comunes a todos los eventos y tienen por finalidad sumar objetos que intervengan en el evento, agregando una pestaña más por cada tipo de botón.
+
+ 
+ILUSTRACIÓN 2: Estructura básica del Evento
+
+Proceso de Gestión de Información
+Se describe en el siguiente cuadro, el proceso para el registro de información en el Sistema de Gestión de Seguridad Pública
+
+
+ 
+ILUSTRACIÓN 3: Diagrama Proceso de Gestión de información del SGSP
+
+Gestión de Personas Intervinientes en el hecho
+Roles de los Involucrados: el tipo de participación que la Persona tendrá en el evento, los Roles incluidos son: Policía Actuante, Conductor, Denunciante, Testigo del evento, Indagado, Testigo de la Actuación Administrativa, Victima.
+
+Gestión de Personas Intervinientes en el hecho
+	Roles de los Involucrados: el tipo de participación que la Persona tendrá en el evento, los Roles incluidos son: Policía Actuante, Conductor, Denunciante, Testigo del evento, Indagado, Testigo de la Actuación Administrativa, Victima.
+
+Paso	Actividad	Responsables	Producto
+1	Identificar el rol de la persona en el hecho de acuerdo a las siguientes opciones de rol:
+
+- Denunciante: persona que denuncia el hecho ante la justicia o policía y no fue víctima del delito.
+- Víctima: persona que sufrió o fue afectada por la acción u omisión del delito.
+- Indagado: persona conocida imputada del delito (Artículo 52, Ley 18315).
+- Desconocido: persona desconocida imputada del delito.
+- Testigo del hecho: persona que sin estar involucrada directamente en el delito, aporta datos o información sobre el hecho.
+- Testigos de la actuación administrativa: persona que no participa del hecho pero es entrevistada por la policía durante el proceso de investigación.
+- Policía actuante: policía que actúa en el caso.	- Usuario que Ingresa
+- Supervisor	Rol identificado de
+cada persona
+2	Registrar los datos personales de todas las personas conocidas, teniendo en cuenta la validación de los datos de los documentos de identidad.	- Usuario que Ingresa
+- Supervisor	Datos personales
+de las personas
+conocidas
+
+3	Registrar la descripción física, vestimenta y señas particulares de todas las personas desconocidas que sean imputadas del delito.	- Usuario que Ingresa
+- Supervisor	Descripción física
+de la persona
+desconocida
+
+4	Registrar los datos específicos de cada rol, teniendo en cuenta:
+- Para el denunciante, víctima y testigos: la relación que mantienen con el indagado.
+- Para el indagado: la descripción física y los antecedentes judiciales
+- Para el/la policía actuante: los datos funcionales	- Usuario que Ingresa
+- Supervisor	Datos específicos
+de cada rol
+
+5	Registrar el domicilio de todas las personas conocidas, teniendo en cuenta la ubicación geográfica.	- Usuario que Ingresa
+- Supervisor	Domicilio de
+todas las personas
+conocidas
+
+
+Gestión de la ubicación del evento
+Dentro de esta ficha hay que ingresar día y hora de ocurrido el evento y día y hora de conocimiento policial. Luego se debe cargar el lugar exacto donde ocurrió el evento (Se describe en manual de uso del SGSP)
+
+Gestión de la ubicación del evento
+
+Se registra la ubicación temporal y espacial del hecho, precisando con exactitud la ubicación geográfica con el fin de garantizar la concurrencia inmediata al lugar para la adopción de medidas de protección y asistencia a la/s víctima/s, la aprehensión del presunto autor/a de los hechos, la preservación y cuidado de la escena donde éstos se desarrollaron y la recolección de elementos probatorios de las circunstancias y condiciones que enmarcaron la agresión.
+
+Paso	Actividad	Responsables	Producto
+1	Registro de la fecha y hora de comienzo del hecho	- Usuario que Ingresa
+- Supervisor	Ubicación temporal
+del hecho
+2	Registro de la fecha y hora de finalización del hecho	- Usuario que Ingresa
+- Supervisor	Ubicación temporal
+del hecho 
+3	Registro de la fecha y hora del preciso momento en
+que la policía toma conocimiento del hecho	- Usuario que Ingresa
+- Supervisor	Ubicación temporal
+de la toma
+conocimiento
+4	Registro de la dirección del hecho de violencia doméstica
+teniendo en cuenta la precisión del punto
+geográfico	- Usuario que Ingresa
+- Supervisor	Ubicación espacial
+del hecho
+5	Identificación de la dependencia que toma intervención
+en el hecho	- Usuario que Ingresa
+- Supervisor	Dependencia que
+toma intervención
+
+Objetos del Hecho
+
+	Armas de Fuego: Se ingresan al sistema si son denunciadas por hurto, extravío o si son incautadas por la policía. En los dos primeros casos se genera automáticamente la requisitoria de las mismas.
+
+	Vehículos: Las circunstancias en las que un vehículo se ingresa como objeto del hecho son aquellas en que el mismo es el objeto principal del evento, ejemplo Hurto, Daño, etc. Si el vehículo se ingresa como hurtado o como requerido automáticamente se genera una requisitoria a nivel nacional y del Mercosur. Hay un caso especial cuando se trata del hurto o extravió de Chapa Matricula, se ingresa en la misma opción de vehículo y si se coloca el estado como extraviada, hurtada o requerida automáticamente genera la requisitoria.
+
+	Cheques: se puede ingresar por hurto o por extravió y ser un cheque o una chequera. Se debe tratar de obtener la mayor cantidad de datos del mismo.
+
+	Objetos, en dicha opción puedo ingresar todos los demás objetos, armas blancas, animales, emergencias móviles (obligatorio) y comercios y/o locales. En toda novedad donde se hurte, rapiñe, dañe, incendie, etc., un comercio una institución pública o privada, locales de cualquier tipo, los mismos se deben ingresar como objeto del hecho siendo la única excepción la casa de familia.
+
+Gestión de los objetos del hecho
+Se identifican y registran todos los objetos materiales que son utilizados en el hecho por las personas involucradas ya sea como herramienta, arma o producto de sustracción
+Paso	Actividad	Responsables	Producto
+1	Identificar y clasificar los objetos materiales que fueron utilizados en el hecho de acuerdo al siguiente criterio:
+- Vehículos
+- Armas
+- Objetos en General	- Usuario que Ingresa
+- Supervisor	Objetos identificados
+y clasificados
+2	Registrar los datos que identifican a los vehículos teniendo en cuenta la especificación de los ocupantes en cada vehículo y el estado del mismo.	- Usuario que Ingresa
+- Supervisor	Datos de vehículos
+3	Registrar los datos que identifican a las armas teniendo en cuenta la especificación a quien pertenece y el estado del mismo.	- Usuario que Ingresa
+- Supervisor	Datos de armas
+4	Registrar los datos que identifican a los objetos en general teniendo en cuenta la especificación a que grupo de objeto pertenece y la completitud de la mayor cantidad de atributos o propiedades que identifican al objeto	- Usuario que Ingresa
+- Supervisor	Datos de objetos
+en general
+5	Registrar los datos que identifican a los cheques y Chequeras, teniendo en cuenta la especificación a quien pertenece y el estado del mismo.	- Usuario que Ingresa
+- Supervisor	Datos de los cheques y chequeras
+
+Gestión descripción del evento
+Contendrá la narración del evento y permitirá una lectura fluida, comprensible y comparable, se debe contar el hecho con palabras sencillas y coherentes, es así que se estima deseable escribir en este campo en "Tipo Oración", esto es indicando con mayúscula, continuando con minúscula y utilizando puntuación tradicional.
+
+Se estima conveniente el uso de párrafos, que permitan dividir el evento, fraccionándolo según las situaciones contenidas en el.
+
+Se utilizara un primer párrafo para explicar la toma del conocimiento, luego un párrafo desarrollando el evento, un tercer párrafo dedicado a los diagnósticos médicos (si hubiera) y finalmente un párrafo dedicado a la resolución judicial. (Si la pantalla estuviera dividida se usara cada sector de acuerdo al título del mismo tomando en cuenta en separar en párrafos el sector propiamente de la narración colocando las firmas en el último sector usado).
+
+Gestión descripción del evento, diagnóstico médico y resolución judicial
+Se registra la descripción textual del hecho de violencia doméstica siguiendo el orden cronológico de
+cómo fueron sucediendo los acontecimientos, así como las actuaciones de la policía y de los distintos organismos que estuvieron presente, el diagnóstico médico y la resolución del Juez/a competente.
+Paso	Actividad	Responsables	Producto
+1	Se describe el momento que la policía toma conocimiento del suceso haciendo referencia a la ubicación temporal y espacial del hecho, así como, las dotaciones policiales que concurrieron en atención de la emergencia.	- Usuario que Ingresa
+- Supervisor	Toma de
+conocimiento y
+policías actuantes
+2	Se describe el contenido detallado y en orden cronológico de las entrevistas que la dotación policial realiza a las distintas personas involucradas en el hecho y que medidas de seguridad se adoptan (detención, conducción,
+emplazamiento, etc).	- Usuario que Ingresa
+- Supervisor	Entrevistas a los
+Involucrados
+y medidas de
+seguridad adoptadas
+3	Se transcriben los comentarios y frases textuales de la declaración de los involucrados y contenidos de cartas, mensajes electrónicos de voz y texto. Cuando el denunciante presenta denuncia escrita se registra su contenido en forma textual, incluyendo las faltas de ortografía o gramaticales.	- Usuario que Ingresa
+- Supervisor	Comunicaciones
+entre los
+involucrados y
+denuncia escrita
+4	Relato detallado de como se sucedieron los hechos de violencia doméstica , en orden cronológico, según el relevamiento y comprensión técnico-profesional del policía actuante.	- Usuario que Ingresa
+- Supervisor	Relato detallado del
+suceso
+5	Especificación de las emergencias móviles, Bomberos, Policía Técnica, Intendencia, etc. con sus respectivos responsables que concurrieron a la escena del hecho
+de violencia doméstica, así como toda autoridad pública o referentes de instituciones u organismos que se hagan presente.	- Usuario que Ingresa
+- Supervisor	Autoridades,
+instituciones u
+organismos que
+hayan concurrido a
+la escena del hecho
+6	Se documenta el estado físico y emocional de la víctima según la percepción de el/la policía actuante, así como los antecedentes policiales vinculados a violencia doméstica que hayan existido.	- Usuario que Ingresa
+- Supervisor	Situación físicoemocional
+de la
+víctima
+7	Se agrega toda información que pueda ser considera como prueba, testimonio o indicio de lo sucedido, así como, los aportes técnico-profesional que pueda realizar el/la policía actuante referidos a la "Seguridad
+del entorno y del indagado" que pueda ser de utilidad para el Juez/a competente al momento de tomar definiciones de primera instancia sobre las medidas de protección.	- Usuario que Ingresa
+- Supervisor	Estado de la
+seguridad del
+entorno y del
+Indagado
+8	Se realiza la transcripción exacta del contenido de la constancia médica realizado por la emergencia móvil o centro de asistencia interviniente.	- Usuario que Ingresa
+- Supervisor	Diagnóstico médico
+9	Se realiza la transcripción exacta del contenido de la Resolución judicial dispuesta por el Juez/a competente para cada persona	- Usuario que Ingresa
+- Supervisor	Resolución judicial
+
+Gestión del título del evento
+En dicha ficha se redondea el evento colocándole el título que mejor se adecua a lo ocurrido debiendo tener en cuenta para esto lo siguiente:
+	Crimen: Delitos de lesa-humanidad considerados en la legislación internacional
+	Delitos o Faltas: Ajustado a lo establecido en el código penal en cuanto a los delitos y faltas, así como a leyes especiales. Siempre hay que relacionar el lugar con el titulo y la fecha.
+	Accidente: Engloba a todos los eventos específicos relacionados a casos fortuitos
+	Hecho Policial: Se refiere a hechos que se encuentran fuera del código ni encontramos un marco adecuado en leyes especiales
+
+Gestión del título del evento
+Se definen los aspectos administrativos de la comunicación estableciendo el título del evento alineado a las normativas vigentes y a los indicadores de gestión que complementan
+el evento
+Paso	Actividad	Responsables	Producto
+1	De acuerdo al contenido global del evento se define la tipificación del mismo siguiendo el siguiente criterio:
+- Crimen:
+- Delito o falta: si el caso configura un delito o falta.
+- Hecho policial: si el caso no configura delito o falta
+- Accidente: si el caso configura un accidente	- Usuario que Ingresa
+- Supervisor	Evento
+Tipificado
+2	En base a la tipificación definida se selecciona el título que corresponda de acuerdo al desarrollo y contenido del evento de violencia doméstica.	- Usuario que Ingresa
+- Supervisor	Evento con
+Título
+3	Se especifican las autoridades intervinientes en el hecho.	- Usuario que Ingresa
+- Supervisor	Autoridades
+Identificadas
+4	Se establecen los canales de comunicación definiendo los juzgados y fiscalías intervinientes.		Juzgados
+Intervinientes
+5	Se clasifica el evento según su impacto público o institucional y/o se clasifica según el grado de seguridad de la información.	- Usuario que Ingresa
+- Supervisor	Evento
+clasificado
+según la
+importancia y
+seguridad de
+la información
+6	Se especifican los indicadores de gestión que permitan determinar los siguientes aspectos:
+- Las consecuencias de la aclaración
+- Qué otros eventos fueron aclarados
+- Cuánto se avalúa el evento
+- De qué otro caso deriva el evento
+- Qué grupo de armas fueron utilizadas	- Usuario que Ingresa
+- Supervisor	Indicadores de
+Gestión
+7	Se agregan todos los archivos multimedia que integran el procedimiento o investigación policial (archivos de video, voz o datos).	- Usuario que Ingresa
+- Supervisor	Archivos
+multimedia
+adjuntos
+
+
+
+

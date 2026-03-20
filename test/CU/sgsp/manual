@@ -1,0 +1,59 @@
+🖥️ Categoría: Navegación y Estructura del Formulario
+
+Estas preguntas prueban si el RAG conoce la disposición de los elementos en el sistema.
+
+    ¿Cuáles son las cuatro pestañas básicas que el sistema exige completar obligatoriamente para grabar una novedad?
+
+    ¿En qué parte de la pantalla se muestran las pestañas principales del 'Formulario de Ingreso de Eventos SGSP'?
+
+    ¿Qué sucede si un usuario intenta navegar a una nueva pestaña sin haber completado los campos obligatorios de la pestaña actual?
+
+    ¿Cuál es la diferencia entre las 'pestañas básicas' y las 'pestañas complementarias' (como violencia doméstica o suicidio)?
+
+👥 Categoría: Pestaña de Intervinientes
+
+Preguntas sobre el registro de las personas involucradas en el hecho.
+
+    ¿Cuáles son los campos mínimos obligatorios para registrar a una persona cuando se posee su documento de identidad?
+
+    ¿Cómo debe proceder el usuario si un interviniente no posee o no recuerda su número de cédula?
+
+    ¿Qué importancia tiene la clasificación de la 'Calidad del Interviniente' (Víctima, Indagado, Testigo, etc.) en el flujo del evento?
+
+    ¿Qué establece el manual sobre el registro de menores de edad y la identificación de sus responsables legales?
+
+📦 Categoría: Gestión de Objetos (Vehículos, Armas, Otros)
+
+Para verificar la precisión en el ingreso de bienes materiales.
+
+    ¿Qué datos específicos son requeridos de forma obligatoria al ingresar un objeto de tipo Vehículo?
+
+    En la ficha de Armas, ¿qué diferencia hay entre el registro de un arma con numeración visible frente a una limada o sin número?
+
+    ¿Cómo se registra un objeto de tipo 'Valores' (cheques o dinero en efectivo) según el manual?
+
+    ¿Qué funcionalidad permite al sistema precargar datos de un vehículo mediante la consulta de la matrícula?
+
+📝 Categoría: Narración, Ubicación y Cierre
+
+Preguntas sobre la georreferenciación y el relato de los hechos.
+
+    ¿Qué métodos de georreferenciación ofrece la pestaña Ubicación para situar el evento en el mapa?
+
+    ¿Cuál es la extensión o formato recomendado para la pestaña de Narración para que sea útil en una investigación?
+
+    ¿Qué campos conforman la pestaña de Título y por qué es el último paso antes de grabar?
+
+    ¿Qué significa el mensaje 'Evento Grabado con Éxito' y qué número único genera el sistema automáticamente?
+
+🌾 Categoría: Fichas Complementarias (Abigeato)
+
+Basado en el final del documento, para probar casos específicos.
+
+    En la ficha de Abigeato, ¿qué significa el campo 'Nº DICOSE' y qué sucede al ingresarlo?
+
+    ¿Qué datos sobre las vías de acceso (rutas, caminos, etc.) son obligatorios en el registro de un predio de donde se sustrajeron animales?
+
+    ¿De dónde se obtiene automáticamente la información de la 'Razón Social' en un evento de abigeato?
+
+    ¿Qué información visual (señal o marca) puede retornar el sistema tras la consulta electrónica al MGAP?
