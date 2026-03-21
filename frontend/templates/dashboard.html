@@ -6,14 +6,19 @@
         <a class="navbar-brand fw-bold" href="#">
             <i class="bi bi-cpu-fill me-2 text-primary"></i>HDA - Legal IT
         </a>
+
         <div class="d-flex align-items-center">
             <button class="btn btn-outline-light btn-sm me-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarHistorial">
                 <i class="bi bi-clock-history"></i>
             </button>
 
-            <div class="dropdown">
+            <button class="btn btn-outline-light border-0 me-2" id="btn-theme-toggle" type="button" title="Cambiar modo claro/oscuro">
+                <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+            </button>
+
+            <div class="dropdown border-start ps-2">
                 <button class="btn btn-outline-light dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
-                    {{ session['nombre'] }}
+                    <i class="bi bi-person-circle me-1"></i> {{ session['nombre'] }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow">
                     <li><a class="dropdown-item" href="{{ url_for('perfil.ajustes') }}"><i class="bi bi-gear me-2"></i>Ajustes</a></li>
@@ -182,7 +187,7 @@
                     <i class="bi bi-hand-thumbs-down-fill"></i>
                 </button>
             </div>
-            <small class="text-muted opacity-50" style="font-size: 0.6rem;">ID: ${rol.toUpperCase()}</small>
+            <small class="text-muted opacity-50" style="font-size: 0.6rem;">ID: ${rol}</small>
         </div>`;
     }
 
@@ -307,10 +312,17 @@
                 body: JSON.stringify({ "question": question, "role": selectedRole })
             });
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
             const responseTextElement = document.getElementById(`streamedResponse${idColapse}`);
             const responseTimeElement = document.getElementById(`responseTime${idColapse}`);
+
+            if (!response.ok || !response.body) {
+                responseTextElement.innerHTML = "Error en el servidor, no se recibe respuesta en front.";
+                return;
+            }
+
+            const reader = response.body.getReader();
+            console.log("Stream iniciado...");
+            const decoder = new TextDecoder();
 
             let fullResponse = "";
             const startTime = performance.now();
@@ -319,7 +331,12 @@
                 const { value, done } = await reader.read();
                 if (done) break;
 
-                fullResponse += decoder.decode(value, { stream: true });
+                const chunk = decoder.decode(value, { stream: true });
+                fullResponse += chunk;
+
+                if (fullResponse.trim()) {
+                    responseTextElement.innerHTML = marked.parse(fullResponse);
+                }
 
                 responseTextElement.innerHTML = marked.parse(fullResponse);
                 responseHistory.scrollTop = responseHistory.scrollHeight;
@@ -328,7 +345,8 @@
             // --- INSERCIÓN DE VOTOS ---
             const contenedorVotos = document.createElement('div');
             contenedorVotos.id = `votos-${idColapse}`;
-            contenedorVotos.innerHTML = renderizarComponenteVotos(question, selectedRole, 0, idColapse);
+            const preguntaEscapada = question.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            contenedorVotos.innerHTML = renderizarComponenteVotos(preguntaEscapada, selectedRole, 0, idColapse);
             responseTextElement.parentNode.appendChild(contenedorVotos);
 
             const endTime = performance.now();

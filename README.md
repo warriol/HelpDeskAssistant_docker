@@ -8,7 +8,19 @@
 ### Actualizaciones en proceso
 #### [v1.4] Sistema de Memoria Persistente y Moderación (Redis + RAG)
 
-En esta actualización, hemos integrado Redis como una capa de caché inteligente y un panel de administración avanzado para gestionar la calidad de las respuestas generadas por la IA.
+#### Mejorando el modelo de embeddings de chroma a nomic
+```bash
+docker exec -it ollama_server ollama pull nomic-embed-text
+docker exec -it ollama_server ollama list
+```
+- las indexaciones anteriores ya no sirven, hay que eliminar el contenido de la carpeta chromadb
+```bash
+docker-compose down
+# Eliminar la carpeta chromadb
+docker-compose up --build -d
+```
+
+### En esta actualización, he integrado Redis como una capa de caché inteligente y un panel de administración avanzado para gestionar la calidad de las respuestas generadas por la IA.
 
 🛠️ Nuevas Funcionalidades
 1. Capa de Memoria Inteligente (Redis Cache)
@@ -32,6 +44,12 @@ En esta actualización, hemos integrado Redis como una capa de caché inteligent
     Búsqueda Global Instantánea: Filtro de búsqueda que recorre toda la base de datos de FAQs en tiempo real.
     Efectos Visuales: Implementación de animaciones Fade-In.
 
+5. Varaibles de entorno
+    Debes agregar a l archivo .env dos nuevas variables para configurar la conexión a Redis:
+```bash
+REDIS_HOST=nombre_del_contenedor_redis
+REDIS_PORT=puerto_de_redis
+```
  
 #### [v1.3] 
 - Nuevo modelo a utilizar: flori/llama3.1-abliterated:Q4_K_M
@@ -47,6 +65,47 @@ En esta actualización, hemos integrado Redis como una capa de caché inteligent
 ```bash
 docker exec -it ollama_server ollama stop flori/llama3.1-abliterated:bf16 o mistral-small:latest
 ```
+
+
+### 🛠️ Tecnologías Utilizadas
+El Help Desk Assistant (HDA) está construido sobre un stack moderno orientado a la eficiencia, la privacidad de datos (Local RAG) y la escalabilidad mediante contenedores.
+
+### 🧠 Inteligencia Artificial y RAG
+- Ollama: Orquestador local de LLMs. Utilizando el modelo llama3.1-abliterated:Q4_K_M para respuestas sin restricciones de seguridad innecesarias.
+- ChromaDB: Base de datos vectorial para el almacenamiento e indexación de fragmentos legales y protocolos del SGSP.
+
+### ⚡ Infraestructura y Caché
+- Docker & Docker Compose: Containerización completa de servicios para asegurar paridad entre entornos de desarrollo (PC Principal / Notebook).
+- Redis 7.2-Alpine: Sistema de memoria persistente para caché de respuestas validadas y gestión de votos en tiempo real.
+
+### 🖥️ Backend y Base de Datos
+-    Python 3.11: Lenguaje principal del motor de procesamiento.
+-    Flask: Micro-framework para el desarrollo de la API y el panel administrativo.
+-    MySQL: Almacenamiento relacional para usuarios, historial de conversaciones y metadatos del sistema.
+
+### 🎨 Frontend y UX
+-    Bootstrap 5: Framework de diseño para una interfaz responsiva y moderna.
+-    JavaScript (ES6+): Lógica de chat asíncrona, filtrado de FAQs y votaciones dinámicas.
+-    Marked.js: Renderizado de las respuestas de la IA en formato Markdown para mayor legibilidad.
+
+### 📂 Estructura de Red
+El sistema opera en una red interna privada de Docker (hda_network), aislando los servicios de base de datos y modelos del acceso exterior directo por seguridad.
+
+### 📋 Prerrequisitos del Sistema
+Antes de iniciar el despliegue, asegurate de cumplir con los siguientes requisitos técnicos:
+
+### ⚙️ Requisitos de Software
+-    Sistema Operativo: Windows 10/11 (con WSL2), Linux (Ubuntu 22.04+ recomendado) o macOS.
+-    Docker Engine: v24.0 o superior.
+-    Docker Compose: v2.20 o superior.
+-    Python: v3.11+ (necesario solo si se desea ejecutar scripts de mantenimiento fuera de contenedores).
+-    NVIDIA Container Toolkit: (Opcional) Necesario si se desea utilizar aceleración por GPU para Ollama.
+
+### 💻 Requisitos de Hardware (Mínimos)
+-    Memoria RAM: 16GB (El stack consume aproximadamente 10-12GB con el modelo Llama 3.1 cargado).
+-    Almacenamiento: 20GB de espacio libre (Modelos de Ollama + Imágenes de Docker + ChromaDB).
+-    Procesador: CPU con al menos 4 núcleos físicos (recomendado 8 para mejor latencia en inferencia).
+
 
 ## Instalación y Configuración de HDA (Help Desk Assistant) con Docker y GPU
 ### Prerequisitos
@@ -64,7 +123,7 @@ DB_NAME=el_nombre_de_tu_base_de_datos
 MODEL_IA=modelo_que_descargaste_en_ollama
 ```
 4. Ejecuta `docker-compose up -d`
-5. Descarga el modelo Ollama `docker exec -it ollama_server ollama pull llama3`
+5. Descarga el modelo Ollama que necesites por ejemplo `docker exec -it ollama_server ollama pull llama3`
 6. Crea la base de datos ejecutando el script SQL dentro del contenedor MySQL:
 ```bash
 # CMD

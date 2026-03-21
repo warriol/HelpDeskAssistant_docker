@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from dotenv import load_dotenv
 import redis
 import json
+import html
 
 # Importamos tus servicios
 from clases.Conversaciones import Conversaciones
@@ -73,7 +74,7 @@ def dashboard(conv_id=None):
 @chat_bp.route('/chat_con_contexto', methods=['POST'])
 def chat_con_contexto():
     data = request.json
-    pregunta = data.get("question").strip().lower()  # Normalizamos la pregunta
+    pregunta = html.escape(data.get("question").strip().lower())  # Normalizamos la pregunta
     rol = data.get("role")
 
     redis_key = f"{rol}:{pregunta}"

@@ -37,6 +37,8 @@ services:
       - ollama_data:/root/.ollama
     ports:
       - "11434:11434"
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
     deploy:
       resources:
         reservations:
@@ -47,7 +49,7 @@ services:
     networks:
       - hda-net
 
-  # Tu Backend (Orquestador)
+  # Backend (Orquestador)
   backend:
     build: ./backend
     container_name: HDA_backend
@@ -63,12 +65,13 @@ services:
     networks:
       - hda-net
 
-  # Tu Frontend (Interfaz Flask)
+  # Frontend (Interfaz Flask)
   frontend:
     build: ./frontend
     container_name: HDA_frontend
     volumes:
       - chroma_model_cache:/root/.cache/chroma
+      - ./frontend:/app
     depends_on:
       - backend
       - db
@@ -108,5 +111,6 @@ networks:
 volumes:
   ollama_data:
   mysql_data:
+  chroma_data:
   chroma_model_cache:
   redis_data:
