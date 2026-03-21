@@ -63,6 +63,28 @@
                 });
             }, 5000);
         });
+
+        const btnTheme = document.getElementById('btn-theme-toggle');
+        const iconTheme = document.getElementById('theme-icon');
+
+        // Función para cambiar el tema
+        btnTheme.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+
+            // Cambiar el ícono
+            iconTheme.classList.toggle('bi-moon-stars-fill');
+            iconTheme.classList.toggle('bi-sun-fill');
+
+            // Guardar preferencia en el navegador
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Cargar preferencia guardada al iniciar
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
     </script>
     {% block scripts %}{% endblock %}
 </body>
