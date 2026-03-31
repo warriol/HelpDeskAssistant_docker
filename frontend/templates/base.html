@@ -33,7 +33,7 @@
 
     {% block navbar %}{% endblock %}
 
-    <main class="container py-4">
+    <main class="container-fluid pt-4 px-0">
         <div id="alert-wrapper" class="alert-container">
             {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
